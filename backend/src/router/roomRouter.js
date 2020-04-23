@@ -7,7 +7,8 @@ router.post('/rooms', async (req, res) => {
 
     try {
         await room.save()
-        res.status(201).send(room)
+        const token = await room.generateRoomToken()
+        res.status(201).send({ room, token })
     } catch(e) {
         console.log(e);
         res.status(400).send()

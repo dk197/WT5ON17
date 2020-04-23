@@ -27,5 +27,15 @@ const roomSchema = new mongoose.Schema({
     }]
 })
 
+roomSchema.methods.generateRoomToken = async function() {
+    const room = this
+    const token = Math.random().toString(36).substr(2)
+    room.token = token
+    
+    await room.save()
+
+    return token
+}
+
 const Room = mongoose.model('Room', roomSchema)
 module.exports = Room
