@@ -6,7 +6,7 @@ const roomSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    groupSize: {
+    minGroupSize: {
         type: Number,
         required: true
     },
@@ -18,6 +18,13 @@ const roomSchema = new mongoose.Schema({
         minAmount: {
             type: Number,
             required: true
+        }
+    }],
+    groups: [{
+        groupId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Group'
         }
     }]
 })
