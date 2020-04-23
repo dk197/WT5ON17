@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 import jwt from 'jsonwebtoken'
 
 const userSchema = new mongoose.Schema({
@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    isParticipant: {
+        type: Boolean,
+        default: true
     }
 })
 
