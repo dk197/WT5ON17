@@ -1,9 +1,8 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const roomSchema = new mongoose.Schema({
     token: {
         type: String,
-        required: true,
         trim: true
     },
     minGroupSize: {
@@ -11,7 +10,7 @@ const roomSchema = new mongoose.Schema({
         required: true
     },
     roles: [{
-        role: {
+        name: {
             type: String,
             required: true
         },
@@ -23,7 +22,6 @@ const roomSchema = new mongoose.Schema({
     groups: [{
         groupId: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true,
             ref: 'Group'
         }
     }]

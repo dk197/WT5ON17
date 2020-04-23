@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 import jwt from 'jsonwebtoken'
 
 const userSchema = new mongoose.Schema({
