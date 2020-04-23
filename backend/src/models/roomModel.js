@@ -6,9 +6,17 @@ const roomSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    groupSize: {
+        type: Number,
+        required: true
+    },
     roles: [{
         role: {
             type: String,
+            required: true
+        },
+        minAmount: {
+            type: Number,
             required: true
         }
     }]
