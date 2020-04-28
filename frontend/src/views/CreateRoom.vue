@@ -33,7 +33,7 @@
 import axios from "axios";
 import Roles from "../components/Roles";
 export default {
-  name: "SessionStart",
+  name: "CreateRoom",
   props: {},
   data() {
     return {
