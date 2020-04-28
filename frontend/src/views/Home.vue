@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <a href="/create">Raum erstellen</a>
+    <router-link to="/create">Raum erstellen</router-link>
     <p></p>
     <input type="button" value="Raum beitreten" @click="joinRoom()" />
     <input

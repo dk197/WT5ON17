@@ -62,7 +62,6 @@ export default {
       this.form.roles.push({name: "",minAmount: ""});
     },
     removeRole(index){
-      alert("worked"+ index)
       this.form.roles.splice(index, 1);
     }
   },
