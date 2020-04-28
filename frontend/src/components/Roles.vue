@@ -5,6 +5,7 @@
     <p></p>
     <label for="minRoleAmountInput">Minimale Anzahl der Rolle:</label>
     <input type="number" name="minRoleAmountInput" data-inputname="minRoleAmount" :value="minRoleAmount" @keyup="updateInput"/>
+    <input type="button" value="-" @click="buttonRemove()">
   </div>
 </template>
 
@@ -20,6 +21,9 @@ export default {
           const value = e.target.value
           const name= e.target.dataset.inputname
           this.$emit(`update${name}`, value)
+      },
+      buttonRemove(){
+        this.$emit('remove')
       }
   }
 }
