@@ -6,6 +6,7 @@ const io = require('socket.io')(http)
 require('./db/mongoose')
 require('dotenv').config()
 const roomRouter = require('./router/roomRouter')
+require('./websockets/websockets')(io)
 
 const port = process.env.PORT
 
@@ -32,9 +33,6 @@ app.use(express.json())
 
 app.use(roomRouter)
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-})
 
 http.listen(port, () => {
     console.log(`Server is up running at port ${port}`);
