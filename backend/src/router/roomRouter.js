@@ -17,7 +17,7 @@ router.post('/rooms', async (req, res) => {
 
 router.get('/rooms/:token', async(req, res) => {
     try {
-        const room = Room.findOne({token: req.params.token})
+        const room = await Room.findOne({token: req.params.token})
         console.log(room);
         res.send(room)
     }catch(e) {

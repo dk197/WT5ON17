@@ -1,0 +1,26 @@
+<template>
+  <div class="hello">
+    <h1>Groupify</h1>
+    <h2>Join Room</h2>
+    <input type="text" name="name" id="name" v-model="name" placeholder="Name"/>
+    <p></p>
+    <input type="button" value="Raum beitreten" @click="joinRoom()" />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Join",
+  data() {
+    return {
+        name: "",
+        joinToken: ""
+    };
+  },
+  methods: {
+    joinRoom() {
+       alert(this.name + " " + this.joinToken)
+    }
+  }
+};
+</script>

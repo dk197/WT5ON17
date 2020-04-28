@@ -22,6 +22,11 @@ Vue.use(VueRouter)
     path: '/create',
     name: 'Create',
     component: () => import('../views/CreateRoom.vue')
+  },
+  {
+    path: '/join/:token',
+    name: 'Join',
+    component: () => import('../views/JoinRoom.vue')
   }
 ]
 
