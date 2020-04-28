@@ -8,6 +8,16 @@
   </div>
 </template>
 
+<script>
+export default {
+    sockets: {
+        connect() {
+            console.log('connected');
+        }
+    }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
