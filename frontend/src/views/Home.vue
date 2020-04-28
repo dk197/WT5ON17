@@ -28,7 +28,6 @@ export default {
       //     "http://localhost:3000/rooms",
       //     this.form
       //   );
-      //   this.form.generatedToken = response.data.token;
       // } catch (e) {
       //   console.log(e);
       // }
