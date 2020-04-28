@@ -15,4 +15,15 @@ router.post('/rooms', async (req, res) => {
     }
 })
 
+router.get('/rooms/:token', async(req, res) => {
+    try {
+        const room = Room.findOne({token: req.params.token})
+        console.log(room);
+        res.send(room)
+    }catch(e) {
+        console.log(e);
+        res.status(404).send()
+    }
+})
+
 module.exports = router
