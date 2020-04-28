@@ -9,7 +9,7 @@ const roomRouter = require('./router/roomRouter')
 
 const port = process.env.PORT
 
-const whitelist = ['http://localhost:8080'];
+const whitelist = ['http://localhost:8080', undefined];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {
