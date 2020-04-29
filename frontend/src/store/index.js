@@ -4,12 +4,28 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+    state: {
+        roomToken: '',
+        room: {}
+    },
+    getters: {
+        getRoomToken(state) {
+            return state.roomToken
+        },
+        getRoom(state) {
+            return state.room
+        }
+    },
+    mutations: {
+        setRoomToken(state, token) {
+            state.roomToken = token
+        },
+        setRoom(state, room) {
+            state.room = room
+        }
+    },
+    actions: {
+    },
+    modules: {
+    }
 })

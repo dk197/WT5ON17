@@ -53,6 +53,8 @@ export default {
           this.form
         );
         this.form.generatedToken = response.data.token;
+        this.$store.commit('setRoomToken', response.data.token)
+        this.$store.commit('setRoom', response.data)
       } catch (e) {
         console.log(e);
       }
@@ -61,13 +63,17 @@ export default {
       this.form.roles.push({name: "",minAmount: ""});
     },
     removeRole(index){
-      alert("worked"+ index)
       this.form.roles.splice(index, 1);
     }
   },
   components: {
     Roles
-  }
+  },
+  sockets: {
+        connect() {
+            console.log('connected');
+        }
+    }
 };
 
 </script>
