@@ -26,6 +26,7 @@ export default {
         this.$store.commit('setRoomToken', response.data.token)
         this.$store.commit('setRoom', response.data)
         this.$router.push({ path: `/join/${this.joinToken}` })
+        this.$store.commit('setParticipant')
       } catch (e) {
         console.log(e);
       }

@@ -26,11 +26,13 @@ export default {
     methods: {
         joinRoom() {
             console.log(this.selectedRole);
-            const token = this.$store.getters.getRoomToken;
+            const room = this.$store.getters.getRoom
             this.$socket.emit("joinRoom", {
-                token: token,
                 username: this.name,
-                role: this.selectedRole
+                roomId: room._id,
+                role: this.selectedRole,
+                isAdmin: this.$store.getAdminStatus,
+                isParticipant: this.$store.getParticipantStatus
             });
         }
     },

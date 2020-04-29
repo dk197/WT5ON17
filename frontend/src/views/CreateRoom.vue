@@ -56,6 +56,7 @@ export default {
         this.form.generatedToken = response.data.token;
         this.$store.commit('setRoomToken', response.data.token)
         this.$store.commit('setRoom', response.data)
+        this.$store.commit('setAdmin')
       } catch (e) {
         console.log(e);
       }
