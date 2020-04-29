@@ -23,6 +23,7 @@ export default {
       try {
         const response = await axios.get(`http://localhost:3000/rooms/${this.joinToken}`)
         console.log(response)
+        this.$store.commit('setRoomToken', response.data.token)
         this.$router.push({ path: `/join/${this.joinToken}` })
       } catch (e) {
         console.log(e);
