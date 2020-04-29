@@ -2,8 +2,8 @@
     <div class="hello">
         <h1>Groupify</h1>
         <h2>Join Room</h2> 
-        <div v-for="(role, index) in this.$store.getters.getRoom.roles" :key="role.name">
-          <input type="radio" v-model="selectedRole" :value="index"/>
+        <div v-for="(role, index) in this.$store.getters.getRoom.roles" :key="index">
+          <input type="radio" v-model="selectedRole" :value="role.name"/>
           <label>{{ role.name }} </label>
         </div>
         <p></p>
@@ -25,10 +25,12 @@ export default {
     },
     methods: {
         joinRoom() {
+            console.log(this.selectedRole);
             const token = this.$store.getters.getRoomToken;
             this.$socket.emit("joinRoom", {
                 token: token,
-                username: this.name
+                username: this.name,
+                role: this.selectedRole
             });
         }
     },
