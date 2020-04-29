@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>Groupify</h1>
+    <h2>Nehmen sie ihre Einstellungen vor:</h2>
 
     <p></p>
     <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
@@ -14,6 +15,7 @@
       :minRoleAmount.sync="role.minAmount"
       v-on:updateroleName="form.roles[index].name = $event"
       v-on:updateminRoleAmount="form.roles[index].minAmount = $event"
+      @remove="removeRole(index)"
     ></Roles>
     <input type="button" value="Rolle hinzufügen" @click="addRole()" />
 
@@ -33,19 +35,14 @@
 import axios from "axios";
 import Roles from "../components/Roles";
 export default {
-  name: "SessionStart",
+  name: "CreateRoom",
   props: {},
   data() {
     return {
       form: {
         generatedToken: "",
         minGroupSize: "",
-        roles: [
-          {
-            name: "",
-            minAmount: ""
-          }
-        ]
+        roles: []
       }
     };
   },
@@ -64,6 +61,9 @@ export default {
     },
     addRole() {
       this.form.roles.push({name: "",minAmount: ""});
+    },
+    removeRole(index){
+      this.form.roles.splice(index, 1);
     }
   },
   components: {
