@@ -10,11 +10,7 @@
 
 <script>
 export default {
-    sockets: {
-        connect() {
-            console.log('connected');
-        }
-    }
+    
 }
 </script>
 

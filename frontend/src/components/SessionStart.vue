@@ -57,6 +57,7 @@ export default {
           this.form
         );
         this.form.generatedToken = response.data.token;
+        this.$socket.emit('joinRoom', this.form.generatedToken)
       } catch (e) {
         console.log(e);
       }
@@ -67,6 +68,11 @@ export default {
   },
   components: {
     Roles
-  }
+  },
+  sockets: {
+        connect() {
+            console.log('connected');
+        }
+    }
 };
 </script>
