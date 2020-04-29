@@ -5,7 +5,7 @@ const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 require('./db/mongoose')
 require('dotenv').config()
-const roomRouter = require('./router/roomRouter')
+const router = require('./router/router')
 require('./websockets/websockets')(io)
 
 const port = process.env.PORT
@@ -31,7 +31,7 @@ app.use(express.json())
 //     next();
 // });
 
-app.use(roomRouter)
+app.use(router)
 
 http.listen(port, () => {
     console.log(`Server is up running at port ${port}`);
