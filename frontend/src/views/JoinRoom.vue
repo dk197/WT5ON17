@@ -28,6 +28,7 @@ export default {
             console.log(this.selectedRole);
             const room = this.$store.getters.getRoom
             this.$socket.emit("joinRoom", {
+                token: room.token,
                 username: this.name,
                 roomId: room._id,
                 role: this.selectedRole,
