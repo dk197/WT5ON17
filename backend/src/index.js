@@ -33,7 +33,6 @@ app.use(express.json())
 
 app.use(roomRouter)
 
-
 http.listen(port, () => {
     console.log(`Server is up running at port ${port}`);
 })

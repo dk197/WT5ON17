@@ -54,7 +54,7 @@ export default {
           this.form
         );
         this.form.generatedToken = response.data.token;
-        this.$socket.emit('joinRoom', this.form.generatedToken)
+        this.$store.commit('setRoomToken', response.data.token)
       } catch (e) {
         console.log(e);
       }
