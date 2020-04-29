@@ -1,11 +1,14 @@
 <template>
   <div>
-    <label for="roleNameInput">Name der Rolle:</label>
-    <input type="text" name="roleNameInput" data-inputname="roleName" :value="roleName" @keyup="updateInput"/>
-    <p></p>
-    <label for="minRoleAmountInput">Minimale Anzahl der Rolle:</label>
-    <input type="number" name="minRoleAmountInput" data-inputname="minRoleAmount" :value="minRoleAmount" @keyup="updateInput"/>
-    <input type="button" value="-" @click="buttonRemove()">
+    <field id=field>
+      <input class="input-p" placeholder="Rollenname" type="text" name="roleNameInput" data-inputname="roleName" :value="roleName" @keyup="updateInput"/>
+      <label for="roleNameInput">Name der Rolle:</label>
+    </field>
+    <field id=field>
+      <input class="delete-role" type="button" value="" @click="buttonRemove()">
+      <input class="input-p" placeholder="Anzahl" type="number" name="minRoleAmountInput" data-inputname="minRoleAmount" :value="minRoleAmount" @keyup="updateInput"/>
+      <label for="minRoleAmountInput">Minimale Anzahl der Rolle:</label>
+    </field>
   </div>
 </template>
 
@@ -28,3 +31,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.delete-role {
+  background-image: url('../assets/icons/trash.svg');
+  background-repeat: no-repeat;
+  margin-top: 10px;
+  margin-left: 90%;
+  background-color: transparent;
+}
+</style>

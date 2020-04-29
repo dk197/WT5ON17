@@ -1,27 +1,26 @@
 <template>
-  <div class="hello">
-    <h1>Groupify</h1>
-    <h2>Nehmen sie ihre Einstellungen vor:</h2>
+  <div class="content">
+    <h2 class="heading">Gruppen-Einstellungen:</h2>
+    <field id=field>
+      <input class="input-p" placeholder="Gruppengröße" type="number" name="minGroupSizeInput" v-model="form.minGroupSize"/>
+      <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
+    </field>
+    <div class="roleWrap">
+      <Roles
+        v-for="(role, index) in form.roles"
+        :key="index"
+        :roleName.sync="role.name"
+        :minRoleAmount.sync="role.minAmount"
+        v-on:updateroleName="form.roles[index].name = $event"
+        v-on:updateminRoleAmount="form.roles[index].minAmount = $event"
+        @remove="removeRole(index)"
+      ></Roles>
+      <input class="button button-s plus" type="button" value="Rolle hinzufügen" @click="addRole()" />
+    </div>
 
-    <p></p>
-    <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
-    <input type="number" name="minGroupSizeInput" v-model="form.minGroupSize" />
-    <p style="height: 10px"></p>
-
-    <Roles
-      v-for="(role, index) in form.roles"
-      :key="index"
-      :roleName.sync="role.name"
-      :minRoleAmount.sync="role.minAmount"
-      v-on:updateroleName="form.roles[index].name = $event"
-      v-on:updateminRoleAmount="form.roles[index].minAmount = $event"
-      @remove="removeRole(index)"
-    ></Roles>
-    <input type="button" value="Rolle hinzufügen" @click="addRole()" />
-
-    <p style="height: 10px"></p>
-    <input type="button" value="Raum erstellen" @click="generateToken()" />
+    <input class="button button-p check" type="button" value="Raum erstellen" @click="generateToken()"/>
     <input
+      class="input-s"
       type="text"
       name="generatedToken"
       id="generatedToken"
@@ -70,4 +69,11 @@ export default {
     Roles
   }
 };
+
 </script>
+
+<style>
+  .roleWrap {
+    margin-top: 50px;
+  }
+</style>
