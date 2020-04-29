@@ -8,7 +8,8 @@ export default new Vuex.Store({
         roomToken: '',
         room: {},
         isAdmin: false,
-        isParticipant: false
+        isParticipant: false,
+        users: []
     },
     getters: {
         getRoomToken(state) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
         },
         getParticipantStatus(state) {
             return state.isParticipant
+        },
+        getAllUsers(state) {
+            return state.users
         }
     },
     mutations: {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
         },
         setParticipant(state) {
             state.isParticipant = true
+        },
+        addUser(state, user) {
+            state.users.push(user)
         }
     },
     actions: {

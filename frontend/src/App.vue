@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <span>Active Users: {{getUserCount}}</span>
     </div>
     <router-view/>
   </div>
@@ -10,7 +11,21 @@
 
 <script>
 export default {
-    
+    computed: {
+        getUserCount() {
+            const allUsers = this.$store.getters.getAllUsers
+            return allUsers.length
+        }
+    },
+    sockets: {
+        userJoinedRoom(user) {
+            console.log(user);
+            this.$store.commit('addUser', {
+                username: user.username,
+                role: user.role
+            })
+        }
+    }
 }
 </script>
 

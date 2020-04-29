@@ -25,7 +25,6 @@ export default {
     },
     methods: {
         joinRoom() {
-            console.log(this.selectedRole);
             const room = this.$store.getters.getRoom
             this.$socket.emit("joinRoom", {
                 token: room.token,
@@ -35,11 +34,6 @@ export default {
                 isAdmin: this.$store.getAdminStatus,
                 isParticipant: this.$store.getParticipantStatus
             });
-        }
-    },
-    sockets: {
-        testEvent(data) {
-            console.log('test',data);
         }
     }
 };
