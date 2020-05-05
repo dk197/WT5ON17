@@ -27,6 +27,11 @@ Vue.use(VueRouter)
     path: '/join/:token',
     name: 'Join',
     component: () => import('../views/JoinRoom.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/AdminPanel.vue')
   }
 ]
 
