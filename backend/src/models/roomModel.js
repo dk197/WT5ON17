@@ -19,6 +19,10 @@ const roomSchema = new mongoose.Schema({
             required: true
         }
     }],
+    users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }],
     groups: [{
         groupId: {
             type: mongoose.Schema.Types.ObjectId,
