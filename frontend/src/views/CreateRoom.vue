@@ -1,10 +1,10 @@
 <template>
   <div class="content">
     <h2 class="heading">Gruppen-Einstellungen:</h2>
-    <field id=field>
+    <div id=field>
       <input class="input-p" placeholder="Gruppengröße" type="number" name="minGroupSizeInput" v-model="form.minGroupSize"/>
       <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
-    </field>
+    </div>
     <div class="roleWrap">
       <Roles
         v-for="(role, index) in form.roles"
