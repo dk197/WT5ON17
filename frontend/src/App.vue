@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <h1>groupify</h1>
+      <h1>groupify (Nutzeranzahl: {{ getUserCount }})</h1>
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
     </div>
