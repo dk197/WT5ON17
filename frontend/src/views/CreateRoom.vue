@@ -56,6 +56,7 @@ export default {
         this.$store.commit('setRoomToken', response.data.token)
         this.$store.commit('setRoom', response.data)
         this.$store.commit('setAdmin')
+        this.$router.push({ path: `/room` })
       } catch (e) {
         console.log(e);
       }

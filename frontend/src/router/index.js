@@ -29,6 +29,11 @@ Vue.use(VueRouter)
     component: () => import('../views/JoinRoom.vue')
   },
   {
+    path: '/room',
+    name: 'Room',
+    component: () => import('../views/Room.vue')
+  },
+  {
     path: '/admin',
     name: 'Admin',
     component: () => import('../views/AdminPanel.vue')

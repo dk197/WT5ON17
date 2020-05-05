@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <h1>groupify (Nutzeranzahl: {{ getUserCount }})</h1>
+      <h1 @click="home">groupify</h1>
+      <p>(Nutzeranzahl: {{ getUserCount }})</p>
+      <p>{{this.$store.getters.getRoom.token}}</p>
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
     </div>
@@ -16,6 +18,11 @@ export default {
             const allUsers = this.$store.getters.getAllUsers
             return allUsers.length
         }
+    },
+    methods: {
+      home() {
+        this.$router.push('/')
+      }
     },
     sockets: {
         userJoinedRoom(user) {
