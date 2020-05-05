@@ -1,14 +1,14 @@
 <template>
   <div>
-    <field id=field>
+    <div id=field>
       <input class="input-p" placeholder="Rollenname" type="text" name="roleNameInput" data-inputname="roleName" :value="roleName" @keyup="updateInput"/>
       <label for="roleNameInput">Name der Rolle:</label>
-    </field>
-    <field id=field>
+    </div>
+    <div id=field>
       <input class="delete-role" type="button" value="" @click="buttonRemove()">
       <input class="input-p" placeholder="Anzahl" type="number" name="minRoleAmountInput" data-inputname="minRoleAmount" :value="minRoleAmount" @keyup="updateInput"/>
       <label for="minRoleAmountInput">Minimale Anzahl der Rolle:</label>
-    </field>
+    </div>
   </div>
 </template>
 
