@@ -6,9 +6,19 @@ module.exports = {
         const room = new Room(req.body)
 
         try {
-            await room.save()
-            const token = await room.generateRoomToken()
-            res.status(201).send({ room, token })
+            const createdRoom = await room.save()
+            const roomToken = await room.generateRoomToken()
+            const roomOwner = new User({
+                username: 'Admin',
+                roomId: createdRoom._id,
+                role: 'Admin',
+                isAdmin: true,
+                isParticipant: false
+            })
+            const createdRoomOwner = await roomOwner.save()
+            await roomOwner.generateAuthToken()
+
+            res.status(201).send({ createdRoom, roomToken, createdRoomOwner })
         } catch (e) {
             console.log(e);
             res.status(400).send()

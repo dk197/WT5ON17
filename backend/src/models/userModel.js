@@ -31,11 +31,11 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    user.token = jwt.sign({_id: user.id.toString()}, process.env.jwt_secret)
-
+    const authToken = jwt.sign({_id: user.id.toString()}, process.env.jwt_secret)
+    user.authToken = authToken
     await user.save()
 
-    return token
+    return authToken
 }
 
 const User = mongoose.model('User', userSchema)
