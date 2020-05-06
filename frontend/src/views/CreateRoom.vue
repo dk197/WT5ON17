@@ -1,10 +1,10 @@
 <template>
   <div class="content">
     <h2 class="heading">Gruppen-Einstellungen:</h2>
-    <field id=field>
+    <div id=field>
       <input class="input-p" placeholder="Gruppengröße" type="number" name="minGroupSizeInput" v-model="form.minGroupSize"/>
       <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
-    </field>
+    </div>
     <div class="roleWrap">
       <Roles
         v-for="(role, index) in form.roles"
@@ -55,6 +55,8 @@ export default {
         this.form.generatedToken = response.data.token;
         this.$store.commit('setRoomToken', response.data.token)
         this.$store.commit('setRoom', response.data)
+        this.$store.commit('setAdmin')
+        this.$router.push({ path: `/room` })
       } catch (e) {
         console.log(e);
       }

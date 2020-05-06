@@ -6,7 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         roomToken: '',
-        room: {}
+        room: {},
+        isAdmin: false,
+        isParticipant: false,
+        users: []
     },
     getters: {
         getRoomToken(state) {
@@ -14,6 +17,15 @@ export default new Vuex.Store({
         },
         getRoom(state) {
             return state.room
+        },
+        getAdminStatus(state) {
+            return state.isAdmin
+        },
+        getParticipantStatus(state) {
+            return state.isParticipant
+        },
+        getAllUsers(state) {
+            return state.users
         }
     },
     mutations: {
@@ -22,6 +34,15 @@ export default new Vuex.Store({
         },
         setRoom(state, room) {
             state.room = room
+        },
+        setAdmin(state) {
+            state.isAdmin = true
+        },
+        setParticipant(state) {
+            state.isParticipant = true
+        },
+        addUser(state, user) {
+            state.users.push(user)
         }
     },
     actions: {

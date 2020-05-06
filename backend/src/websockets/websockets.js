@@ -1,9 +1,13 @@
+const roomController = require('../controller/roomController')
+const userController = require('../controller/userController')
+
 module.exports = function(io) {
    io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('joinRoom', data => {
-        console.log(data);
-        io.emit('testEvent', 'test')
+    socket.on('joinRoom', async (data) => {
+        socket.join(data.token)
+        const user = await userController.createUser(data)
+        io.to(data.token).emit('userJoinedRoom', user)
     })
 })
 }

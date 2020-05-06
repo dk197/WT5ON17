@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-import jwt from 'jsonwebtoken'
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -12,7 +11,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         ref: 'Room'
     },
-    token: {
+    role: {
         type: String,
         required: true
     },
