@@ -16,7 +16,7 @@
 
 <style>
   .md-progress-bar.md-theme-default.md-determinate {
-    background-color: #42b983 !important;
+    background-color: transparent !important;
   }
   .md-progress-bar.md-theme-default.md-determinate .md-progress-bar-fill {
     background-color: white !important;

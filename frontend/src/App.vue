@@ -2,10 +2,8 @@
   <div id="app">
     <div id="nav">
       <h1 @click="home">groupify</h1>
-      <p>(Nutzeranzahl: {{ getUserCount }})</p>
-      <p>{{this.$store.getters.getRoom.token}}</p>
-      <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
+      <div class="userCount"> {{ getUserCount }}</div>
+      <div>{{this.$store.getters.getRoom.token}}</div>
     </div>
     <ProgressBar></ProgressBar>
     <router-view/>
@@ -51,10 +49,14 @@ export default {
 }
 
 #nav {
-  padding: 20px 40px;
+  padding: 35px 40px;
+  height: 150px;
   display: flex;
-  text-align: left;
-  background-color: #094440
+  background-color: transparent;
+  justify-content: space-between;
+  background-image: url('assets/header.svg');
+  background-repeat: no-repeat;
+  background-size: cover
 }
 
 #nav a {
@@ -66,6 +68,15 @@ export default {
   color: #42b983;
 }
 
+.userCount {
+  background-image: url('assets/icons/user.svg');
+  background-repeat: no-repeat;
+  padding-left: 25px;
+  font-size: 15px;
+  background-size: 15px 15px;
+  margin-left: 30px;
+}
+
 /* Global Component-Styles */
 
 body {
@@ -73,14 +84,15 @@ body {
 }
 
 .content {
-  margin: 40px;
+  margin: 40px 80px 40px 40px;
   text-align: left;
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 600;
   margin: 0;
+  font-family: 'Dubai';
 }
 
 h2 {
@@ -93,27 +105,32 @@ h2 {
   margin: 30px 0;
 }
 
+.text-left {
+  text-align: left;
+}
+
 label {
   font-size: 20px;
   font-weight: 400;
   color: #094440;
 }
 
-.button, input{
+.button, .input{
   font-family: 'Dubai';
   border-radius: 2px;
-  padding: 10px 15px;
+  padding: 2px 10px;
   border: none;
   font-size: 18px;
   font-weight: 400;
   margin-bottom: 10px;
+  display: block;
 }
 
 .button-p{
   background-color: #094440;
   border: 2px solid #094440;
   color: white;
-  width: 180px;
+  width: max-content;
   
 }
 
@@ -121,13 +138,14 @@ label {
   background-color: transparent;
   border: 2px solid #094440;
   color: #094440;
-  width: 180px;
+  width: max-content;
 }
 
 .input-p{
   background-color: transparent;
   border-bottom: 2px solid #094440;
   font-weight: 400;
+  width: 100%;
 }
 
 .link:hover {
@@ -176,7 +194,14 @@ label {
 }
 
 .link {
-  color: white !important;
+  color:#094440 !important;
+  padding: 7px 10px;
+}
+
+.alignright {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 </style>

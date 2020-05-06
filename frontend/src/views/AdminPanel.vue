@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h2 class="heading">Administrator Einstellungen:</h2>
+    <h2 class="heading">Admin-Einstellungen:</h2>
     <div id=field>
       <input class="input-p" placeholder="Aktuelle Phase" type="text" name="aktuellePhase" v-model="aktuellePhase"/>
       <label for="aktuellePhase">Aktuelle Phase:</label>

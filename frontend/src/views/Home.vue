@@ -1,10 +1,14 @@
-<template>
+<template class="home">
   <div class="home">
-    <router-link class="button button-p link" to="/create">Raum erstellen</router-link>
-    <p>oder</p>
-    <input class="input input-p" type="text" name="joinToken" id="joinToken" v-model="joinToken" placeholder="Token" />
-    <p></p>
-    <input type="button" value="Raum beitreten" @click="joinRoom()" />
+    <input class="input input-p" type="text" name="joinToken" id="joinToken" v-model="joinToken" placeholder="Gruppenkey" />
+    <div class="alignright">
+      <input class="button button-p" type="button" value="Beitreten" @click="joinRoom()" />
+    </div>
+    <h3 class="text-left">Gruppe bilden</h3>
+    <p class="text-left">Du bist Dozent oder Verantwortlich für die Gruppenbildung? Hier kannst du eine Gruppe erstellen. Keine Sorge, du kannst auch direkt selbst bei der Bildung der Gruppen teilnehmen!</p>
+    <div class="alignright">
+      <router-link class="button button-s link" to="/create">Erstellen</router-link>
+    </div>
   </div>
 </template>
 
@@ -37,7 +41,10 @@ export default {
 
 <style>
   .home {
-    margin: 40px;
-    
-  }
+    margin: 200px 40px 40px 40px;
+}
+
+.home > div:nth-child(2) > div {
+  display: none;
+}
 </style>

@@ -1,7 +1,8 @@
 <template>
-    <div class="hello">
-        <h1>Groupify</h1>
-        <button @click="admin">admin Panel</button>
+    <div class="content">
+        <div class="adminPanel">
+            <button class="adminPanel-Button" @click="admin">Admin</button>
+        </div>
     </div>
 </template>
 
@@ -20,3 +21,22 @@ export default {
     components: {},
 };
 </script>
+
+<style scoped>
+    .adminPanel {
+        text-align: right;
+        margin-top: -20px;
+        margin-right: -20px;
+    }
+    .adminPanel-Button {
+        background-color: transparent;
+        border: none;
+        color: #094440;
+        background-image: url('../assets/icons/gear.svg');
+        background-repeat: no-repeat;
+        padding-left: 28px;
+        padding-top: 3px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>

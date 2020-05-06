@@ -2,7 +2,7 @@
   <div class="content">
     <h2 class="heading">Gruppen-Einstellungen:</h2>
     <div id=field>
-      <input class="input-p" placeholder="Gruppengröße" type="number" name="minGroupSizeInput" v-model="form.minGroupSize"/>
+      <input class="input input-p" placeholder="Gruppengröße" type="number" name="minGroupSizeInput" v-model="form.minGroupSize"/>
       <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
     </div>
     <div class="roleWrap">
@@ -15,18 +15,22 @@
         v-on:updateminRoleAmount="form.roles[index].minAmount = $event"
         @remove="removeRole(index)"
       ></Roles>
-      <input class="button button-s plus" type="button" value="Rolle hinzufügen" @click="addRole()" />
+      <div class="alignright">
+      <input class="button button-s" type="button" value="Rolle hinzufügen" @click="addRole()" />
+      </div>
     </div>
 
-    <input class="button button-p check" type="button" value="Raum erstellen" @click="generateToken()"/>
+    <div class="alignright">
+    <input class="button button-p" type="button" value="Raum erstellen" @click="generateToken()"/>
     <input
-      class="input-s"
+      class="input input-s"
       type="text"
       name="generatedToken"
       id="generatedToken"
       :value="form.generatedToken"
       disabled
     />
+    </div>
   </div>
 </template>
 

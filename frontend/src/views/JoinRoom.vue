@@ -1,15 +1,14 @@
 <template>
-    <div class="hello">
-        <h1>Groupify</h1>
-        <h2>Join Room</h2> 
+    <div class="content">
+        <h2>Raum beitreten</h2> 
         <div v-for="(role, index) in this.$store.getters.getRoom.roles" :key="index">
           <input type="radio" v-model="selectedRole" :value="role.name"/>
           <label>{{ role.name }} </label>
         </div>
         <p></p>
-        <input type="text" name="name" id="name" v-model="name" placeholder="Name" />
+        <input class="input input-p" type="text" name="name" id="name" v-model="name" placeholder="Name" />
         <p></p>
-        <input type="button" value="Raum beitreten" @click="joinRoom()" />
+        <input class="button button-p" type="button" value="Raum beitreten" @click="joinRoom()" />
     </div>
 </template>
 
