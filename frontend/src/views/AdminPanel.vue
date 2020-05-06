@@ -22,6 +22,11 @@ export default {
       aktuellePhase: "-"
     };
   },
+  created() {
+    if(!this.$store.getters.getAdminStatus) {
+      this.$router.go(-1);
+    }
+  },
   methods: {
     save() {
       

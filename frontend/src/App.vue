@@ -3,7 +3,7 @@
     <div id="nav">
       <h1 @click="home">groupify</h1>
       <p>(Nutzeranzahl: {{ getUserCount }})</p>
-      <p v-if="this.$store.getters.getRoom.token">http://localhost:8080/join/{{this.$store.getters.getRoom.token}}</p>
+      <p v-if="this.$store.getters.getRoom.roomToken">http://localhost:8080/join/{{this.$store.getters.getRoom.roomToken}}</p>
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
     </div>

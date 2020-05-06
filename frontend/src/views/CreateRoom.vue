@@ -52,8 +52,9 @@ export default {
           "http://localhost:3000/rooms",
           this.form
         );
+        console.log(response);
         this.form.generatedToken = response.data.token;
-        this.$store.commit('setRoomToken', response.data.token)
+        this.$store.commit('setRoomToken', response.data.roomToken)
         this.$store.commit('setRoom', response.data)
         this.$store.commit('setAdmin')
         localStorage.setItem('authToken', response.data.createdRoomOwner.authToken)
