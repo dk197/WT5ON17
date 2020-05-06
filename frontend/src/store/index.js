@@ -11,7 +11,8 @@ export default new Vuex.Store({
         room: {},
         isAdmin: false,
         isParticipant: false,
-        users: []
+        users: [],
+        currentPhase: ''
     },
     getters: {
         getRoomToken(state) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
         },
         getAllUsers(state) {
             return state.users
+        },
+        getCurrentPhase(state) {
+            return state.currentPhase
         }
     },
     mutations: {
@@ -45,6 +49,17 @@ export default new Vuex.Store({
         },
         addUser(state, user) {
             state.users.push(user)
+        },
+        setPhase(state, phase) {
+            state.currentPhase = phase
+        },
+        resetRoom(state) {
+            state.roomToken = ''
+            state.room = {}
+            state.isAdmin = false
+            state.isParticipant = false
+            state.users = []
+            state.currentPhase = ''
         }
     },
     actions: {

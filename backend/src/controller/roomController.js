@@ -48,6 +48,25 @@ module.exports = {
         } catch (e) {
             res.status(500).send()
         }
+    },
+    changePhase: async function(roomId) {
+        try {
+            const room = await Room.findById(roomId.roomId)
 
+            switch (room.phase) {
+                case 'Beitrittsphase':
+                    room.phase = 'Ansichtsphase'
+                    break
+                default:
+                    throw new Error('Error at switching phase')
+                    break;
+            }
+
+            await room.save()
+            console.log(room);
+            return room
+        }catch(e) {
+            console.log(e);
+        }
     }
 }
