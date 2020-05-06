@@ -30,7 +30,8 @@ const roomSchema = new mongoose.Schema({
         }
     }],
     phase: {
-        type: String
+        type: String,
+        default: 'Beitrittsphase'
     }
 })
 

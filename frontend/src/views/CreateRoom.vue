@@ -53,9 +53,9 @@ export default {
           this.form
         );
         console.log(response);
-        this.form.generatedToken = response.data.token;
+        this.form.generatedToken = response.data.roomToken;
         this.$store.commit('setRoomToken', response.data.roomToken)
-        this.$store.commit('setRoom', response.data)
+        this.$store.commit('setRoom', response.data.createdRoom)
         this.$store.commit('setAdmin')
         localStorage.setItem('authToken', response.data.createdRoomOwner.authToken)
         this.$router.push({ path: `/room` })
