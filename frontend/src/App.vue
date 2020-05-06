@@ -3,7 +3,7 @@
     <div id="nav">
       <h1 @click="home">groupify</h1>
       <div class="userCount"> {{ getUserCount }}</div>
-      <div>{{this.$store.getters.getRoom.token}}</div>
+      <p v-if="this.$store.getters.getRoom.token">http://localhost:8080/join/{{this.$store.getters.getRoom.token}}</p>
     </div>
     <ProgressBar></ProgressBar>
     <router-view/>
