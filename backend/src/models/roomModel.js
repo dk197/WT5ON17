@@ -5,7 +5,7 @@ const roomSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    minGroupSize: {
+    groupAmount: {
         type: Number,
         required: true
     },
@@ -28,7 +28,10 @@ const roomSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Group'
         }
-    }]
+    }],
+    phase: {
+        type: String
+    }
 })
 
 roomSchema.methods.generateRoomToken = async function() {

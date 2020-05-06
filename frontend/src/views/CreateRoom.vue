@@ -2,8 +2,8 @@
   <div class="content">
     <h2 class="heading">Gruppen-Einstellungen:</h2>
     <div id=field>
-      <input class="input-p" placeholder="Gruppengröße" type="number" name="minGroupSizeInput" v-model="form.minGroupSize"/>
-      <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
+      <input class="input-p" placeholder="Gruppenanzahl" type="number" name="groupAmount" v-model="form.groupAmount"/>
+      <label for="groupAmount">Anzahl an generierten Gruppen:</label>
     </div>
     <div class="roleWrap">
       <Roles
@@ -40,7 +40,7 @@ export default {
     return {
       form: {
         generatedToken: "",
-        minGroupSize: "",
+        groupAmount: "",
         roles: []
       }
     };
