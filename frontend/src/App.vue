@@ -7,12 +7,17 @@
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
     </div>
+    <ProgressBar></ProgressBar>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Progress from './components/Progress'
 export default {
+  components: {
+		ProgressBar: Progress,
+	},
     computed: {
         getUserCount() {
             const allUsers = this.$store.getters.getAllUsers
@@ -46,7 +51,7 @@ export default {
 }
 
 #nav {
-  padding: 10px 40px;
+  padding: 20px 40px;
   display: flex;
   text-align: left;
   background-color: #094440
@@ -68,18 +73,20 @@ body {
 }
 
 .content {
-  margin: 0px 40px;
+  margin: 40px;
   text-align: left;
 }
 
 h1 {
   font-size: 30px;
   font-weight: 600;
+  margin: 0;
 }
 
 h2 {
   font-size: 25px;
   font-weight: 600px;
+  margin: 0;
 }
 
 .heading {
@@ -93,11 +100,12 @@ label {
 }
 
 .button, input{
+  font-family: 'Dubai';
   border-radius: 2px;
   padding: 10px 15px;
   border: none;
   font-size: 18px;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 10px;
 }
 
@@ -120,6 +128,11 @@ label {
   background-color: transparent;
   border-bottom: 2px solid #094440;
   font-weight: 400;
+}
+
+.link:hover {
+  text-decoration: none !important;
+  cursor: pointer;
 }
 
 ::placeholder {
@@ -160,6 +173,10 @@ label {
 
 #field>input:focus + label {
   color: white;
+}
+
+.link {
+  color: white !important;
 }
 
 </style>
