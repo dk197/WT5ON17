@@ -58,6 +58,8 @@ export default {
         this.$store.commit('setRoom', response.data.createdRoom)
         this.$store.commit('setAdmin')
         localStorage.setItem('authToken', response.data.createdRoomOwner.authToken)
+        this.$store.commit('addUser', response.data.createdRoomOwner)
+        this.$socket.emit("createRoom", response.data.roomToken);
         this.$router.push({ path: `/room` })
       } catch (e) {
         console.log(e);

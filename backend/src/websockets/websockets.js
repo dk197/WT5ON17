@@ -4,6 +4,9 @@ const userController = require('../controller/userController')
 module.exports = function(io) {
    io.on('connection', (socket) => {
     console.log('a user connected');
+    socket.on('createRoom', async (token) => {
+        socket.join(token)
+    })
     socket.on('joinRoom', async (data) => {
         socket.join(data.token)
         const user = await userController.createUser(data)
