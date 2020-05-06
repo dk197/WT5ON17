@@ -5,13 +5,17 @@
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> -->
     </div>
+    <ProgressBar></ProgressBar>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Progress from './components/Progress'
 export default {
-    
+  components: {
+		ProgressBar: Progress,
+	},
 }
 </script>
 
@@ -25,7 +29,7 @@ export default {
 }
 
 #nav {
-  padding: 10px 40px;
+  padding: 20px 40px;
   display: flex;
   text-align: left;
   background-color: #094440
