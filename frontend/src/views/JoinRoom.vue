@@ -34,7 +34,7 @@ export default {
                 isAdmin: this.$store.getAdminStatus,
                 isParticipant: this.$store.getParticipantStatus
             });
-            this.$router.push({ path: `/room` })
+            this.$router.push('/waitjoin')
         }
     }
 };

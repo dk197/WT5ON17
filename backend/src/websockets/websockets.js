@@ -15,6 +15,8 @@ module.exports = function(io) {
     socket.on('changePhase', async (roomId) => {
         console.log(roomId);
         const updatedRoom = roomController.changePhase(roomId)
+        console.log(updatedRoom);
+        io.to(updatedRoom.token).emit('phaseHasChanged', updatedRoom.phase)
     })
 })
 }
