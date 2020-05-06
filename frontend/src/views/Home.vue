@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <router-link to="/create">Raum erstellen</router-link>
+    <router-link class="button button-p link" to="/create">Raum erstellen</router-link>
     <p>oder</p>
-    <input type="text" name="joinToken" id="joinToken" v-model="joinToken" placeholder="Token" />
+    <input class="input input-p" type="text" name="joinToken" id="joinToken" v-model="joinToken" placeholder="Token" />
     <p></p>
     <input type="button" value="Raum beitreten" @click="joinRoom()" />
   </div>
@@ -40,3 +40,10 @@ export default {
   }
 };
 </script>
+
+<style>
+  .home {
+    margin: 40px;
+    
+  }
+</style>
