@@ -1,7 +1,8 @@
 <template>
     <div class="content">
         <div class="adminPanel">
-            <button class="adminPanel-Button" @click="admin">Admin</button>
+            <button @click="admin" v-if="this.$store.getters.getAdminStatus">admin Panel</button>
+            <button @click="wait">wait</button>
         </div>
     </div>
 </template>
@@ -16,6 +17,9 @@ export default {
     methods: {
         admin() {
             this.$router.push('/admin')
+        },
+        wait() {
+            this.$router.push('/waitjoin')
         }
     },
     components: {},

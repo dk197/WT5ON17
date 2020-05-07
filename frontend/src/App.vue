@@ -3,49 +3,55 @@
     <div id="nav">
       <h1 @click="home">groupify</h1>
       <div class="userCount"> {{ getUserCount }}</div>
-      <p v-if="this.$store.getters.getRoom.token">http://localhost:8080/join/{{this.$store.getters.getRoom.token}}</p>
+      <p
+                v-if="this.$store.getters.getRoomToken"
+            >http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
+        <ProgressBar></ProgressBar>
+        <router-view />
     </div>
-    <ProgressBar></ProgressBar>
-    <router-view/>
-  </div>
 </template>
 
 <script>
-import Progress from './components/Progress'
+import Progress from "./components/Progress";
 export default {
-  components: {
-		ProgressBar: Progress,
-	},
+    components: {
+        ProgressBar: Progress
+    },
     computed: {
         getUserCount() {
-            const allUsers = this.$store.getters.getAllUsers
-            return allUsers.length
+            const allUsers = this.$store.getters.getAllUsers;
+            return allUsers.length;
         }
     },
     methods: {
-      home() {
-        this.$router.push('/')
-      }
+        home() {
+            this.$router.push("/");
+        }
     },
     sockets: {
         userJoinedRoom(user) {
             console.log(user);
-            this.$store.commit('addUser', {
+            this.$store.commit("addUser", {
                 username: user.username,
                 role: user.role
-            })
+            });
+        },
+        phaseHasChanged(phase) {
+            if(phase === 'Ansichtsphase') {
+                // router.push('/waitjoin')
+            }
         }
     }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: Dubai, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: white;
+    font-family: Dubai, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: white;
 }
 
 #nav {
@@ -60,12 +66,12 @@ export default {
 }
 
 #nav a {
-  font-weight: bold;
-  color: #2c3e50;
+    font-weight: bold;
+    color: #2c3e50;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+    color: #42b983;
 }
 
 .userCount {
@@ -80,7 +86,7 @@ export default {
 /* Global Component-Styles */
 
 body {
-  background-image: radial-gradient(circle, #A9C0A6,#097770);
+    background-image: radial-gradient(circle, #a9c0a6, #097770);
 }
 
 .content {
@@ -96,13 +102,13 @@ h1 {
 }
 
 h2 {
-  font-size: 25px;
-  font-weight: 600px;
-  margin: 0;
+    font-size: 25px;
+    font-weight: 600px;
+    margin: 0;
 }
 
 .heading {
-  margin: 30px 0;
+    margin: 30px 0;
 }
 
 .text-left {
@@ -110,9 +116,9 @@ h2 {
 }
 
 label {
-  font-size: 20px;
-  font-weight: 400;
-  color: #094440;
+    font-size: 20px;
+    font-weight: 400;
+    color: #094440;
 }
 
 .button, .input{
@@ -149,48 +155,48 @@ label {
 }
 
 .link:hover {
-  text-decoration: none !important;
-  cursor: pointer;
+    text-decoration: none !important;
+    cursor: pointer;
 }
 
 ::placeholder {
-  color: #094440;
-  font-weight: 300;
-  font-size: 18px;
+    color: #094440;
+    font-weight: 300;
+    font-size: 18px;
 }
 
 .input-p:focus {
-  border-bottom: 2px solid white;
-  color: white;
-  outline: 0px;
+    border-bottom: 2px solid white;
+    color: white;
+    outline: 0px;
 }
 
 .input-p:focus::placeholder {
-  color: white;
-  opacity: 0.5;
+    color: white;
+    opacity: 0.5;
 }
 
 .input-p:focus label {
-  color: white;
+    color: white;
 }
 
 .input-s {
-  background-color: transparent;
-  color: white;
+    background-color: transparent;
+    color: white;
 }
 
 #input1:focus + #label1 {
-  color: white;
+    color: white;
 }
 
 #field {
-  display: flex;
-  flex-direction: column-reverse;
-  margin-bottom: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 10px;
 }
 
-#field>input:focus + label {
-  color: white;
+#field > input:focus + label {
+    color: white;
 }
 
 .link {
@@ -203,5 +209,4 @@ label {
   flex-direction: column;
   align-items: flex-end;
 }
-
 </style>

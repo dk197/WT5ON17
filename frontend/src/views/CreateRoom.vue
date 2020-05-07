@@ -2,8 +2,8 @@
   <div class="content">
     <h2 class="heading">Gruppen-Einstellungen:</h2>
     <div id=field>
-      <input class="input input-p" placeholder="Gruppengröße" type="number" name="minGroupSizeInput" v-model="form.minGroupSize"/>
-      <label for="minGroupSizeInput">Minimale Gruppengröße:</label>
+      <input class="input input-p" placeholder="Gruppenanzahl" type="number" name="groupAmount" v-model="form.groupAmount"/>
+      <label for="groupAmount">Anzahl an generierten Gruppen:</label>
     </div>
     <div class="roleWrap">
       <Roles
@@ -44,7 +44,7 @@ export default {
     return {
       form: {
         generatedToken: "",
-        minGroupSize: "",
+        groupAmount: "",
         roles: []
       }
     };
@@ -56,10 +56,14 @@ export default {
           "http://localhost:3000/rooms",
           this.form
         );
-        this.form.generatedToken = response.data.token;
-        this.$store.commit('setRoomToken', response.data.token)
-        this.$store.commit('setRoom', response.data)
+        console.log(response);
+        this.form.generatedToken = response.data.roomToken;
+        this.$store.commit('setRoomToken', response.data.roomToken)
+        this.$store.commit('setRoom', response.data.createdRoom)
         this.$store.commit('setAdmin')
+        localStorage.setItem('authToken', response.data.createdRoomOwner.authToken)
+        this.$store.commit('addUser', response.data.createdRoomOwner)
+        this.$socket.emit("createRoom", response.data.roomToken);
         this.$router.push({ path: `/room` })
       } catch (e) {
         console.log(e);

@@ -6,9 +6,19 @@ module.exports = {
         const room = new Room(req.body)
 
         try {
-            await room.save()
-            const token = await room.generateRoomToken()
-            res.status(201).send({ room, token })
+            const createdRoom = await room.save()
+            const roomToken = await room.generateRoomToken()
+            const roomOwner = new User({
+                username: 'Admin',
+                roomId: createdRoom._id,
+                role: 'Admin',
+                isAdmin: true,
+                isParticipant: false
+            })
+            const createdRoomOwner = await roomOwner.save()
+            await roomOwner.generateAuthToken()
+
+            res.status(201).send({ createdRoom, roomToken, createdRoomOwner })
         } catch (e) {
             console.log(e);
             res.status(400).send()
@@ -17,7 +27,10 @@ module.exports = {
     verifyToken: async function (req, res) {
         try {
             const room = await Room.findOne({ token: req.params.token })
-            res.send(room)
+            const users = await User.find({roomId: room._id})
+            console.log(users);
+            // console.log(room);
+            res.send({room, users})
         } catch (e) {
             console.log(e);
             res.status(404).send()
@@ -35,6 +48,25 @@ module.exports = {
         } catch (e) {
             res.status(500).send()
         }
+    },
+    changePhase: async function(roomId) {
+        try {
+            const room = await Room.findById(roomId.roomId)
 
+            switch (room.phase) {
+                case 'Beitrittsphase':
+                    room.phase = 'Ansichtsphase'
+                    break
+                default:
+                    throw new Error('Error at switching phase')
+                    break;
+            }
+
+            await room.save()
+            console.log(room);
+            return room
+        }catch(e) {
+            console.log(e);
+        }
     }
 }

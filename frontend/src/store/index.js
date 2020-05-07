@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+    plugins: [createPersistedState()],
     state: {
         roomToken: '',
         room: {},
         isAdmin: false,
         isParticipant: false,
-        users: []
+        users: [],
+        currentPhase: ''
     },
     getters: {
         getRoomToken(state) {
@@ -26,6 +29,9 @@ export default new Vuex.Store({
         },
         getAllUsers(state) {
             return state.users
+        },
+        getCurrentPhase(state) {
+            return state.currentPhase
         }
     },
     mutations: {
@@ -43,6 +49,17 @@ export default new Vuex.Store({
         },
         addUser(state, user) {
             state.users.push(user)
+        },
+        setPhase(state, phase) {
+            state.currentPhase = phase
+        },
+        resetRoom(state) {
+            state.roomToken = ''
+            state.room = {}
+            state.isAdmin = false
+            state.isParticipant = false
+            state.users = []
+            state.currentPhase = ''
         }
     },
     actions: {

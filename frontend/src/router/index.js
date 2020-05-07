@@ -37,7 +37,12 @@ Vue.use(VueRouter)
     path: '/admin',
     name: 'Admin',
     component: () => import('../views/AdminPanel.vue')
-  }
+  },
+  {
+    path: '/waitjoin',
+    name: 'WaitJoin',
+    component: () => import('../views/WaitJoin.vue')
+  },
 ]
 
 const router = new VueRouter({
