@@ -35,10 +35,9 @@ export default {
                 role: user.role
             });
         },
-        phaseHasChanged(phase) {
-            if(phase === 'Ansichtsphase') {
-                // router.push('/waitjoin')
-            }
+        phaseHasChanged(data) {
+            console.log(data);
+            
         }
     }
 };
