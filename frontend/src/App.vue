@@ -9,6 +9,7 @@
         <ProgressBar></ProgressBar>
         <router-view />
     </div>
+  </div>
 </template>
 
 <script>
