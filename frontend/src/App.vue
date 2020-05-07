@@ -7,8 +7,8 @@
                 v-if="this.$store.getters.getRoomToken"
             >http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
         <ProgressBar></ProgressBar>
+        </div>
         <router-view />
-    </div>
   </div>
 </template>
 
