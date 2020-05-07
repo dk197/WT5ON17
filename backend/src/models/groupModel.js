@@ -1,11 +1,18 @@
 const mongoose = require('mongoose')
 
 const groupSchema = new mongoose.Schema({
+    roomId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     participants: [{
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'User'
+        username: {
+            type: String,
+            required: true
+        },
+        role: {
+            type: String,
+            required: true
         }
     }]
 })

@@ -2,8 +2,7 @@
     <div class="content">
       <h2 class="heading">Admin-Einstellungen:</h2>
         <div id=field>
-            <input class="input input-s" placeholder="Aktuelle Phase" type="text" name="aktuellePhase" v-model="aktuellePhase"/>
-            <label for="aktuellePhase">Aktuelle Phase:</label>
+            <p>Aktuelle Phase: {{ this.$store.getters.getCurrentPhase }}</p>
         </div>
         <input
             class="button button-p"
@@ -53,10 +52,8 @@ export default {
         },
         nextPhase() {
             const room = this.$store.getters.getRoom
-            console.log(room);
-            this.$socket.emit("changePhase", {
-                roomId: room._id
-            });
+            console.log(room._id);
+            this.$socket.emit("changePhase", room._id);
             // this.$store.commit('nextPhase')
         },
         back() {

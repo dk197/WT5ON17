@@ -30,10 +30,12 @@ export default {
                 role: user.role
             });
         },
-        phaseHasChanged(phase) {
-            if(phase === 'Ansichtsphase') {
-                // router.push('/waitjoin')
+        phaseHasChanged(data) {
+            if(data.phase === 'Ansichtsphase') {
+                this.$router.push('/groups')
             }
+            this.$store.commit('setPhase', data.phase)
+            this.$store.commit('setGroups', data.groups)
         }
     }
 };

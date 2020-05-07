@@ -43,6 +43,11 @@ Vue.use(VueRouter)
     name: 'WaitJoin',
     component: () => import('../views/WaitJoin.vue')
   },
+  {
+    path: '/groups',
+    name: 'Groups',
+    component: () => import('../views/Groups.vue')
+  },
 ]
 
 const router = new VueRouter({
