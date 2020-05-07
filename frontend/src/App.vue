@@ -1,23 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <h1 @click="home">groupify</h1>
-      <div class="userCount"> {{ getUserCount }}</div>
-      <p
-                v-if="this.$store.getters.getRoomToken"
-            >http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
-        <ProgressBar></ProgressBar>
+        <div id="nav">
+        <h1 @click="home">groupify</h1>
+        <div class="userCount"> {{ getUserCount }}</div>
+        <p v-if="this.$store.getters.getRoomToken">http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
         </div>
-        <router-view />  
-  </div>
+        <!-- <ProgressBar></ProgressBar> -->
+    <router-view />
+    </div>
 </template>
 
 <script>
-import Progress from "./components/Progress";
+// import Progress from "./components/Progress";
 export default {
-    components: {
-        ProgressBar: Progress
-    },
+    // components: {
+    //     ProgressBar: Progress
+    // },
     computed: {
         getUserCount() {
             const allUsers = this.$store.getters.getAllUsers;

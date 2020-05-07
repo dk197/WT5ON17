@@ -2,7 +2,7 @@
     <div class="content">
       <h2 class="heading">Admin-Einstellungen:</h2>
         <div id=field>
-            <input class="input-p" placeholder="Aktuelle Phase" type="text" name="aktuellePhase" v-model="aktuellePhase"/>
+            <input class="input input-s" placeholder="Aktuelle Phase" type="text" name="aktuellePhase" v-model="aktuellePhase"/>
             <label for="aktuellePhase">Aktuelle Phase:</label>
         </div>
         <input
