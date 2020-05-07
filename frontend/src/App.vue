@@ -53,7 +53,7 @@ export default {
     text-align: center;
     color: white;
     overflow: hidden;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 #nav {
