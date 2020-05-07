@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <div class="adminPanel">
-            <button @click="admin" v-if="this.$store.getters.getAdminStatus">admin Panel</button>
+            <button class="adminPanel-Button" @click="admin" v-if="this.$store.getters.getAdminStatus">Admin</button>
             <button @click="wait">wait</button>
         </div>
     </div>

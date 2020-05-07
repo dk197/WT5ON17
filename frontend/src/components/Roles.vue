@@ -1,11 +1,11 @@
 <template>
   <div>
     <div id=field>
-      <input class="input input-p" placeholder="Rollenname" type="text" name="roleNameInput" data-inputname="roleName" :value="roleName" @keyup="updateInput"/>
+      <input autocomplete="off" class="input input-p" placeholder="Rollenname" type="text" name="roleNameInput" data-inputname="roleName" :value="roleName" @keyup="updateInput"/>
       <label for="roleNameInput">Name der Rolle:</label>
     </div>
     <div id=field>
-      <input class="delete-role" type="button" value="" @click="buttonRemove()">
+      <input class="delete-role input input-s" type="button" value="" @click="buttonRemove()">
       <input class="input input-p" placeholder="Anzahl" type="number" name="minRoleAmountInput" data-inputname="minRoleAmount" :value="minRoleAmount" @keyup="updateInput"/>
       <label for="minRoleAmountInput">Minimale Anzahl der Rolle:</label>
     </div>
