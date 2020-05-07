@@ -1,14 +1,24 @@
 <template>
     <div class="content">
-        <h2>Raum beitreten</h2> 
-        <div v-for="(role, index) in this.$store.getters.getRoom.roles" :key="index">
-          <input type="radio" v-model="selectedRole" :value="role.name"/>
+        <h2 style="padding-top: 150px;">Raum beitreten</h2> 
+        <input class="input input-p" style="margin-top:20px" type="text" name="name" id="name" v-model="name" placeholder="Name" />
+        <div class="selectable-role" v-for="(role, index) in this.$store.getters.getRoom.roles" :key="index">
+          <input class="input-radio" type="radio" v-model="selectedRole" :value="role.name"/>
           <label>{{ role.name }} </label>
         </div>
-        <p></p>
-        <input class="input input-p" type="text" name="name" id="name" v-model="name" placeholder="Name" />
-        <p></p>
         <input class="button button-p" type="button" value="Raum beitreten" @click="joinRoom()" />
+        <div class="Progress">
+            <div class="Progress-content">
+                <div class="Bar">
+                </div>
+                <div class="step step1 active">1
+                </div>
+                <div class="step step2">2
+                </div>
+                <div class="step step3">3
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -58,3 +68,12 @@ export default {
     }
 };
 </script>
+
+<style>
+    .selectable-role {
+        margin: 20px 5px 10px 0;
+    }
+    .input-radio {
+
+    }
+</style>

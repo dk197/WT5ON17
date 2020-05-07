@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h2 class="heading">Gruppen-Einstellungen:</h2>
+    <h2 style="line-height:1.2" class="heading">Gruppen-Einstellungen:</h2>
     <div id=field>
       <input class="input input-p" placeholder="Gruppenanzahl" type="number" name="groupAmount" v-model="form.groupAmount"/>
       <label for="groupAmount">Anzahl an generierten Gruppen:</label>

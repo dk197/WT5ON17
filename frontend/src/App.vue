@@ -5,17 +5,12 @@
         <div class="userCount"> {{ getUserCount }}</div>
         <p v-if="this.$store.getters.getRoomToken">http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
         </div>
-        <!-- <ProgressBar></ProgressBar> -->
     <router-view />
     </div>
 </template>
 
 <script>
-// import Progress from "./components/Progress";
 export default {
-    // components: {
-    //     ProgressBar: Progress
-    // },
     computed: {
         getUserCount() {
             const allUsers = this.$store.getters.getAllUsers;
@@ -89,8 +84,9 @@ body {
 }
 
 .content {
-  margin: 40px 80px 40px 40px;
+  margin: 40px 80px 40px 70px;
   text-align: left;
+  position: relative;
 }
 
 h1 {
@@ -135,7 +131,7 @@ label {
   background-color: #094440;
   border: 2px solid #094440;
   color: white;
-  width: max-content;
+  width: 150px;
   
 }
 
@@ -143,7 +139,7 @@ label {
   background-color: transparent;
   border: 2px solid #094440;
   color: #094440;
-  width: max-content;
+  width: 150px;
 }
 
 .input-p{
@@ -151,6 +147,7 @@ label {
   border-bottom: 2px solid #094440;
   font-weight: 400;
   width: 100%;
+  color:#094440;
 }
 
 .link:hover {
@@ -160,7 +157,7 @@ label {
 
 ::placeholder {
     color: #094440;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 18px;
 }
 
@@ -207,5 +204,55 @@ label {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+}
+
+/* Progress Bar */ 
+
+.Progress{
+    background-color: transparent;
+    height: 450px;
+    width: 25px;
+    position: absolute;
+    right: -45px;
+    top: 0px;
+}
+.Progress-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.Bar {
+    background-color: white;
+    height: 100%;
+    width: 2px;
+    margin-left: 14px;
+}
+.step {
+    height: 30px;
+    width: 30px;
+    background-color: #094440;
+    text-align: center;
+    border-radius: 30px;
+    color: white;
+    font-size: 20px;
+    font-family: 'Dubai';
+    font-weight: 400;
+    padding-top: 5px;
+    position: absolute;
+    top: 0;
+}
+.step2 {
+    top: 50%;
+}
+.step3 {
+    top: 100%;
+}
+.active {
+    background-color: #C5E3C1;
+    color: #094440;
+    font-weight: 500;
+}
+.done {
+    background-color: #647170;
 }
 </style>

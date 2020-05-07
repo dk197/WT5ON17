@@ -6,19 +6,19 @@
             <label for="aktuellePhase">Aktuelle Phase:</label>
         </div>
         <input
-            class="button button-p check"
+            class="button button-p"
             type="button"
             value="Nächste Phase"
             @click="nextPhase()"
         />
-        <input class="button button-p check" type="button" value="Speichern" @click="save()" />
+        <input class="button button-p" type="button" value="Speichern" @click="save()" />
         <input
             class="button button-p check"
             type="button"
             value="Raum löschen"
             @click="deleteRoom()"
         />
-        <input class="button button-p check" type="button" value="Zurück" @click="back()" />
+        <input class="button button-s" type="button" value="Zurück" @click="back()" />
     </div>
 </template>
 
