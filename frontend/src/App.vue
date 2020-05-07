@@ -7,6 +7,10 @@
             </div>
             <div class="second-row">
                 <p class="room-link" v-if="this.$store.getters.getRoomToken">http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
+                
+                <div class="adminPanel">
+                    <button class="adminPanel-Button" @click="admin" v-if="this.$store.getters.getAdminStatus">Admin</button>
+                </div>
             </div>
         </div>
     <router-view />
@@ -24,7 +28,10 @@ export default {
     methods: {
         home() {
             this.$router.push("/");
-        }
+        },
+        admin() {
+            this.$router.push('/admin')
+        },
     },
     sockets: {
         userJoinedRoom(user) {
@@ -279,5 +286,21 @@ label {
 }
 .done {
     background-color: #647170;
+}
+.adminPanel {
+    text-align: right;
+    margin-top: -20px;
+    margin-right: -20px;
+}
+.adminPanel-Button {
+    background-color: transparent;
+    border: none;
+    color: #094440;
+    background-image: url('./assets/icons/gear.svg');
+    background-repeat: no-repeat;
+    padding-left: 28px;
+    padding-top: 3px;
+    font-size: 16px;
+    font-weight: 600;
 }
 </style>
