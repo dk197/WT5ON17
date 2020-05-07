@@ -36,8 +36,11 @@ export default {
             });
         },
         phaseHasChanged(data) {
-            console.log(data);
-            
+            if(data.phase === 'Ansichtsphase') {
+                this.$router.push('/groups')
+            }
+            this.$store.commit('setPhase', data.phase)
+            this.$store.commit('setGroups', data.groups)
         }
     }
 };

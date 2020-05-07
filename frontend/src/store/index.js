@@ -12,7 +12,8 @@ export default new Vuex.Store({
         isAdmin: false,
         isParticipant: false,
         users: [],
-        currentPhase: ''
+        currentPhase: 'Beitrittsphase',
+        groups: []
     },
     getters: {
         getRoomToken(state) {
@@ -32,6 +33,10 @@ export default new Vuex.Store({
         },
         getCurrentPhase(state) {
             return state.currentPhase
+        },
+        getGroups(state) {
+            console.log(state.groups);
+            return state.groups
         }
     },
     mutations: {
@@ -60,6 +65,9 @@ export default new Vuex.Store({
             state.isParticipant = false
             state.users = []
             state.currentPhase = ''
+        },
+        setGroups(state, groups) {
+            state.groups = groups
         }
     },
     actions: {
