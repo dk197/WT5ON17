@@ -53,9 +53,9 @@ export default {
         },
         nextPhase() {
             const room = this.$store.getters.getRoom
-            console.log(room);
+            console.log(room._id);
             this.$socket.emit("changePhase", {
-                roomId: room._id
+                room: room
             });
             // this.$store.commit('nextPhase')
         },

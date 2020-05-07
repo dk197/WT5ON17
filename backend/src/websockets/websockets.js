@@ -12,9 +12,9 @@ module.exports = function(io) {
         const user = await userController.createUser(data)
         io.to(data.token).emit('userJoinedRoom', user)
     })
-    socket.on('changePhase', async (roomId) => {
-        console.log(roomId);
-        const updatedRoom = roomController.changePhase(roomId)
+    socket.on('changePhase', async (room) => {
+        console.log(room);
+        const updatedRoom = roomController.changePhase(room)
         console.log(updatedRoom);
         io.to(updatedRoom.token).emit('phaseHasChanged', updatedRoom.phase)
     })
