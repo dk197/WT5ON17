@@ -1,9 +1,13 @@
 <template>
   <div id="app">
         <div id="nav">
-        <h1 @click="home">groupify</h1>
-        <div class="userCount"> {{ getUserCount }}</div>
-        <p v-if="this.$store.getters.getRoomToken">http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
+            <div class="first-row">
+                <h1 @click="home">groupify</h1>
+                <div class="userCount"> {{ getUserCount }}</div>
+            </div>
+            <div class="second-row">
+                <p class="room-link" v-if="this.$store.getters.getRoomToken">http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
+            </div>
         </div>
     <router-view />
     </div>
@@ -48,17 +52,32 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: white;
+    overflow: hidden;
+    height: 100vh;
 }
 
 #nav {
   padding: 35px 40px;
   height: 150px;
   display: flex;
+  flex-direction: column;
   background-color: transparent;
-  justify-content: space-between;
   background-image: url('assets/header.svg');
   background-repeat: no-repeat;
   background-size: cover
+}
+
+.first-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px
+}
+
+.second-row {
+    padding-left: 40px;
+    color:#094440;
+    font-weight: 600;
+    font-size: 15px;
 }
 
 #nav a {
@@ -206,6 +225,10 @@ label {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.room-link {
+    display: block;
 }
 
 /* Progress Bar */ 
