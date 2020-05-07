@@ -41,7 +41,7 @@ export default {
     display:flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 150px;
+    padding-top: 100px;
   }
   .waitingScreen > img {
     margin: 10px 0;
