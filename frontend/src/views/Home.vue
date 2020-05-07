@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
     name: "Room",
     props: {},
@@ -27,24 +26,7 @@ export default {
     },
     methods: {
         async joinRoom() {
-            try {
-                const response = await axios.get(
-                    `http://localhost:3000/rooms/${this.joinToken}`
-                );
-                console.log(response);
-                this.$store.commit("setRoomToken", response.data.room.token);
-                this.$store.commit("setRoom", response.data.room);
-                this.$router.push({ path: `/join/${this.joinToken}` });
-                this.$store.commit("setParticipant");
-                response.data.users.forEach(user => {
-                    this.$store.commit("addUser", {
-                        username: user.username,
-                        role: user.role
-                    });
-                });
-            } catch (e) {
-                console.log(e);
-            }
+          this.$router.push({ path: `/join/${this.joinToken}` });
         }
     }
 };
