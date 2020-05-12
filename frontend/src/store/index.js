@@ -61,7 +61,7 @@ export default new Vuex.Store({
             state.isParticipant = true
         },
         setUser(state, user) {
-            state.uses = user
+            state.user = user
         },
         addUser(state, user) {
             state.users.push(user)
@@ -75,7 +75,8 @@ export default new Vuex.Store({
             state.isAdmin = false
             state.isParticipant = false
             state.users = []
-            state.currentPhase = ''
+            state.currentPhase = '',
+            state.showExchangeButton = false
         },
         setGroups(state, groups) {
             state.groups = groups

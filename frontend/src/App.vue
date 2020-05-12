@@ -49,7 +49,6 @@ export default {
                 this.$store.commit('toggleExchangeButtonStatus')
             }
             this.$store.commit('setPhase', data.phase)
-            
         }
     }
 };

@@ -72,7 +72,8 @@ export default {
                         username: user.username,
                         isAdmin: user.isAdmin,
                         isParticipant: user.isParticipant,
-                        role: user.role
+                        role: user.role,
+                        _id: user._id
                     }
                 });
                 this.$router.push('/waitjoin')

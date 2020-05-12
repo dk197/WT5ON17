@@ -18,5 +18,13 @@ module.exports = function(io) {
         // console.log(updatedRoom);
         io.to(res.room.token).emit('phaseHasChanged', {phase: res.room.phase, groups: res.groups})
     })
+    socket.on('sendExchange', (data) => {
+        console.log(data);
+        io.to(data.token).emit('exchangeRequestWasSent', {
+            groupIndex: data.groupIndex,
+            sender: data.sender,
+            receiver: data.receiver
+        })
+    })
 })
 }

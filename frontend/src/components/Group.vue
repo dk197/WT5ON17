@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="Groupname">Gruppe {{ index }}</p>
+        <p class="Groupname">Gruppe {{ groupIndex }}</p>
         <div>
             <div class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
                 {{ groupMember.username }}
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-    props: ['index', 'group'],
+    props: ['groupIndex', 'group'],
     computed: {
         showExchangeButton() {
             return this.$store.getters.getExchangeButtonStatus
@@ -20,7 +20,13 @@ export default {
     },
     methods: {
         sendExchangeRequest(groupMember) {
-            console.log(groupMember);
+            const user = this.$store.getters.getUser
+            this.$socket.emit("sendExchange", {
+                token: this.$store.getters.getRoomToken,
+                groupIndex: this.groupIndex,
+                sender: user,                
+                receiver: groupMember
+            });
         }
     }
 }
