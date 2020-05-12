@@ -44,9 +44,12 @@ export default {
         phaseHasChanged(data) {
             if(data.phase === 'Ansichtsphase') {
                 this.$router.push('/groups')
+                this.$store.commit('setGroups', data.groups)
+            }else if(data.phase === 'Tauschphase') {
+                this.$store.commit('toggleExchangeButtonStatus')
             }
             this.$store.commit('setPhase', data.phase)
-            this.$store.commit('setGroups', data.groups)
+            
         }
     }
 };

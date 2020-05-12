@@ -13,7 +13,8 @@ export default new Vuex.Store({
         isParticipant: false,
         users: [],
         currentPhase: 'Beitrittsphase',
-        groups: []
+        groups: [],
+        showExchangeButton: false
     },
     getters: {
         getRoomToken(state) {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
         getGroups(state) {
             console.log(state.groups);
             return state.groups
+        },
+        getExchangeButtonStatus(state) {
+            return state.showExchangeButton
         }
     },
     mutations: {
@@ -68,6 +72,9 @@ export default new Vuex.Store({
         },
         setGroups(state, groups) {
             state.groups = groups
+        },
+        toggleExchangeButtonStatus(state) {
+            state.showExchangeButton = !state.showExchangeButton
         }
     },
     actions: {

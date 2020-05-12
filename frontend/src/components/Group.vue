@@ -2,14 +2,27 @@
     <div>
         <p class="Groupname">Gruppe {{ index }}</p>
         <div>
-            <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">{{ groupMember.username }}</p>
+            <div class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
+                {{ groupMember.username }}
+                <button @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton">Tauschanfrage senden</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['index', 'group']
+    props: ['index', 'group'],
+    computed: {
+        showExchangeButton() {
+            return this.$store.getters.getExchangeButtonStatus
+        }
+    },
+    methods: {
+        sendExchangeRequest(groupMember) {
+            console.log(groupMember);
+        }
+    }
 }
 </script>
 

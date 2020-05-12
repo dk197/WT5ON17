@@ -73,11 +73,17 @@ module.exports = {
                 { username: 'test14', role: 'coolerDude5' },
                 { username: 'test15', role: 'coolerDude5' },
             ]
-
+            let groups
             switch (room.phase) {
                 case 'Beitrittsphase':
-                    const groups = await this.generateGroups(roomUsers, room.groupAmount, roomId)
+                    groups = await this.generateGroups(roomUsers, room.groupAmount, roomId)
                     room.phase = 'Ansichtsphase'
+                    await room.save()
+                    return {room, groups}
+                    break
+                case 'Ansichtsphase':
+                    groups = []
+                    room.phase = 'Tauschphase'
                     await room.save()
                     return {room, groups}
                     break
