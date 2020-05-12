@@ -2,7 +2,7 @@
     <div>
         <p class="Groupname">Gruppe {{ index }}</p>
         <div>
-            <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">{{ groupMember.username }}</p>
+            <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">{{ groupMember.username }} als {{ groupMember.role }}</p>
         </div>
     </div>
 </template>
