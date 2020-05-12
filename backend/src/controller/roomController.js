@@ -99,7 +99,7 @@ module.exports = {
         var overflow = users.length % groupAmount
         const perGroup = Math.floor(users.length / groupAmount)
 
-        // shuffle Array with random
+        //shuffle the users randomly
         var ctr = users.length, temp, index;
         while (ctr > 0) {
             index = Math.floor(Math.random() * ctr);
@@ -109,25 +109,60 @@ module.exports = {
             users[index] = temp;
         }
 
-        // Split Array in Groups
-        var groups = []
-        var index = 0
-        while (index < users.length) {
-            if (overflow > 0) {
-                mySplit = users.slice(index, index + perGroup + 1)
-                groups.push(mySplit)
-                overflow -= 1
-                index += perGroup + 1
-            } else {
-                mySplit = users.slice(index, index + perGroup)
-                const group = new Group()
-                group.roomId = roomId
-                group.participants = mySplit
-                const storedGroup = await group.save()
-                groups.push(storedGroup)
-                index += perGroup
+        //Sort users for roles
+        users.sort(function(a, b) {
+            const roleA = a.role.toUpperCase();
+            const roleB = b.role.toUpperCase();
+
+            let comparison = 0;
+            if (roleA > roleB) {
+                comparison = 1;
+            } else if (roleA < roleB) {
+                comparison = -1;
             }
+            return comparison;
+        })
+
+        //Generate empty array for groups
+        groupsArray = []
+        for (let index = 0; index < groupAmount; index++) {
+            groupsArray.push([])            
         }
+
+        //Fill the groups with users
+        var groupNumber = 0
+        for (let index = 0; index < users.length; index++) {
+            const user = users[index];
+            if(groupNumber>=groupAmount){
+                groupNumber-=groupAmount
+            }
+            temp = groupsArray[groupNumber]
+            temp.push(user)
+            groupsArray[groupNumber] = temp
+            groupNumber++
+        }
+
+        //Convert into objectnotation
+        groups = []
+        for (let index = 0; index < groupsArray.length; index++) {
+            const currentGroup = groupsArray[index];
+            const group = new Group()
+            group.roomId = roomId
+            group.participants = currentGroup
+            const storedGroup = await group.save()
+            groups.push(storedGroup)
+        }
+
+        var ctr = groups.length, temp, index;
+        while (ctr > 0) {
+            index = Math.floor(Math.random() * ctr);
+            ctr--;
+            temp = groups[ctr];
+            groups[ctr] = groups[index];
+            groups[index] = temp;
+        }
+        
+        console.log(groups)
         return groups
     }
 }

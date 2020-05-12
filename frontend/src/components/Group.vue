@@ -3,7 +3,7 @@
         <p class="Groupname">Gruppe {{ groupIndex }}</p>
         <div>
             <div class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
-                {{ groupMember.username }}
+                {{ groupMember.username }} als {{ groupMember.role }}
                 <button @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton">Tauschanfrage senden</button>
             </div>
         </div>
