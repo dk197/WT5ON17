@@ -54,25 +54,25 @@ module.exports = {
         try {
             const room = await Room.findById(roomId)
             console.log('room', room);
-            // const roomUsers = await User.find({roomId: roomId})
+            const roomUsers = await User.find({roomId: roomId})
 
-            const roomUsers = [
-                { username: 'test1', role: 'coolerDude1' },
-                { username: 'test2', role: 'coolerDude1' },
-                { username: 'test3', role: 'coolerDude1' },
-                { username: 'test4', role: 'coolerDude2' },
-                { username: 'test5', role: 'coolerDude2' },
-                { username: 'test6', role: 'coolerDude2' },
-                { username: 'test7', role: 'coolerDude3' },
-                { username: 'test8', role: 'coolerDude3' },
-                { username: 'test9', role: 'coolerDude3' },
-                { username: 'test10', role: 'coolerDude4' },
-                { username: 'test11', role: 'coolerDude4' },
-                { username: 'test12', role: 'coolerDude4' },
-                { username: 'test13', role: 'coolerDude5' },
-                { username: 'test14', role: 'coolerDude5' },
-                { username: 'test15', role: 'coolerDude5' },
-            ]
+            // const roomUsers = [
+            //     { username: 'test1', role: 'coolerDude1' },
+            //     { username: 'test2', role: 'coolerDude1' },
+            //     { username: 'test3', role: 'coolerDude1' },
+            //     { username: 'test4', role: 'coolerDude2' },
+            //     { username: 'test5', role: 'coolerDude2' },
+            //     { username: 'test6', role: 'coolerDude2' },
+            //     { username: 'test7', role: 'coolerDude3' },
+            //     { username: 'test8', role: 'coolerDude3' },
+            //     { username: 'test9', role: 'coolerDude3' },
+            //     { username: 'test10', role: 'coolerDude4' },
+            //     { username: 'test11', role: 'coolerDude4' },
+            //     { username: 'test12', role: 'coolerDude4' },
+            //     { username: 'test13', role: 'coolerDude5' },
+            //     { username: 'test14', role: 'coolerDude5' },
+            //     { username: 'test15', role: 'coolerDude5' },
+            // ]
             let groups
             switch (room.phase) {
                 case 'Beitrittsphase':
