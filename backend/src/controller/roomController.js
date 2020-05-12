@@ -54,7 +54,7 @@ module.exports = {
         try {
             const room = await Room.findById(roomId)
             console.log('room', room);
-            const roomUsers = await User.find({roomId: roomId})
+            const roomUsers = await User.find({roomId: roomId, participant: true})
 
             // const roomUsers = [
             //     { username: 'test1', role: 'coolerDude1' },
