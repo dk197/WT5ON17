@@ -108,7 +108,9 @@ export default {
 /* Global Component-Styles */
 
 body {
-    background-image: radial-gradient(circle, #a9c0a6, #097770);
+    background-image: radial-gradient(circle, #a9c0a6, #0e9986);
+    background-size: 100vw 100vh;
+    background-repeat: repeat-y;
 }
 
 .content {

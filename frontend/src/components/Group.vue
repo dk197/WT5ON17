@@ -34,11 +34,13 @@ export default {
     font-family: 'Dubai';
     font-weight: 300;
     font-size: 20px;
-    padding-left: 20px;
+    padding-left: 10px;
+    margin: 10px;
 }
 .Groupmember {
-    padding-left: 20px;
+    padding-left: 10px;
     margin-top: 0;
+    margin-bottom: 5px;
 }
 .accordion {
     background-color: transparent;
@@ -52,11 +54,12 @@ export default {
     transition: 0.5s;
     display: flex;
     justify-content: space-between;
+    width: 200px;
 }
 .arrow {
     transform: rotate(-90deg);
     transition: 0.5s;
-    width: 20px;
+    width: 18px;
 }
 .accordion.active > img {
     transform: none;
