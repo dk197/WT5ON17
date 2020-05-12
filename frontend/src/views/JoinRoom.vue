@@ -53,17 +53,29 @@ export default {
             }
     },
     methods: {
-        joinRoom() {
+        async joinRoom() {
             const room = this.$store.getters.getRoom
-            this.$socket.emit("joinRoom", {
-                token: room.token,
-                username: this.name,
-                roomId: room._id,
-                role: this.selectedRole,
-                isAdmin: this.$store.getAdminStatus,
-                isParticipant: this.$store.getParticipantStatus
-            });
-            this.$router.push('/waitjoin')
+            console.log('test');
+            try {
+                console.log('test2');
+                const user = await axios.post('http://localhost:3000/user', {
+                    username: this.name,
+                    roomId: room._id,
+                    role: this.selectedRole,
+                    isAdmin: this.$store.getAdminStatus,
+                    isParticipant: this.$store.getParticipantStatus
+                })
+                console.log(user);
+                // this.$store.commit('setUser', user)
+                // this.$socket.emit("joinRoom", {
+                //     token: room.token,
+                //     userId: user._id
+                // });
+                // this.$router.push('/waitjoin')
+            }catch(e) {
+                console.log(e);
+            }
+            
         }
     }
 };

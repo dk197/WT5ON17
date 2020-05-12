@@ -11,6 +11,7 @@ export default new Vuex.Store({
         room: {},
         isAdmin: false,
         isParticipant: false,
+        user: {},
         users: [],
         currentPhase: 'Beitrittsphase',
         groups: [],
@@ -28,6 +29,9 @@ export default new Vuex.Store({
         },
         getParticipantStatus(state) {
             return state.isParticipant
+        },
+        getUser(state) {
+            return state.user
         },
         getAllUsers(state) {
             return state.users
@@ -55,6 +59,9 @@ export default new Vuex.Store({
         },
         setParticipant(state) {
             state.isParticipant = true
+        },
+        setUser(state, user) {
+            state.uses = user
         },
         addUser(state, user) {
             state.users.push(user)

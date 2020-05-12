@@ -1,13 +1,15 @@
 const User = require('../models/userModel')
 
 module.exports = {
-    createUser: async function(data) {
-        const user = new User(data)
+    createUser: async function(req, res) {
+        const user = new User(req.body)
+        
         try {
             const createdUser = await user.save()
-            return createdUser
+            res.send(createdUser) 
         }catch(e) {
             console.log(e);
+            res.status(400).send()
         }
     }
 }
