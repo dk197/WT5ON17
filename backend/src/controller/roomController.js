@@ -109,7 +109,11 @@ module.exports = {
         while (index < users.length) {
             if (overflow > 0) {
                 mySplit = users.slice(index, index + perGroup + 1)
-                groups.push(mySplit)
+                const group = new Group()
+                group.roomId = roomId
+                group.participants = mySplit
+                const storedGroup = await group.save()
+                groups.push(storedGroup)
                 overflow -= 1
                 index += perGroup + 1
             } else {
