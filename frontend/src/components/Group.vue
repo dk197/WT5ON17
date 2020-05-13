@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="Groupname accordion">Gruppe {{ index }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
+        <p class="Groupname accordion" @click="expand">Gruppe {{ index }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
         <div class="accordion-content">
             <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">{{ groupMember.username }}</p>
         </div>
@@ -10,20 +10,15 @@
 <script>
 export default {
     props: ['index', 'group'],
-    mounted() {
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
+    methods: {
+        expand(e){
+            e.target.classList.toggle("active");
+            var content = e.target.nextElementSibling;
             if (content.style.display === "block") {
             content.style.display = "none";
             } else {
             content.style.display = "block";
             }
-        });
         }
     }
 }
