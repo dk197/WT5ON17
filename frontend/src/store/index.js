@@ -45,7 +45,9 @@ export default new Vuex.Store({
         },
         getExchangeButtonStatus(state) {
             return (userId) => {
-                if(userId === state.user._id) {
+                if(Object.keys(state.user).length === 0) {
+                    return false
+                }else if(userId === state.user._id) {
                     return false
                 }
                 return state.showExchangeButton
