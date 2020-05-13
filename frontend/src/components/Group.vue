@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="Groupname accordion">Gruppe {{ groupIndex }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
+        <p class="Groupname accordion" @click="expand">Gruppe {{ groupIndex }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
         <div class="accordion-content">
             <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
                 {{ groupMember.username }} als {{ groupMember.role }}
@@ -18,22 +18,6 @@ export default {
             return this.$store.getters.getUser.username
         }
     },
-    mounted() {
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                content.style.display = "none";
-                } else {
-                content.style.display = "block";
-                }
-            });
-        }
-    },
     methods: {
         showExchangeButton(groupMember) {
             return this.$store.getters.getExchangeButtonStatus(groupMember._id)
@@ -45,7 +29,16 @@ export default {
                 groupIndex: this.groupIndex,
                 sender: user,                
                 receiver: groupMember
-            });
+            })
+        },
+         expand(e){
+            e.target.classList.toggle("active");
+            var content = e.target.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
         }
     }
 }
