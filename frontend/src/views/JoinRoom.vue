@@ -6,7 +6,7 @@
           <input class="input-radio" type="radio" v-model="selectedRole" :value="role.name"/>
           <label>{{ role.name }} </label>
         </div>
-        <input class="button button-p" type="button" value="Raum beitreten" @click="joinRoom()" />
+        <input class="button button-p join" type="button" value="Raum beitreten" @click="joinRoom()" />
         <div class="Progress">
             <div class="Progress-content">
                 <div class="Bar">
@@ -70,10 +70,33 @@ export default {
 </script>
 
 <style>
-    .selectable-role {
-        margin: 20px 5px 10px 0;
-    }
-    .input-radio {
-
-    }
+.selectable-role {
+    margin: 10px 5px 0px 0;
+}
+.input-radio {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 20px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    border: 4px solid #094440;
+    background: var(--b, var(--background));
+    transition: background .3s, border-color .3s, box-shadow .2s;
+  }
+.input-radio:checked {
+    background-color: white;
+}
+.input-radio:focus {
+    box-shadow: 0 0 0 var(--focus);
+}
+.join {
+    margin-top: 20px;
+} 
 </style>
