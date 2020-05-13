@@ -26,10 +26,10 @@ export default {
     },
     sockets: {
         exchangeRequestWasSent(data) {
-            // const user = this.Group$store.getters.getUser
-            // if(user._id === data.receiver._id) {
+            const user = this.$store.getters.getUser
+            if(user._id === data.receiver._id) {
                 alert(`Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten!`)
-            // }
+            }
         }
     }
 }

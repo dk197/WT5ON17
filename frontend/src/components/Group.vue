@@ -1,10 +1,11 @@
 <template>
     <div>
         <p class="Groupname">Gruppe {{ groupIndex }}</p>
+        <p>{{ getCurrentUser }}</p>
         <div>
             <div class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
                 {{ groupMember.username }} als {{ groupMember.role }}
-                <button @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton">Tauschanfrage senden</button>
+                <button @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton(groupMember)">Tauschanfrage senden</button>
             </div>
         </div>
     </div>
@@ -14,11 +15,14 @@
 export default {
     props: ['groupIndex', 'group'],
     computed: {
-        showExchangeButton() {
-            return this.$store.getters.getExchangeButtonStatus
+        getCurrentUser() {
+            return this.$store.getters.getUser.username
         }
     },
     methods: {
+        showExchangeButton(groupMember) {
+            return this.$store.getters.getExchangeButtonStatus(groupMember._id)
+        },
         sendExchangeRequest(groupMember) {
             const user = this.$store.getters.getUser
             this.$socket.emit("sendExchange", {

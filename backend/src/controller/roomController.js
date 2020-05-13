@@ -29,7 +29,6 @@ module.exports = {
         try {
             const room = await Room.findOne({ token: req.params.token })
             const users = await User.find({ roomId: room._id })
-            console.log(users);
             // console.log(room);
             res.send({ room, users })
         } catch (e) {
@@ -54,8 +53,8 @@ module.exports = {
         try {
             const room = await Room.findById(roomId)
             console.log('room', room);
-            const roomUsers = await User.find({roomId: roomId, participant: true})
-
+            const roomUsers = await User.find({roomId: roomId})
+            console.log(roomUsers);
             // const roomUsers = [
             //     { username: 'test1', role: 'coolerDude1' },
             //     { username: 'test2', role: 'coolerDude1' },

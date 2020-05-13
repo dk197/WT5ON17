@@ -44,7 +44,12 @@ export default new Vuex.Store({
             return state.groups
         },
         getExchangeButtonStatus(state) {
-            return state.showExchangeButton
+            return (userId) => {
+                if(userId === state.user._id) {
+                    return false
+                }
+                return state.showExchangeButton
+            }
         }
     },
     mutations: {
@@ -74,6 +79,7 @@ export default new Vuex.Store({
             state.room = {}
             state.isAdmin = false
             state.isParticipant = false
+            state.user = {}
             state.users = []
             state.currentPhase = '',
             state.showExchangeButton = false
