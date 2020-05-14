@@ -2,10 +2,14 @@
     <div>
         <p class="Groupname accordion" @click="expand">Gruppe {{ groupIndex }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
         <div class="accordion-content">
-            <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
-                {{ groupMember.username }} als {{ groupMember.role }}
-                <button @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton(groupMember)">Tauschanfrage senden</button>
-            </p>
+            <div class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
+                <div>
+                    <p class="member-name">{{ groupMember.username }}</p>
+                    <button class="member-swap input input-s" @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton(groupMember)"><img class="swap-button" src="../assets/icons/swap.svg"></button>
+                </div>
+                <p class="member-role">Rolle: {{ groupMember.role }}</p>
+                
+            </div>
         </div>
     </div>
 </template>
@@ -60,6 +64,25 @@ export default {
     padding-left: 10px;
     margin-top: 0;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.Groupmember > div {
+    display: flex;
+    justify-content: space-between;
+}
+.member-name {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+.member-role {
+    margin: 0;
+    font-size: 15px;
+    color: #094440;
+    font-weight: 500;
+}
+.member-swap  {
+    margin: 0 !important;
 }
 .accordion {
     background-color: transparent;
