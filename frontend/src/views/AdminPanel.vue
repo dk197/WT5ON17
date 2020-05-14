@@ -10,7 +10,7 @@
             value="Nächste Phase"
             @click="nextPhase()"
         />
-        <input class="button button-p" type="button" value="Speichern" @click="save()" />
+        <input class="button button-p" type="button" value="CSV Export" @click="exportCsv" />
         <input
             class="button button-p check"
             type="button"
@@ -18,17 +18,26 @@
             @click="deleteRoom()"
         />
         <input class="button button-s" type="button" value="Zurück" @click="back()" />
+        <csvExport
+            ref="csvExport"
+            :data   = "exportData"
+            style="display:none"
+            name = "gruppen.csv">
+            Download Groups
+        </csvExport>
     </div>
 </template>
 
 <script>
 import axios from "axios";
+import csvExport from "vue-json-csv"
 export default {
     name: "AdminPanel",
-    props: {},
+    components: {csvExport},
     data() {
         return {
-            aktuellePhase: "-"
+            aktuellePhase: "-",
+            exportData: []
         };
     },
     created() {
@@ -37,7 +46,21 @@ export default {
         }
     },
     methods: {
-        save() {},
+        exportCsv() {
+            var exportDataset = []
+            var groups = this.$store.getters.getGroups
+            for (let index = 0; index < groups.length; index++) {
+                const group = groups[index];
+                var myGroup =["GRUPPE " + index]
+                for (let index = 0; index < group.participants.length; index++) {
+                    const participant = group.participants[index];
+                    myGroup.push(participant.username + " (" + participant.role + ")" )
+                }
+                exportDataset.push(myGroup)
+            }
+            this.exportData = exportDataset
+            setTimeout(() => this.$refs.csvExport.$el.click(), 1000);
+        },
         async deleteRoom() {
             try {
                 await axios.delete(
