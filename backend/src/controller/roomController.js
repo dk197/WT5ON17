@@ -52,9 +52,7 @@ module.exports = {
     changePhase: async function (roomId) {
         try {
             const room = await Room.findById(roomId)
-            console.log('room', room);
             const roomUsers = await User.find({roomId: roomId, isParticipant: true})
-            console.log(roomUsers);
             // const roomUsers = [
             //     { username: 'test1', role: 'coolerDude1' },
             //     { username: 'test2', role: 'coolerDude1' },

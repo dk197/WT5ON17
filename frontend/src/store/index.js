@@ -85,12 +85,46 @@ export default new Vuex.Store({
             state.users = []
             state.currentPhase = '',
             state.showExchangeButton = false
+            Vue.set(state, 'groups', [])
         },
         setGroups(state, groups) {
-            state.groups = groups
+            Vue.set(state, 'groups', groups)
         },
         toggleExchangeButtonStatus(state) {
             state.showExchangeButton = !state.showExchangeButton
+        },
+        exchangeUsers(state, data) {
+            console.log(data);
+            const groups = state.groups
+            // const receiverId = data.receiver._id
+            // groups.forEach(group => {
+            //     const index = group.paricipants.findIndex(participant => participant._id === receiverId)
+            //     if(index) {
+            //         console.log(object);
+            //     }
+            // });
+            for (let index = 0; index < groups.length; index++) {
+                const receiverIndex = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
+                console.log(receiverIndex);
+                if(receiverIndex !== -1) {
+                    console.log(data.sender);
+                    // const test = groups[index].participants
+                    // test[receiverIndex] = data.sender
+                    // Vue.set(state.groups[index], 'participants', test)
+                    // groups[index].participants[receiverIndex] = data.sender
+                    Vue.set(state.groups[index].participants, receiverIndex, {
+                        username: 'test',
+                        role: 'asdsadadssad'
+                    })
+                }
+            }
+            // const senderIndex = groups[data.senderGroupIndex].participants.findIndex(participant => participant._id === data.sender._id)
+            // console.log(senderIndex);
+            // Vue.set(state.groups[data.senderGroupIndex].participants, senderIndex, {
+            //     username: 'test2',
+            //     role: 'aaaaaaaasdsadadssad'
+            // })
+            // Vue.set(state, 'groups', groups)
         }
     },
     actions: {

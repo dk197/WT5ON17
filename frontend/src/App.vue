@@ -35,7 +35,6 @@ export default {
     },
     sockets: {
         userJoinedRoom(user) {
-            console.log(user);
             this.$store.commit("addUser", {
                 username: user.username,
                 role: user.role
@@ -49,6 +48,15 @@ export default {
                 this.$store.commit('toggleExchangeButtonStatus')
             }
             this.$store.commit('setPhase', data.phase)
+        },
+        exchangeWasMade(data) {
+            console.log(data);
+            this.$store.commit('exchangeUsers', data)
+            // const groups = this.$store.getters.getGroups
+            // for (let index = 0; index < groups.length; index++) {
+            //     const participantIndex = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
+            //     console.log(participantIndex);
+            // }
         }
     }
 };

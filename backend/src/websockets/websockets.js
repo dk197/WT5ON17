@@ -23,5 +23,14 @@ module.exports = function(io) {
             receiver: data.receiver
         })
     })
+    socket.on('exchangeWasAccepted', (data) => {
+        console.log('exchangeaccepted');
+        console.log(data);
+        io.to(data.token).emit('exchangeWasMade', {
+            sender: data.sender,
+            senderGroupIndex: data.senderGroupIndex,
+            receiver: data.receiver
+        })
+    })
 })
 }
