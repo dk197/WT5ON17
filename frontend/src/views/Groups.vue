@@ -33,12 +33,13 @@ export default {
         exchangeRequestWasSent(data) {
             const user = this.$store.getters.getUser
             if(user._id === data.receiver._id) {
+                console.log('data', data);
                 // alert(`Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten!`)
                 const result = confirm(`Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten! Annehmen?`)
                 if(result) {
                     this.$socket.emit("exchangeWasAccepted", {
                         token: this.$store.getters.getRoomToken,
-                        sender: user,
+                        sender: data.sender,
                         senderGroupIndex: data.groupIndex,                
                         receiver: data.receiver
                     })
