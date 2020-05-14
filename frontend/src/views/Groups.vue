@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <h2>Gruppen:</h2>
-        <Group v-for="(group, index) in this.$store.getters.getGroups" :group="group" :index="index" :key="index"></Group>
+        <Group v-for="(group, index) in getAllGroups" :group="group" :groupIndex="index" :key="index"></Group>
         <div class="Progress">
           <div class="Progress-content">
               <div class="Bar">
@@ -21,8 +21,31 @@
 <script>
 import Group from '../components/Group'
 export default {
+    computed: {
+        getAllGroups() {
+            return this.$store.state.groups
+        }
+    },
     components: {
         Group
+    },
+    sockets: {
+        exchangeRequestWasSent(data) {
+            const user = this.$store.getters.getUser
+            if(user._id === data.receiver._id) {
+                console.log('data', data);
+                // alert(`Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten!`)
+                const result = confirm(`Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten! Annehmen?`)
+                if(result) {
+                    this.$socket.emit("exchangeWasAccepted", {
+                        token: this.$store.getters.getRoomToken,
+                        sender: data.sender,
+                        senderGroupIndex: data.groupIndex,                
+                        receiver: data.receiver
+                    })
+                }
+            }
+        }
     }
 }
 </script>

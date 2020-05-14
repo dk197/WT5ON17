@@ -29,7 +29,6 @@ module.exports = {
         try {
             const room = await Room.findOne({ token: req.params.token })
             const users = await User.find({ roomId: room._id })
-            console.log(users);
             // console.log(room);
             res.send({ room, users })
         } catch (e) {
@@ -53,31 +52,35 @@ module.exports = {
     changePhase: async function (roomId) {
         try {
             const room = await Room.findById(roomId)
-            console.log('room', room);
-            // const roomUsers = await User.find({roomId: roomId})
-
-            const roomUsers = [
-                { username: 'test1', role: 'Entwickler' },
-                { username: 'test2', role: 'Entwickler' },
-                { username: 'test3', role: 'Entwickler' },
-                { username: 'test4', role: 'Designer' },
-                { username: 'test5', role: 'sonstiges' },
-                { username: 'test6', role: 'Designer' },
-                { username: 'test7', role: 'Designer' },
-                { username: 'test8', role: 'sonstiges' },
-                { username: 'test9', role: 'sonstiges' },
-                { username: 'test10', role: 'sonstiges' },
-                { username: 'test11', role: 'sonstiges' },
-                { username: 'test12', role: 'sonstiges' },
-                { username: 'test13', role: 'Designer' },
-                { username: 'test14', role: 'sonstiges' },
-                { username: 'test15', role: 'sonstiges' },
-            ]
-
+            const roomUsers = await User.find({roomId: roomId, isParticipant: true})
+            // const roomUsers = [
+            //     { username: 'test1', role: 'coolerDude1' },
+            //     { username: 'test2', role: 'coolerDude1' },
+            //     { username: 'test3', role: 'coolerDude1' },
+            //     { username: 'test4', role: 'coolerDude2' },
+            //     { username: 'test5', role: 'coolerDude2' },
+            //     { username: 'test6', role: 'coolerDude2' },
+            //     { username: 'test7', role: 'coolerDude3' },
+            //     { username: 'test8', role: 'coolerDude3' },
+            //     { username: 'test9', role: 'coolerDude3' },
+            //     { username: 'test10', role: 'coolerDude4' },
+            //     { username: 'test11', role: 'coolerDude4' },
+            //     { username: 'test12', role: 'coolerDude4' },
+            //     { username: 'test13', role: 'coolerDude5' },
+            //     { username: 'test14', role: 'coolerDude5' },
+            //     { username: 'test15', role: 'coolerDude5' },
+            // ]
+            let groups
             switch (room.phase) {
                 case 'Beitrittsphase':
-                    const groups = await this.generateGroups(roomUsers, room.groupAmount, roomId)
+                    groups = await this.generateGroups(roomUsers, room.groupAmount, roomId)
                     room.phase = 'Ansichtsphase'
+                    await room.save()
+                    return {room, groups}
+                    break
+                case 'Ansichtsphase':
+                    groups = []
+                    room.phase = 'Tauschphase'
                     await room.save()
                     return {room, groups}
                     break

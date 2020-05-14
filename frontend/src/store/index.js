@@ -11,9 +11,11 @@ export default new Vuex.Store({
         room: {},
         isAdmin: false,
         isParticipant: false,
+        user: {},
         users: [],
         currentPhase: 'Beitrittsphase',
-        groups: []
+        groups: [],
+        showExchangeButton: false
     },
     getters: {
         getRoomToken(state) {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
         getParticipantStatus(state) {
             return state.isParticipant
         },
+        getUser(state) {
+            return state.user
+        },
         getAllUsers(state) {
             return state.users
         },
@@ -37,6 +42,16 @@ export default new Vuex.Store({
         getGroups(state) {
             console.log(state.groups);
             return state.groups
+        },
+        getExchangeButtonStatus(state) {
+            return (userId) => {
+                if(Object.keys(state.user).length === 0) {
+                    return false
+                }else if(userId === state.user._id) {
+                    return false
+                }
+                return state.showExchangeButton
+            }
         }
     },
     mutations: {
@@ -52,6 +67,9 @@ export default new Vuex.Store({
         setParticipant(state) {
             state.isParticipant = true
         },
+        setUser(state, user) {
+            state.user = user
+        },
         addUser(state, user) {
             state.users.push(user)
         },
@@ -63,11 +81,47 @@ export default new Vuex.Store({
             state.room = {}
             state.isAdmin = false
             state.isParticipant = false
+            state.user = {}
             state.users = []
-            state.currentPhase = ''
+            state.currentPhase = '',
+            state.showExchangeButton = false
+            Vue.set(state, 'groups', [])
         },
         setGroups(state, groups) {
-            state.groups = groups
+            Vue.set(state, 'groups', groups)
+        },
+        toggleExchangeButtonStatus(state) {
+            state.showExchangeButton = !state.showExchangeButton
+        },
+        exchangeUsers(state, data) {
+            const groups = state.groups
+            let receiverGroupIndex
+            let senderGroupIndex
+            let receiverIndex
+            let senderIndex
+            for (let index = 0; index < groups.length; index++) {
+                const test1 = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
+                const test2 = groups[index].participants.findIndex(participant => participant._id === data.sender._id)
+                if(test1 !== -1) {
+                    receiverIndex = test1
+                    receiverGroupIndex = index
+                }
+                if(test2 !== -1) {
+                    senderIndex = test2
+                    senderGroupIndex = index
+                }
+            }
+
+            console.log(receiverGroupIndex,senderGroupIndex,receiverIndex,senderIndex);
+
+            Vue.set(state.groups[receiverGroupIndex].participants, receiverIndex, {
+                username: data.sender.username,
+                role: data.sender.role
+            })
+            Vue.set(state.groups[senderGroupIndex].participants, senderIndex, {
+                username: data.receiver.username,
+                role: data.receiver.role
+            })
         }
     },
     actions: {

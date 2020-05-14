@@ -1,23 +1,47 @@
 <template>
     <div>
-        <p class="Groupname accordion" @click="expand">Gruppe {{ index }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
+        <p class="Groupname accordion" @click="expand">Gruppe {{ groupIndex }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
         <div class="accordion-content">
-            <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">{{ groupMember.username }}</p>
+            <p class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
+                {{ groupMember.username }} als {{ groupMember.role }}
+                <button @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton(groupMember)">Tauschanfrage senden</button>
+            </p>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['index', 'group'],
+    props: ['groupIndex', 'group'],
+    computed: {
+        getCurrentUser() {
+            return this.$store.getters.getUser.username
+        }
+    },
     methods: {
-        expand(e){
+        showExchangeButton(groupMember) {
+            const user = this.$store.getters.getUser
+            if(this.group.participants.some(participant => participant._id == user._id)) {
+                return false
+            }
+            return this.$store.getters.getExchangeButtonStatus(groupMember._id)
+        },
+        sendExchangeRequest(groupMember) {
+            const user = this.$store.getters.getUser
+            this.$socket.emit("sendExchange", {
+                token: this.$store.getters.getRoomToken,
+                groupIndex: this.groupIndex,
+                sender: user,                
+                receiver: groupMember
+            })
+        },
+         expand(e){
             e.target.classList.toggle("active");
             var content = e.target.nextElementSibling;
             if (content.style.display === "block") {
-            content.style.display = "none";
+                content.style.display = "none";
             } else {
-            content.style.display = "block";
+                content.style.display = "block";
             }
         }
     }
