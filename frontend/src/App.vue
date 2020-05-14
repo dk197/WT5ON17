@@ -82,6 +82,7 @@ export default {
 
 .second-row {
     padding-left: 40px;
+    padding-right: 10px;
     color:#094440;
     font-weight: 600;
     font-size: 15px;
@@ -238,6 +239,7 @@ label {
 
 .room-link {
     display: block;
+    color: white;
 }
 
 /* Progress Bar */ 
@@ -297,7 +299,7 @@ label {
 .adminPanel-Button {
     background-color: transparent;
     border: none;
-    color: #094440;
+    color: white;
     background-image: url('./assets/icons/gear.svg');
     background-repeat: no-repeat;
     padding-left: 28px;

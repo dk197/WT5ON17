@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <h2 style="padding-top: 150px;">Raum beitreten</h2> 
-        <input class="input input-p" style="margin-top:20px" type="text" name="name" id="name" v-model="name" placeholder="Name" />
+        <input class="input input-p" autocomplete="off" style="margin-top:20px" type="text" name="name" id="name" v-model="name" placeholder="Name" />
         <div class="selectable-role" v-for="(role, index) in this.$store.getters.getRoom.roles" :key="index">
           <input class="input-radio" type="radio" v-model="selectedRole" :value="role.name"/>
           <label>{{ role.name }} </label>
