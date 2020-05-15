@@ -116,11 +116,13 @@ export default new Vuex.Store({
 
             Vue.set(state.groups[receiverGroupIndex].participants, receiverIndex, {
                 username: data.sender.username,
-                role: data.sender.role
+                role: data.sender.role,
+                _id: data.sender._id
             })
             Vue.set(state.groups[senderGroupIndex].participants, senderIndex, {
                 username: data.receiver.username,
-                role: data.receiver.role
+                role: data.receiver.role,
+                _id: data.receiver._id
             })
         }
     },

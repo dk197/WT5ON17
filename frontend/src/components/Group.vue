@@ -1,14 +1,26 @@
 <template>
     <div>
-        <p class="Groupname accordion" @click="expand">Gruppe {{ groupIndex }}<img class="arrow" src="../assets/icons/arrow.svg"></p>
+        <p class="Groupname accordion" @click="expand">
+            Gruppe {{ groupIndex }}
+            <img class="arrow" src="../assets/icons/arrow.svg" />
+        </p>
         <div class="accordion-content">
-            <div class="Groupmember" v-for="(groupMember, index) in group.participants" :key="index">
+            <div
+                class="Groupmember"
+                v-for="(groupMember, index) in group.participants"
+                :key="index"
+            >
                 <div>
                     <p class="member-name">{{ groupMember.username }}</p>
-                    <button class="member-swap input input-s" @click="sendExchangeRequest(groupMember)" v-if="showExchangeButton(groupMember)"><img class="swap-button" src="../assets/icons/swap.svg"></button>
+                    <button
+                        class="member-swap input input-s"
+                        @click="sendExchangeRequest(groupMember)"
+                        v-if="showExchangeButton(groupMember)"
+                    >
+                        <img class="swap-button" src="../assets/icons/swap.svg" />
+                    </button>
                 </div>
                 <p class="member-role">Rolle: {{ groupMember.role }}</p>
-                
             </div>
         </div>
     </div>
@@ -16,30 +28,40 @@
 
 <script>
 export default {
-    props: ['groupIndex', 'group'],
+    props: ["groupIndex", "group"],
     computed: {
         getCurrentUser() {
-            return this.$store.getters.getUser.username
+            return this.$store.getters.getUser.username;
+        }
+    },
+    watch: {
+        group: function(newVal, oldVal) {
+            console.log('old', oldVal);
+            console.log('new', newVal);
         }
     },
     methods: {
         showExchangeButton(groupMember) {
-            const user = this.$store.getters.getUser
-            if(this.group.participants.some(participant => participant._id == user._id)) {
-                return false
+            const user = this.$store.getters.getUser;
+            if (
+                this.group.participants.some(
+                    participant => participant._id == user._id
+                )
+            ) {
+                return false;
             }
-            return this.$store.getters.getExchangeButtonStatus(groupMember._id)
+            return this.$store.getters.getExchangeButtonStatus(groupMember._id);
         },
         sendExchangeRequest(groupMember) {
-            const user = this.$store.getters.getUser
+            const user = this.$store.getters.getUser;
             this.$socket.emit("sendExchange", {
                 token: this.$store.getters.getRoomToken,
                 groupIndex: this.groupIndex,
-                sender: user,                
+                sender: user,
                 receiver: groupMember
-            })
+            });
         },
-         expand(e){
+        expand(e) {
             e.target.classList.toggle("active");
             var content = e.target.nextElementSibling;
             if (content.style.display === "block") {
@@ -49,12 +71,13 @@ export default {
             }
         }
     }
-}
+};
 </script>
 
 <style>
-.Groupname, .Groupmember {
-    font-family: 'Dubai';
+.Groupname,
+.Groupmember {
+    font-family: "Dubai";
     font-weight: 300;
     font-size: 20px;
     padding-left: 10px;
@@ -81,7 +104,7 @@ export default {
     color: #094440;
     font-weight: 500;
 }
-.member-swap  {
+.member-swap {
     margin: 0 !important;
 }
 .accordion {
@@ -114,5 +137,4 @@ export default {
     display: none;
     overflow: hidden;
 }
-
 </style>

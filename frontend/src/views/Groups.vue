@@ -41,7 +41,7 @@ export default {
                         token: this.$store.getters.getRoomToken,
                         sender: data.sender,
                         senderGroupIndex: data.groupIndex,                
-                        receiver: data.receiver
+                        receiver: user
                     })
                 }
             }
