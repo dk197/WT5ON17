@@ -100,14 +100,14 @@ export default new Vuex.Store({
             let receiverIndex
             let senderIndex
             for (let index = 0; index < groups.length; index++) {
-                const test1 = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
-                const test2 = groups[index].participants.findIndex(participant => participant._id === data.sender._id)
-                if(test1 !== -1) {
-                    receiverIndex = test1
+                const receiverSearchIndex = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
+                const senderSearchIndex = groups[index].participants.findIndex(participant => participant._id === data.sender._id)
+                if(receiverSearchIndex !== -1) {
+                    receiverIndex = receiverSearchIndex
                     receiverGroupIndex = index
                 }
-                if(test2 !== -1) {
-                    senderIndex = test2
+                if(senderSearchIndex !== -1) {
+                    senderIndex = senderSearchIndex
                     senderGroupIndex = index
                 }
             }
