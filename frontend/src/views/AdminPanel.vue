@@ -71,7 +71,7 @@ export default {
         async deleteRoom() {
             try {
                 await axios.delete(
-                    `http://localhost:3000/rooms/${this.$store.getters.getRoom._id}`
+                    `https://wt5on17.herokuapp.com/rooms/${this.$store.getters.getRoom._id}`
                 );
                 this.$store.commit("setRoomToken", "");
                 this.$store.commit("setRoom", "");

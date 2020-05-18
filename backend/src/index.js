@@ -10,7 +10,7 @@ require('./websockets/websockets')(io)
 
 const port = process.env.PORT
 
-const whitelist = ['http://localhost:8080', undefined];
+const whitelist = ['https://wt5on17.web.app', undefined];
 const corsOptions = {
   credentials: true, // This is important.
   origin: (origin, callback) => {

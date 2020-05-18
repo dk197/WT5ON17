@@ -103,7 +103,7 @@ export default {
             }
             try {
                 const response = await axios.post(
-                    "http://localhost:3000/rooms",
+                    "https://wt5on17.herokuapp.com/rooms",
                     {
                         room: this.roomForm,
                         user: this.userForm
