@@ -1,23 +1,32 @@
 <template>
-  <div id="app">
+    <div id="app">
         <div id="nav">
             <div class="first-row">
                 <h1 @click="home">groupify</h1>
-                <div class="userCount"> {{ getUserCount }}</div>
+                <div class="userCount">{{ getUserCount }}</div>
             </div>
             <div class="second-row">
-                <p class="room-link" v-if="this.$store.getters.getRoomToken">http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
-                
+                <p
+                    class="room-link"
+                    v-if="this.$store.getters.getRoomToken"
+                >http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
+
                 <div class="adminPanel">
-                    <button class="adminPanel-Button" @click="admin" v-if="this.$store.getters.getAdminStatus">Admin</button>
+                    <button
+                        class="adminPanel-Button"
+                        @click="admin"
+                        v-if="this.$store.getters.getAdminStatus"
+                    >Admin</button>
                 </div>
             </div>
         </div>
-    <router-view />
+        <ErrorPopup></ErrorPopup>
+        <router-view />
     </div>
 </template>
 
 <script>
+import ErrorPopup from "./components/ErrorPopup";
 export default {
     computed: {
         getUserCount() {
@@ -30,8 +39,8 @@ export default {
             this.$router.push("/");
         },
         admin() {
-            this.$router.push('/admin')
-        },
+            this.$router.push("/admin");
+        }
     },
     sockets: {
         userJoinedRoom(user) {
@@ -41,23 +50,31 @@ export default {
             });
         },
         phaseHasChanged(data) {
-            if(data.phase === 'Ansichtsphase') {
-                this.$router.push('/groups')
-                this.$store.commit('setGroups', data.groups)
-            }else if(data.phase === 'Tauschphase') {
-                this.$store.commit('toggleExchangeButtonStatus')
+            console.log(data);
+            if(data.errors.length > 0) {
+                this.$store.commit('toggleErrorPopup')
+                this.$store.commit('setErrors', data.errors)
             }
-            this.$store.commit('setPhase', data.phase)
+            if (data.phase === "Ansichtsphase") {
+                this.$router.push("/groups");
+                this.$store.commit("setGroups", data.groups);
+            } else if (data.phase === "Tauschphase") {
+                this.$store.commit("toggleExchangeButtonStatus");
+            }
+            this.$store.commit("setPhase", data.phase);
         },
         exchangeWasMade(data) {
             console.log(data);
-            this.$store.commit('exchangeUsers', data)
+            this.$store.commit("exchangeUsers", data);
             // const groups = this.$store.getters.getGroups
             // for (let index = 0; index < groups.length; index++) {
             //     const participantIndex = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
             //     console.log(participantIndex);
             // }
         }
+    },
+    components: {
+        ErrorPopup
     }
 };
 </script>
@@ -74,26 +91,26 @@ export default {
 }
 
 #nav {
-  padding: 35px 40px;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  background-color: transparent;
-  background-image: url('assets/header.svg');
-  background-repeat: no-repeat;
-  background-size: cover
+    padding: 35px 40px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    background-image: url("assets/header.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .first-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px
+    margin-bottom: 30px;
 }
 
 .second-row {
     padding-left: 40px;
     padding-right: 10px;
-    color:#094440;
+    color: #094440;
     font-weight: 600;
     font-size: 15px;
 }
@@ -108,12 +125,12 @@ export default {
 }
 
 .userCount {
-  background-image: url('assets/icons/user.svg');
-  background-repeat: no-repeat;
-  padding-left: 25px;
-  font-size: 15px;
-  background-size: 15px 15px;
-  margin-left: 30px;
+    background-image: url("assets/icons/user.svg");
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    font-size: 15px;
+    background-size: 15px 15px;
+    margin-left: 30px;
 }
 
 /* Global Component-Styles */
@@ -125,16 +142,16 @@ body {
 }
 
 .content {
-  margin: 40px 80px 40px 70px;
-  text-align: left;
-  position: relative;
+    margin: 40px 80px 40px 70px;
+    text-align: left;
+    position: relative;
 }
 
 h1 {
-  font-size: 40px;
-  font-weight: 600;
-  margin: 0;
-  font-family: 'Dubai';
+    font-size: 40px;
+    font-weight: 600;
+    margin: 0;
+    font-family: "Dubai";
 }
 
 h2 {
@@ -148,7 +165,7 @@ h2 {
 }
 
 .text-left {
-  text-align: left;
+    text-align: left;
 }
 
 label {
@@ -157,38 +174,38 @@ label {
     color: #094440;
 }
 
-.button, .input{
-  font-family: 'Dubai';
-  border-radius: 2px;
-  padding: 2px 10px;
-  border: none;
-  font-size: 18px;
-  font-weight: 400;
-  margin-bottom: 10px;
-  display: block;
+.button,
+.input {
+    font-family: "Dubai";
+    border-radius: 2px;
+    padding: 2px 10px;
+    border: none;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    display: block;
 }
 
-.button-p{
-  background-color: #094440;
-  border: 2px solid #094440;
-  color: white;
-  width: 150px;
-  
+.button-p {
+    background-color: #094440;
+    border: 2px solid #094440;
+    color: white;
+    width: 150px;
 }
 
 .button-s {
-  background-color: transparent;
-  border: 2px solid #094440;
-  color: #094440;
-  width: 150px;
+    background-color: transparent;
+    border: 2px solid #094440;
+    color: #094440;
+    width: 150px;
 }
 
-.input-p{
-  background-color: transparent;
-  border-bottom: 2px solid #094440;
-  font-weight: 400;
-  width: 100%;
-  color:#094440;
+.input-p {
+    background-color: transparent;
+    border-bottom: 2px solid #094440;
+    font-weight: 400;
+    width: 100%;
+    color: #094440;
 }
 
 .link:hover {
@@ -237,14 +254,14 @@ label {
 }
 
 .link {
-  color:#094440 !important;
-  padding: 7px 10px;
+    color: #094440 !important;
+    padding: 7px 10px;
 }
 
 .alignright {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .room-link {
@@ -252,9 +269,9 @@ label {
     color: white;
 }
 
-/* Progress Bar */ 
+/* Progress Bar */
 
-.Progress{
+.Progress {
     background-color: transparent;
     height: 450px;
     width: 25px;
@@ -281,7 +298,7 @@ label {
     border-radius: 30px;
     color: white;
     font-size: 20px;
-    font-family: 'Dubai';
+    font-family: "Dubai";
     font-weight: 400;
     padding-top: 5px;
     position: absolute;
@@ -294,7 +311,7 @@ label {
     top: 100%;
 }
 .active {
-    background-color: #C5E3C1;
+    background-color: #c5e3c1;
     color: #094440;
     font-weight: 500;
 }
@@ -310,7 +327,7 @@ label {
     background-color: transparent;
     border: none;
     color: white;
-    background-image: url('./assets/icons/gear.svg');
+    background-image: url("./assets/icons/gear.svg");
     background-repeat: no-repeat;
     padding-left: 28px;
     padding-top: 3px;
