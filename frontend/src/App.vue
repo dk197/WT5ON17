@@ -52,8 +52,12 @@ export default {
         phaseHasChanged(data) {
             console.log(data);
             if(data.errors.length > 0) {
-                this.$store.commit('toggleErrorPopup')
-                this.$store.commit('setErrors', data.errors)
+                console.log(data.errors);
+                let errorString = ''
+                data.errors.forEach(error => {
+                    errorString += error + '\n'
+                });
+                this.$alert(errorString);
             }
             if (data.phase === "Ansichtsphase") {
                 this.$router.push("/groups");

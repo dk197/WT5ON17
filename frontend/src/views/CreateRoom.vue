@@ -89,8 +89,7 @@ export default {
     methods: {
         async generateToken() {
             if(this.userForm.username.length < 4) {
-                this.$store.commit('toggleErrorPopup')
-                this.$store.commit('setErrors', ['Der Nutzername muss mindestens 4 Zeichen lang sein'])
+                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein');
                 return
             }
             try {

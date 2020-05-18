@@ -34,12 +34,6 @@ export default {
             return this.$store.getters.getUser.username;
         }
     },
-    watch: {
-        group: function(newVal, oldVal) {
-            console.log('old', oldVal);
-            console.log('new', newVal);
-        }
-    },
     methods: {
         showExchangeButton(groupMember) {
             const user = this.$store.getters.getUser;
