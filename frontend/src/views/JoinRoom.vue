@@ -57,7 +57,7 @@ export default {
 
             if(this.name.length < 4) {
                 this.$store.commit('toggleErrorPopup')
-                this.$store.commit('setErrors', ['Der Nutzernme muss mindestens 4 Zeichen lang sein'])
+                this.$store.commit('setErrors', ['Der Nutzername muss mindestens 4 Zeichen lang sein'])
                 return
             }
 

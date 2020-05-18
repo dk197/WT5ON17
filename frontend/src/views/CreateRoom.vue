@@ -96,6 +96,11 @@ export default {
     },
     methods: {
         async generateToken() {
+            if(this.userForm.username.length < 4) {
+                this.$store.commit('toggleErrorPopup')
+                this.$store.commit('setErrors', ['Der Nutzername muss mindestens 4 Zeichen lang sein'])
+                return
+            }
             try {
                 const response = await axios.post(
                     "http://localhost:3000/rooms",
