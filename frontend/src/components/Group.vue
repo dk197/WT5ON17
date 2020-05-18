@@ -43,12 +43,10 @@ export default {
     methods: {
         showExchangeButton(groupMember) {
             const user = this.$store.getters.getUser;
-            if (
-                this.group.participants.some(
-                    participant => participant._id == user._id
-                )
-            ) {
+            if (this.group.participants.some(participant => participant._id == user._id)) {
                 return false;
+            }else if(groupMember.role !== user.role) {
+                return false
             }
             return this.$store.getters.getExchangeButtonStatus(groupMember._id);
         },
