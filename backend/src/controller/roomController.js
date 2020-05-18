@@ -44,37 +44,41 @@ module.exports = {
     changePhase: async function (roomId) {
         try {
             const room = await Room.findById(roomId)
-            // const roomUsers = await User.find({roomId: roomId, isParticipant: true})
-            const roomUsers = [
-                { username: 'test1', role: 'Entwickler' },
-                { username: 'test2', role: 'Entwickler' },
-                { username: 'test3', role: 'Entwickler' },
-                { username: 'test4', role: 'Entwickler' },
-                { username: 'test5', role: 'Designer' },
-                { username: 'test6', role: 'Designer' },
-                { username: 'test7', role: 'Designer' },
-                { username: 'test8', role: 'sonstiges' },
-                { username: 'test9', role: 'sonstiges' },
-                { username: 'test10', role: 'sonstiges' },
-                { username: 'test11', role: 'sonstiges' },
-                { username: 'test12', role: 'sonstiges' },
-                { username: 'test13', role: 'sonstiges' },
-                { username: 'test14', role: 'sonstiges' },
-                { username: 'test15', role: 'sonstiges' },
-            ]
+            const roomUsers = await User.find({roomId: roomId, isParticipant: true})
+            // const roomUsers = [
+            //     { username: 'test1', role: 'Entwickler' },
+            //     { username: 'test2', role: 'Entwickler' },
+            //     { username: 'test3', role: 'Entwickler' },
+            //     { username: 'test4', role: 'Entwickler' },
+            //     { username: 'test5', role: 'Designer' },
+            //     { username: 'test6', role: 'Designer' },
+            //     { username: 'test7', role: 'Designer' },
+            //     { username: 'test8', role: 'sonstiges' },
+            //     { username: 'test9', role: 'sonstiges' },
+            //     { username: 'test10', role: 'sonstiges' },
+            //     { username: 'test11', role: 'sonstiges' },
+            //     { username: 'test12', role: 'sonstiges' },
+            //     { username: 'test13', role: 'sonstiges' },
+            //     { username: 'test14', role: 'sonstiges' },
+            //     { username: 'test15', role: 'sonstiges' },
+            // ]
             let groups
+            let errors
             switch (room.phase) {
                 case 'Beitrittsphase':
-                    groups = await this.generateGroups(roomUsers, room.groupAmount, roomId)
+                    const data = await this.generateGroups(roomUsers, room.groupAmount, roomId)
+                    groups = data.groups
+                    errors = data.errors
                     room.phase = 'Ansichtsphase'
                     await room.save()
-                    return {room, groups}
+                    return {room, groups, errors}
                     break
                 case 'Ansichtsphase':
                     groups = []
+                    errors = []
                     room.phase = 'Tauschphase'
                     await room.save()
-                    return {room, groups}
+                    return {room, groups, errors}
                     break
                 default:
                     throw new Error('Error at switching phase')
@@ -170,6 +174,6 @@ module.exports = {
             groups[index] = temp;
         }
         
-        return groups
+        return {groups, errors}
     }
 }

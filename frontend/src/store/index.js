@@ -17,7 +17,7 @@ export default new Vuex.Store({
         groups: [],
         showExchangeButton: false,
         showErrorPopup: false,
-        errorMessage: ''
+        errors: []
     },
     getters: {
         getRoomToken(state) {
@@ -58,8 +58,8 @@ export default new Vuex.Store({
         getErrorPopupStatus(state) {
             return state.showErrorPopup
         },
-        getErrorMessage(state) {
-            return state.errorMessage
+        getErrors(state) {
+            return state.errors
         }
     },
     mutations: {
@@ -94,6 +94,8 @@ export default new Vuex.Store({
             state.currentPhase = '',
             state.showExchangeButton = false
             Vue.set(state, 'groups', [])
+            state.showErrorPopup = false
+            state.errors = []
         },
         setGroups(state, groups) {
             Vue.set(state, 'groups', groups)
@@ -136,8 +138,8 @@ export default new Vuex.Store({
         toggleErrorPopup(state) {
             state.showErrorPopup = !state.showErrorPopup
         },
-        setErrorMessage(state, message) {
-            state.errorMessage = message
+        setErrors(state, message) {
+            state.errors = message
         }
     },
     actions: {

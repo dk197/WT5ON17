@@ -50,6 +50,11 @@ export default {
             });
         },
         phaseHasChanged(data) {
+            console.log(data);
+            if(data.errors.length > 0) {
+                this.$store.commit('toggleErrorPopup')
+                this.$store.commit('setErrors', data.errors)
+            }
             if (data.phase === "Ansichtsphase") {
                 this.$router.push("/groups");
                 this.$store.commit("setGroups", data.groups);

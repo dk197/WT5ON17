@@ -1,6 +1,6 @@
 <template>
     <div v-if="this.$store.getters.getErrorPopupStatus">
-        <p>{{ this.$store.getters.getErrorMessage }}</p>
+        <p v-for="(error, index) in this.$store.getters.getErrors" :key="index">{{error}}</p>
         <button @click="closePopup">Schließen</button>
     </div>
 </template>
