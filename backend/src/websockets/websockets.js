@@ -14,7 +14,7 @@ module.exports = function(io) {
     socket.on('changePhase', async (roomId) => {
         const res = await roomController.changePhase(roomId)
         // console.log(updatedRoom);
-        io.to(res.room.token).emit('phaseHasChanged', {phase: res.room.phase, groups: res.groups})
+        io.to(res.room.token).emit('phaseHasChanged', {phase: res.room.phase, groups: res.groups, errors: res.errors})
     })
     socket.on('sendExchange', (data) => {
         io.to(data.token).emit('exchangeRequestWasSent', {
