@@ -62,14 +62,6 @@
                 value="Raum erstellen"
                 @click="generateToken()"
             />
-            <input
-                class="input input-s"
-                type="text"
-                name="generatedToken"
-                id="generatedToken"
-                :value="roomForm.generatedToken"
-                disabled
-            />
         </div>
     </div>
 </template>
