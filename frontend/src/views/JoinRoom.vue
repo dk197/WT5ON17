@@ -54,6 +54,13 @@ export default {
     },
     methods: {
         async joinRoom() {
+
+            if(this.name.length < 4) {
+                this.$store.commit('toggleErrorPopup')
+                this.$store.commit('setErrorMessage', 'Der Nutzernme muss mindestens 4 Zeichen lang sein')
+                return
+            }
+
             const room = this.$store.getters.getRoom
             try {
                 const response = await axios.post('http://localhost:3000/user', {

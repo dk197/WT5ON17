@@ -15,7 +15,9 @@ export default new Vuex.Store({
         users: [],
         currentPhase: 'Beitrittsphase',
         groups: [],
-        showExchangeButton: false
+        showExchangeButton: false,
+        showErrorPopup: false,
+        errorMessage: ''
     },
     getters: {
         getRoomToken(state) {
@@ -52,6 +54,12 @@ export default new Vuex.Store({
                 }
                 return state.showExchangeButton
             }
+        },
+        getErrorPopupStatus(state) {
+            return state.showErrorPopup
+        },
+        getErrorMessage(state) {
+            return state.errorMessage
         }
     },
     mutations: {
@@ -124,6 +132,12 @@ export default new Vuex.Store({
                 role: data.receiver.role,
                 _id: data.receiver._id
             })
+        },
+        toggleErrorPopup(state) {
+            state.showErrorPopup = !state.showErrorPopup
+        },
+        setErrorMessage(state, message) {
+            state.errorMessage = message
         }
     },
     actions: {
