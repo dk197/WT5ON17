@@ -55,7 +55,7 @@ export default {
                 console.log(data.errors);
                 let errorString = ''
                 data.errors.forEach(error => {
-                    errorString += error + '\n'
+                    errorString += error + ' '
                 });
                 this.$alert(errorString);
             }
