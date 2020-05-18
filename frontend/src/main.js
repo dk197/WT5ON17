@@ -7,7 +7,7 @@ import VueSocketIO from 'vue-socket.io'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
-
+import VueSimpleAlert from "vue-simple-alert";
 Vue.config.productionTip = false
 
 const options = {}
@@ -26,6 +26,7 @@ Vue.use(new VueSocketIO({
 Vue.config.productionTip = false
 
 Vue.use(VueMaterial)
+Vue.use(VueSimpleAlert);
 
 new Vue({
     router,
