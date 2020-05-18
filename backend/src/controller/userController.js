@@ -11,5 +11,29 @@ module.exports = {
             console.log(e);
             res.status(400).send()
         }
+    },
+    createRoomAdmin: async function(data, roomId) {
+        let userData
+        if(data.role !== '' && data.username !== '') {
+            userData = {
+                username: data.username,
+                roomId: roomId,
+                role: data.role,
+                isAdmin: true,
+                isParticipant: true
+            }
+        }else {
+            userData = {
+                username: 'Admin',
+                roomId: roomId,
+                role: 'Admin',
+                isAdmin: true,
+                isParticipant: false
+            }
+        }
+        const roomOwner = new User(userData)
+        const createdRoomOwner = await roomOwner.save()
+        await roomOwner.generateAuthToken()
+        return createdRoomOwner
     }
 }

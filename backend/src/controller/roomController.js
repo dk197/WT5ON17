@@ -1,24 +1,16 @@
 const Room = require('../models/roomModel')
 const User = require('../models/userModel')
 const Group = require('../models/groupModel')
+const userController = require('../controller/userController')
 
 module.exports = {
     createRoom: async function (req, res) {
-        const room = new Room(req.body)
+        const room = new Room(req.body.room)
 
         try {
             const createdRoom = await room.save()
             const roomToken = await room.generateRoomToken()
-            const roomOwner = new User({
-                username: 'Admin',
-                roomId: createdRoom._id,
-                role: 'Admin',
-                isAdmin: true,
-                isParticipant: false
-            })
-            const createdRoomOwner = await roomOwner.save()
-            await roomOwner.generateAuthToken()
-
+            const createdRoomOwner = await userController.createRoomAdmin(req.body.user, createdRoom._id)
             res.status(201).send({ createdRoom, roomToken, createdRoomOwner })
         } catch (e) {
             console.log(e);
