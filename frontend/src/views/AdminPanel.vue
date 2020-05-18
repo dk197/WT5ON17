@@ -10,7 +10,11 @@
             value="Nächste Phase"
             @click="nextPhase()"
         />
-        <input class="button button-p" type="button" value="CSV Export" @click="exportCsv" />
+        <div v-for="(group, index) in this.$store.getters.getGroups" :key="index">
+          <input type="checkbox" v-model="checkedGroups" :value="index"/>
+          <label>Gruppe {{ index }} </label>
+        </div>
+        <input class="button button-p" type="button" value="CSV Export" @click="exportCsv" :disabled="!checkedGroups.length" />
         <input
             class="button button-p check"
             type="button"
@@ -37,7 +41,8 @@ export default {
     data() {
         return {
             aktuellePhase: "-",
-            exportData: []
+            exportData: [],
+            checkedGroups: []
         };
     },
     created() {
@@ -50,13 +55,15 @@ export default {
             var exportDataset = []
             var groups = this.$store.getters.getGroups
             for (let index = 0; index < groups.length; index++) {
-                const group = groups[index];
-                var myGroup =["GRUPPE " + index]
-                for (let index = 0; index < group.participants.length; index++) {
-                    const participant = group.participants[index];
-                    myGroup.push(participant.username + " (" + participant.role + ")" )
+                if (this.checkedGroups.includes(index)) {
+                    const group = groups[index];
+                    var myGroup =["GRUPPE " + index]
+                    for (let index = 0; index < group.participants.length; index++) {
+                        const participant = group.participants[index];
+                        myGroup.push(participant.username + " (" + participant.role + ")" )
+                    }
+                    exportDataset.push(myGroup)   
                 }
-                exportDataset.push(myGroup)
             }
             this.exportData = exportDataset
             setTimeout(() => this.$refs.csvExport.$el.click(), 1000);
