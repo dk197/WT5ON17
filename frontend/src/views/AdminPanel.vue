@@ -10,9 +10,11 @@
             value="Nächste Phase"
             @click="nextPhase()"
         />
-        <div v-for="(group, index) in this.$store.getters.getGroups" :key="index">
-          <input type="checkbox" v-model="checkedGroups" :value="index"/>
-          <label>Gruppe {{ index }} </label>
+        <div class="checkbox-wrap">
+            <div v-for="(group, index) in this.$store.getters.getGroups" :key="index">
+                <input class="input-checkbox" type="checkbox" v-model="checkedGroups" :value="index"/>
+                <label>Gruppe {{ index }} </label>
+            </div>
         </div>
         <input class="button button-p" type="button" value="CSV Export" @click="exportCsv" :disabled="!checkedGroups.length" />
         <input
@@ -96,5 +98,33 @@ export default {
 <style>
 .roleWrap {
     margin-top: 50px;
+}
+.checkbox-wrap {
+    margin: 20px 0 10px 0;
+}
+.checkbox-wrap > div {
+    margin-bottom: 5px;
+}
+.input-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 20px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 4px solid #094440;
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+.input-checkbox:checked {
+    background-color: white;
+}
+.input-checkbox:focus {
+    box-shadow: 0 0 0 var(--focus);
 }
 </style>
