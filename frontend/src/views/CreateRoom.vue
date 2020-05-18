@@ -33,7 +33,12 @@
 
         <div v-if="showParticipantForm">
             <div>
-                <input class="input input-p" type="text" v-model="userForm.username" placeholder="Name" />
+                <input
+                    class="input input-p"
+                    type="text"
+                    v-model="userForm.username"
+                    placeholder="Name"
+                />
             </div>
             <div class="selectable-role" v-for="(role, index) in roomForm.roles" :key="index">
                 <input class="input-radio" type="radio" v-model="userForm.role" :value="role.name" />
@@ -109,6 +114,7 @@ export default {
                     response.data.createdRoomOwner.authToken
                 );
                 this.$store.commit("addUser", response.data.createdRoomOwner);
+                this.$store.commit("setUser", response.data.createdRoomOwner);
                 this.$socket.emit("createRoom", response.data.roomToken);
                 this.$router.push({ path: `/room` });
             } catch (e) {
@@ -158,8 +164,8 @@ export default {
     border-radius: 20px;
     border: 4px solid #094440;
     background: var(--b, var(--background));
-    transition: background .3s, border-color .3s, box-shadow .2s;
-  }
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
 .input-radio:checked {
     background-color: white;
 }
