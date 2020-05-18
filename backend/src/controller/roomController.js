@@ -20,12 +20,15 @@ module.exports = {
     verifyToken: async function (req, res) {
         try {
             const room = await Room.findOne({ token: req.params.token })
+            if(room.phase !== 'Beitrittsphase') {
+                res.send({error: 'Raum befindet sich nicht in der Beitrittsphase!'})
+                return
+            }
             const users = await User.find({ roomId: room._id })
             // console.log(room);
             res.send({ room, users })
         } catch (e) {
-            console.log(e);
-            res.status(404).send()
+            res.send({error: 'Raum nicht gefunden'})
         }
     },
     deleteRoom: async function (req, res) {
