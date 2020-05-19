@@ -66,9 +66,7 @@ export default {
             });
         },
         phaseHasChanged(data) {
-            console.log(data);
-            if(data.errors.length > 0) {
-                console.log(data.errors);
+            if(data.errors.length > 0 && this.$store.getters.getAdminStatus) {
                 let errorString = ''
                 data.errors.forEach(error => {
                     errorString += error + ' '
