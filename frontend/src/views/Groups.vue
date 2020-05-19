@@ -25,7 +25,7 @@ export default {
             if(user._id === data.receiver._id) {
                 console.log('data', data);
                 this.$confirm(
-                    `Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten! Annehmen?`
+                    `Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex + 1} eine Tauschanfrage erhalten! Annehmen?`
                 ).then(() => {
                     this.$socket.emit("exchangeWasAccepted", {
                         token: this.$store.getters.getRoomToken,

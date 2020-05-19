@@ -70,9 +70,10 @@ export default {
         },
         sendExchangeRequest(groupMember) {
             const user = this.$store.getters.getUser;
+            var groupIndexx = this.$store.getters.getUsersGroupIndex
             this.$socket.emit("sendExchange", {
                 token: this.$store.getters.getRoomToken,
-                groupIndex: this.groupIndex,
+                groupIndex: groupIndexx,
                 sender: user,
                 receiver: groupMember
             });
