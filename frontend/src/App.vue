@@ -9,7 +9,7 @@
                 <p
                     class="room-link"
                     v-if="this.$store.getters.getRoomToken"
-                >http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
+                >https://wt5on17.web.app/join/{{this.$store.getters.getRoomToken}}</p>
 
                 <div class="adminPanel">
                     <button
