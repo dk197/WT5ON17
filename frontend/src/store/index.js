@@ -56,6 +56,20 @@ export default new Vuex.Store({
         },
         getExchangingUsers(state) {
             return state.exchangingUsers
+        },
+        getUsersGroupIndex(state) {
+            const userId = state.user._id
+            for (let index = 0; index < state.groups.length; index++) {
+                const userIndex = state.groups[index].participants.findIndex(participant => participant._id === userId)
+                if(userIndex !== -1) {
+                    return index
+                }
+            }
+        },
+        getGroupByIndex(state) {
+            return (groupIndex) => {
+                return state.groups[groupIndex]
+            }
         }
     },
     mutations: {

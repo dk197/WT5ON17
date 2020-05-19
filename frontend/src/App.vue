@@ -79,6 +79,7 @@ export default {
             } else if (data.phase === "Tauschphase") {
                 this.$store.commit("toggleExchangeButtonStatus");
             } else if (data.phase === "Exportphase") {
+                this.$router.push("/mygroup");
                 this.$store.commit("toggleExchangeButtonStatus");
             }
             this.$store.commit("setPhase", data.phase);

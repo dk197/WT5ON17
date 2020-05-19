@@ -48,6 +48,11 @@ Vue.use(VueRouter)
     name: 'Groups',
     component: () => import('../views/Groups.vue')
   },
+  {
+    path: '/mygroup',
+    name: 'MyGroup',
+    component: () => import('../views/MyGroup.vue')
+  },
 ]
 
 const router = new VueRouter({
