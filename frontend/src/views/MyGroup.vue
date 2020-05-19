@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>{{ groupIndex }}</h4>
+        <h4>{{ groupIndex+1 }}</h4>
         <p v-for="(member, index) in group.participants" :key="index">{{ member.username }} als {{ member.role }}</p>
     </div>
 </template>
