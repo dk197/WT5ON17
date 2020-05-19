@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import csvExport from "vue-json-csv";
 export default {
     name: "AdminPanel",
@@ -93,16 +92,10 @@ export default {
             setTimeout(() => this.$refs.csvExport.$el.click(), 1000);
         },
         async deleteRoom() {
-            try {
-                await axios.delete(
-                    `http://localhost:3000/rooms/${this.$store.getters.getRoom._id}`
-                );
-                this.$store.commit("setRoomToken", "");
-                this.$store.commit("setRoom", "");
-                this.$router.push("/");
-            } catch (e) {
-                console.log(e);
-            }
+            this.$socket.emit("deleteRoom", {
+                roomId: this.$store.getters.getRoom._id,
+                token: this.$store.getters.getRoomToken
+            });
         },
         nextPhase() {
             const room = this.$store.getters.getRoom;

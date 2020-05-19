@@ -31,17 +31,15 @@ module.exports = {
             res.send({error: 'Raum nicht gefunden'})
         }
     },
-    deleteRoom: async function (req, res) {
+    deleteRoom: async function (roomId) {
         try {
-            const room = await Room.deleteOne({ _id: req.params.id })
-
-            if (!room) {
-                return res.status(404).send()
+            const room = await Room.deleteOne({ _id: roomId })
+            if(!room) {
+                throw new Error('Room not found')
             }
-            await User.deleteMany({ roomId: req.params.id })
-            res.send()
+            await User.deleteMany({ roomId: roomId })
         } catch (e) {
-            res.status(500).send()
+            throw new Error(e)
         }
     },
     changePhase: async function (roomId) {
