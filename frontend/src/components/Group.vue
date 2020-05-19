@@ -1,7 +1,7 @@
 <template>
     <div>
         <p class="Groupname accordion" @click="expand">
-            Gruppe {{ groupIndex }}
+            Gruppe {{ groupIndex + 1 }}
             <img class="arrow" src="../assets/icons/arrow.svg" />
         </p>
         <div class="accordion-content">

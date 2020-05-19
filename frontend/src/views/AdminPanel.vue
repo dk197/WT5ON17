@@ -15,7 +15,7 @@
         <div v-if="!isLastPhase">
             <div v-for="(group, index) in this.$store.getters.getGroups" :key="index">
                 <input type="checkbox" v-model="checkedGroups" :value="index" />
-                <label>Gruppe {{ index }}</label>
+                <label>Gruppe {{ index + 1 }}</label>
             </div>
             <input
                 class="button button-p"
@@ -75,7 +75,7 @@ export default {
             for (let index = 0; index < groups.length; index++) {
                 if (this.checkedGroups.includes(index)) {
                     const group = groups[index];
-                    var myGroup = ["GRUPPE " + index];
+                    var myGroup = ["GRUPPE " + (index + 1)];
                     for (
                         let index = 0;
                         index < group.participants.length;
