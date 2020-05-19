@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import ErrorPopup from "./components/ErrorPopup";
 export default {
     created() {
@@ -52,15 +51,10 @@ export default {
         async confirm_leaving (evt) {
             if (this.$store.getters.getAdminStatus) {
                 evt.returnValue = ""
-                try {
-                    await axios.delete(
-                        `http://localhost:3000/rooms/${this.$store.getters.getRoom._id}`
-                    );
-                    this.$store.commit("resetRoom")
-                    return ''
-                } catch (e) {
-                    console.log(evt);
-                }
+                this.$socket.emit("deleteRoom", {
+                    roomId: this.$store.getters.getRoom._id,
+                    token: this.$store.getters.getRoomToken
+                });
             }
         }
     },
