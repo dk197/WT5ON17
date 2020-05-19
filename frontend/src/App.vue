@@ -339,4 +339,25 @@ label {
     font-weight: 600;
     margin-top: 20px;
 }
+
+/* Admin Popup */
+.swal2-popup {
+    border-radius: 2px !important;
+}
+.swal2-content {
+    font-family: 'Dubai';
+}
+.swal2-confirm {
+    font-family: "Dubai" !important;
+    border-radius: 2px !important;
+    padding: 2px 10px !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    margin-bottom: 10px !important;
+    display: block !important;
+    background-color: #094440 !important;
+    border: 2px solid #094440 !important;
+    color: white !important;
+    width: 150px !important;
+}
 </style>
