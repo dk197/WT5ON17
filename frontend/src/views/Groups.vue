@@ -45,7 +45,14 @@ export default {
                         senderGroupIndex: data.groupIndex,
                         receiver: user
                     });
-                });
+                }).catch((e) => {
+                    console.log(e);
+                    this.$socket.emit("exchangeWasDeclined", {
+                        token: this.$store.getters.getRoomToken,
+                        sender: data.sender,
+                        receiver: user
+                    });
+                })
             }
         }
     }

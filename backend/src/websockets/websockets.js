@@ -13,7 +13,6 @@ module.exports = function(io) {
     })
     socket.on('changePhase', async (roomId) => {
         const res = await roomController.changePhase(roomId)
-        // console.log(updatedRoom);
         io.to(res.room.token).emit('phaseHasChanged', {phase: res.room.phase, groups: res.groups, errors: res.errors})
     })
     socket.on('sendExchange', (data) => {
@@ -24,12 +23,17 @@ module.exports = function(io) {
         })
     })
     socket.on('exchangeWasAccepted', (data) => {
-        console.log('exchangeaccepted');
         console.log(data);
         io.to(data.token).emit('exchangeWasMade', {
             sender: data.sender,
             senderGroupIndex: data.senderGroupIndex,
             receiver: data.receiver
+        })
+    })
+    socket.on('exchangeWasDeclined', (data) => {
+        io.to(data.token).emit('exchangeWasNotMade', {
+            receiver: data.receiver,
+            sender: data.sender
         })
     })
 })
