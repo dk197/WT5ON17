@@ -20,13 +20,11 @@
                 </div>
             </div>
         </div>
-        <ErrorPopup></ErrorPopup>
         <router-view />
     </div>
 </template>
 
 <script>
-import ErrorPopup from "./components/ErrorPopup";
 export default {
     computed: {
         getUserCount() {
@@ -86,9 +84,6 @@ export default {
             this.$alert('Der Raum wurde vom Admin geschlossen')
             this.$router.push('/')
         }
-    },
-    components: {
-        ErrorPopup
     }
 };
 </script>

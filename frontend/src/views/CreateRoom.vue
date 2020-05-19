@@ -111,6 +111,7 @@ export default {
                 );
                 this.$store.commit("addUser", response.data.createdRoomOwner);
                 this.$store.commit("setUser", response.data.createdRoomOwner);
+                this.$store.commit("setPhase", 'Beitrittsphase');
                 this.$socket.emit("createRoom", response.data.roomToken);
                 this.$router.push({ path: `/waitjoin` });
             } catch (e) {

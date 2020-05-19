@@ -32,6 +32,11 @@ export default {
             const allUsers = this.$store.getters.getAllUsers
             return allUsers.length
         }
+    },
+    created() {
+        if(this.$store.getters.getCurrentPhase !== 'Beitrittsphase') {
+            this.$router.go(-1)
+        }
     }
 }
 </script>
