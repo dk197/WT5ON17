@@ -56,7 +56,7 @@ export default {
     },
     computed: {
         isLastPhase() {
-            if (this.$store.getters.getCurrentPhase !== "Tauschphase") {
+            if (this.$store.getters.getCurrentPhase !== "Exportphase") {
                 return true;
             }
             return false;
