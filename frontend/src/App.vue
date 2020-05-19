@@ -26,6 +26,13 @@
 
 <script>
 export default {
+    created() {
+        // if (this.$store.getters.getAdminStatus) {
+            console.log("created")
+            window.addEventListener('beforeunload', this.confirm_leaving)
+            console.log("created added")
+        // }
+    },    
     computed: {
         getUserCount() {
             const allUsers = this.$store.getters.getAllUsers;
@@ -38,6 +45,15 @@ export default {
         },
         admin() {
             this.$router.push("/admin");
+        },
+        async confirm_leaving (evt) {
+            if (this.$store.getters.getAdminStatus) {
+                evt.returnValue = ""
+                this.$socket.emit("deleteRoom", {
+                    roomId: this.$store.getters.getRoom._id,
+                    token: this.$store.getters.getRoomToken
+                });
+            }
         }
     },
     sockets: {
