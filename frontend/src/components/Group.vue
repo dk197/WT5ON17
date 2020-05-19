@@ -23,6 +23,28 @@
                 <p class="member-role">Rolle: {{ groupMember.role }}</p>
             </div>
         </div>
+        <div class="Progress">
+          <div class="Progress-content phase2" v-if="this.$store.getters.getCurrentPhase == 'Ansichtsphase'">
+              <div class="Bar">
+              </div>
+              <div class="step step1 done">1
+              </div>
+              <div class="step step2 active">2
+              </div>
+              <div class="step step3">3
+              </div>
+          </div>
+          <div class="Progress-content phase3" v-if="this.$store.getters.getCurrentPhase == 'Tauschphase'">
+              <div class="Bar">
+              </div>
+              <div class="step step1 done">1
+              </div>
+              <div class="step step2 done">2
+              </div>
+              <div class="step step3 active">3
+              </div>
+          </div>
+      </div>
     </div>
 </template>
 
@@ -131,4 +153,5 @@ export default {
     display: none;
     overflow: hidden;
 }
+
 </style>
