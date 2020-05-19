@@ -2,7 +2,7 @@
     <div id="app">
         <div id="nav">
             <div class="first-row">
-                <h1 @click="home">groupify</h1>
+                <h1>groupify</h1>
                 <div class="userCount">{{ getUserCount }}</div>
             </div>
             <div class="second-row">
@@ -27,11 +27,8 @@
 <script>
 export default {
     created() {
-        // if (this.$store.getters.getAdminStatus) {
-            console.log("created")
-            window.addEventListener('beforeunload', this.confirm_leaving)
-            console.log("created added")
-        // }
+        window.addEventListener('beforeunload', this.confirm_leaving)
+        window.addEventListener('unload', this.leaving)
     },    
     computed: {
         getUserCount() {
@@ -40,19 +37,24 @@ export default {
         }
     },
     methods: {
-        home() {
-            this.$router.push("/");
-        },
         admin() {
             this.$router.push("/admin");
         },
         async confirm_leaving (evt) {
             if (this.$store.getters.getAdminStatus) {
                 evt.returnValue = ""
+                return ""
+            }
+            
+        },
+        leaving (evt) {
+            if (this.$store.getters.getAdminStatus) {
+                evt.returnValue = ""
                 this.$socket.emit("deleteRoom", {
                     roomId: this.$store.getters.getRoom._id,
                     token: this.$store.getters.getRoomToken
-                });
+                })
+                this.$router.push({ path: `/` });
             }
         }
     },
