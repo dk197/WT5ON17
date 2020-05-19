@@ -26,12 +26,13 @@
                     class="button button-s"
                     type="button"
                     value="Rolle hinzufügen"
+                    :disabled="roomForm.groupAmount.length < 1"
                     @click="addRole()"
                 />
             </div>
         </div>
 
-        <div v-if="showParticipantForm">
+        <div v-if="participant">
             <div>
                 <input
                     class="input input-p"
@@ -51,7 +52,7 @@
                 class="input-checkbox"
                 type="checkbox"
                 value="Selbst teilnehmen"
-                @click="toggleParticipantForm()"
+                v-model="participant"
             /> 
             <p>Selbst ebenfalls teilnehmen</p>
         </div>
@@ -84,13 +85,21 @@ export default {
                 role: "",
                 username: ""
             },
-            showParticipantForm: false
+            participant: false
         };
     },
     methods: {
         async generateToken() {
-            if(this.userForm.username.length < 4) {
-                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein');
+            if(this.roomForm.roles.length < 1) {
+                this.$alert('Sie müssen min. eine Rolle angeben!');
+                return
+            }
+            if(this.userForm.username.length < 4 && this.participant) {
+                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein!');
+                return
+            }
+            if(this.userForm.role.length < 1 && this.participant) {
+                this.$alert('Sie müssen eine Rolle auswählen, um selbst teilzunehmen!');
                 return
             }
             try {
