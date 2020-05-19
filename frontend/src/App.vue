@@ -26,8 +26,16 @@
 </template>
 
 <script>
+import axios from "axios";
 import ErrorPopup from "./components/ErrorPopup";
 export default {
+    created() {
+        // if (this.$store.getters.getAdminStatus) {
+            console.log("created")
+            window.addEventListener('beforeunload', this.confirm_leaving)
+            console.log("created added")
+        // }
+    },    
     computed: {
         getUserCount() {
             const allUsers = this.$store.getters.getAllUsers;
@@ -40,6 +48,20 @@ export default {
         },
         admin() {
             this.$router.push("/admin");
+        },
+        async confirm_leaving (evt) {
+            if (this.$store.getters.getAdminStatus) {
+                evt.returnValue = ""
+                try {
+                    await axios.delete(
+                        `http://localhost:3000/rooms/${this.$store.getters.getRoom._id}`
+                    );
+                    this.$store.commit("resetRoom")
+                    return ''
+                } catch (e) {
+                    console.log(evt);
+                }
+            }
         }
     },
     sockets: {
