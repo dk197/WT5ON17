@@ -46,13 +46,14 @@
             </div>
         </div>
 
-        <div class="alignright">
+        <div class="adminJoin">
             <input
-                class="button button-s"
-                type="button"
+                class="input-checkbox"
+                type="checkbox"
                 value="Selbst teilnehmen"
                 @click="toggleParticipantForm()"
-            />
+            /> 
+            <p>Selbst ebenfalls teilnehmen</p>
         </div>
 
         <div class="alignright">
@@ -170,6 +171,36 @@ export default {
     background-color: white;
 }
 .input-radio:focus {
+    box-shadow: 0 0 0 var(--focus);
+}
+.adminJoin {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: flex-end;
+}
+.adminJoin > p{
+    margin: 0;
+}
+.input-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 20px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 4px solid #094440;
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+.input-checkbox:checked {
+    background-color: white;
+}
+.input-checkbox:focus {
     box-shadow: 0 0 0 var(--focus);
 }
 </style>
