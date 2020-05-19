@@ -162,6 +162,7 @@ h2 {
     font-size: 25px;
     font-weight: 600px;
     margin: 0;
+    line-height: 1.1;
 }
 
 .heading {
