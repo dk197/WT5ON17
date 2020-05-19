@@ -80,6 +80,8 @@ export default {
                 this.$store.commit("setGroups", data.groups);
             } else if (data.phase === "Tauschphase") {
                 this.$store.commit("toggleExchangeButtonStatus");
+            } else if (data.phase === "Exportphase") {
+                this.$store.commit("toggleExchangeButtonStatus");
             }
             this.$store.commit("setPhase", data.phase);
         },

@@ -81,6 +81,12 @@ module.exports = {
                     await room.save()
                     return {room, groups, errors}
                     break
+                case 'Tauschphase':
+                    groups = []
+                    errors = []
+                    room.phase = 'Exportphase'
+                    await room.save()
+                    return {room, groups, errors}
                 default:
                     throw new Error('Error at switching phase')
                     break;
