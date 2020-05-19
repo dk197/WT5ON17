@@ -81,6 +81,10 @@ export default {
         exchangeWasNotMade(data) {
             this.$store.commit('removeExchangingUser', data.sender._id)
             this.$store.commit('removeExchangingUser', data.receiver._id)
+        },
+        roomWasClosed() {
+            this.$alert('Der Raum wurde vom Admin geschlossen')
+            this.$router.push('/')
         }
     },
     components: {

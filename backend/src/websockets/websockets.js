@@ -36,5 +36,9 @@ module.exports = function(io) {
             sender: data.sender
         })
     })
+    socket.on('deleteRoom', async (data) => {
+        await roomController.deleteRoom(data.roomId)
+        io.to(data.token).emit('roomWasClosed')
+    })
 })
 }
