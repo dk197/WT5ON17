@@ -87,6 +87,7 @@ export default {
                         _id: user._id
                     }
                 });
+                this.$store.commit('setPhase', 'Beitrittsphase')
                 this.$router.push('/waitjoin')
             }catch(e) {
                 console.log(e);
