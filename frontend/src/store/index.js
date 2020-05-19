@@ -16,6 +16,7 @@ export default new Vuex.Store({
         currentPhase: 'Beitrittsphase',
         groups: [],
         showExchangeButton: false,
+        exchangingUsers: []
     },
     getters: {
         getRoomToken(state) {
@@ -52,6 +53,9 @@ export default new Vuex.Store({
                 }
                 return state.showExchangeButton
             }
+        },
+        getExchangingUsers(state) {
+            return state.exchangingUsers
         }
     },
     mutations: {
@@ -87,7 +91,8 @@ export default new Vuex.Store({
             state.showExchangeButton = false
             Vue.set(state, 'groups', [])
             state.showErrorPopup = false
-            state.errors = []
+            state.errors = [],
+            state.exchangingUsers = []
         },
         setGroups(state, groups) {
             Vue.set(state, 'groups', groups)
@@ -126,6 +131,13 @@ export default new Vuex.Store({
                 role: data.receiver.role,
                 _id: data.receiver._id
             })
+        },
+        addExchangingUser(state, userId) {
+            state.exchangingUsers.push(userId)
+        },
+        removeExchangingUser(state, userId) {
+            const index = state.exchangingUsers.indexOf(userId)
+            state.exchangingUsers.splice(index, 1)
         }
     },
     actions: {
