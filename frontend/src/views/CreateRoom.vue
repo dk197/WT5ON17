@@ -63,14 +63,6 @@
                 value="Raum erstellen"
                 @click="generateToken()"
             />
-            <input
-                class="input input-s"
-                type="text"
-                name="generatedToken"
-                id="generatedToken"
-                :value="roomForm.generatedToken"
-                disabled
-            />
         </div>
     </div>
 </template>
@@ -97,6 +89,10 @@ export default {
     },
     methods: {
         async generateToken() {
+            if(this.userForm.username.length < 4) {
+                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein');
+                return
+            }
             try {
                 const response = await axios.post(
                     "http://localhost:3000/rooms",
@@ -117,7 +113,7 @@ export default {
                 this.$store.commit("addUser", response.data.createdRoomOwner);
                 this.$store.commit("setUser", response.data.createdRoomOwner);
                 this.$socket.emit("createRoom", response.data.roomToken);
-                this.$router.push({ path: `/room` });
+                this.$router.push({ path: `/waitjoin` });
             } catch (e) {
                 console.log(e);
             }

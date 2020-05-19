@@ -1,7 +1,7 @@
 <template>
     <div>
         <p class="Groupname accordion" @click="expand">
-            Gruppe {{ groupIndex }}
+            Gruppe {{ groupIndex + 1 }}
             <img class="arrow" src="../assets/icons/arrow.svg" />
         </p>
         <div class="accordion-content">
@@ -56,22 +56,13 @@ export default {
             return this.$store.getters.getUser.username;
         }
     },
-    watch: {
-        group: function(newVal, oldVal) {
-            console.log('old', oldVal);
-            console.log('new', newVal);
-        }
-    },
     methods: {
         showExchangeButton(groupMember) {
             const user = this.$store.getters.getUser;
-            if (
-                this.group.participants.some(
-                    participant => participant._id == user._id
-                )
-            ) {
-
+            if (this.group.participants.some(participant => participant._id == user._id)) {
                 return false;
+            }else if(groupMember.role !== user.role) {
+                return false
             }
             return this.$store.getters.getExchangeButtonStatus(groupMember._id);
         },

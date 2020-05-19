@@ -35,25 +35,36 @@ export default {
     },
     mounted: async function(){
         try {   
-                const response = await axios.get(
-                     `http://localhost:3000/rooms/${this.$route.fullPath.split('/').pop()}`
-                );
-                console.log(response);
-                this.$store.commit("setRoomToken", response.data.room.token);
-                this.$store.commit("setRoom", response.data.room);
-                this.$store.commit("setParticipant");
-                response.data.users.forEach(user => {
-                    this.$store.commit("addUser", {
-                        username: user.username,
-                        role: user.role
-                    });
-                });
-            } catch (e) {
-                console.log(e);
+            const response = await axios.get(
+                    `http://localhost:3000/rooms/${this.$route.fullPath.split('/').pop()}`
+            );
+            if(response.data.error) {
+                this.$alert(response.data.error)
+                this.$router.push('/')
+                return
             }
+            console.log(response);
+            this.$store.commit("setRoomToken", response.data.room.token);
+            this.$store.commit("setRoom", response.data.room);
+            this.$store.commit("setParticipant");
+            response.data.users.forEach(user => {
+                this.$store.commit("addUser", {
+                    username: user.username,
+                    role: user.role
+                });
+            });
+        } catch (e) {
+            console.log(e);
+        }
     },
     methods: {
         async joinRoom() {
+
+            if(this.name.length < 4) {
+                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein');
+                return
+            }
+
             const room = this.$store.getters.getRoom
             try {
                 const response = await axios.post('http://localhost:3000/user', {

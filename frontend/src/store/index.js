@@ -15,7 +15,7 @@ export default new Vuex.Store({
         users: [],
         currentPhase: 'Beitrittsphase',
         groups: [],
-        showExchangeButton: false
+        showExchangeButton: false,
     },
     getters: {
         getRoomToken(state) {
@@ -86,6 +86,8 @@ export default new Vuex.Store({
             state.currentPhase = '',
             state.showExchangeButton = false
             Vue.set(state, 'groups', [])
+            state.showErrorPopup = false
+            state.errors = []
         },
         setGroups(state, groups) {
             Vue.set(state, 'groups', groups)

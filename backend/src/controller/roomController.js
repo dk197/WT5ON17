@@ -20,12 +20,15 @@ module.exports = {
     verifyToken: async function (req, res) {
         try {
             const room = await Room.findOne({ token: req.params.token })
+            if(room.phase !== 'Beitrittsphase') {
+                res.send({error: 'Raum befindet sich nicht in der Beitrittsphase!'})
+                return
+            }
             const users = await User.find({ roomId: room._id })
             // console.log(room);
             res.send({ room, users })
         } catch (e) {
-            console.log(e);
-            res.status(404).send()
+            res.send({error: 'Raum nicht gefunden'})
         }
     },
     deleteRoom: async function (req, res) {
@@ -46,35 +49,39 @@ module.exports = {
             const room = await Room.findById(roomId)
             const roomUsers = await User.find({roomId: roomId, isParticipant: true})
             // const roomUsers = [
-            //     { username: 'test1', role: 'coolerDude1' },
-            //     { username: 'test2', role: 'coolerDude1' },
-            //     { username: 'test3', role: 'coolerDude1' },
-            //     { username: 'test4', role: 'coolerDude2' },
-            //     { username: 'test5', role: 'coolerDude2' },
-            //     { username: 'test6', role: 'coolerDude2' },
-            //     { username: 'test7', role: 'coolerDude3' },
-            //     { username: 'test8', role: 'coolerDude3' },
-            //     { username: 'test9', role: 'coolerDude3' },
-            //     { username: 'test10', role: 'coolerDude4' },
-            //     { username: 'test11', role: 'coolerDude4' },
-            //     { username: 'test12', role: 'coolerDude4' },
-            //     { username: 'test13', role: 'coolerDude5' },
-            //     { username: 'test14', role: 'coolerDude5' },
-            //     { username: 'test15', role: 'coolerDude5' },
+            //     { username: 'test1', role: 'Entwickler' },
+            //     { username: 'test2', role: 'Entwickler' },
+            //     { username: 'test3', role: 'Entwickler' },
+            //     { username: 'test4', role: 'Entwickler' },
+            //     { username: 'test5', role: 'Designer' },
+            //     { username: 'test6', role: 'Designer' },
+            //     { username: 'test7', role: 'Designer' },
+            //     { username: 'test8', role: 'sonstiges' },
+            //     { username: 'test9', role: 'sonstiges' },
+            //     { username: 'test10', role: 'sonstiges' },
+            //     { username: 'test11', role: 'sonstiges' },
+            //     { username: 'test12', role: 'sonstiges' },
+            //     { username: 'test13', role: 'sonstiges' },
+            //     { username: 'test14', role: 'sonstiges' },
+            //     { username: 'test15', role: 'sonstiges' },
             // ]
             let groups
+            let errors
             switch (room.phase) {
                 case 'Beitrittsphase':
-                    groups = await this.generateGroups(roomUsers, room.groupAmount, roomId)
+                    const data = await this.generateGroups(roomUsers, room.groupAmount, roomId)
+                    groups = data.groups
+                    errors = data.errors
                     room.phase = 'Ansichtsphase'
                     await room.save()
-                    return {room, groups}
+                    return {room, groups, errors}
                     break
                 case 'Ansichtsphase':
                     groups = []
+                    errors = []
                     room.phase = 'Tauschphase'
                     await room.save()
-                    return {room, groups}
+                    return {room, groups, errors}
                     break
                 default:
                     throw new Error('Error at switching phase')
@@ -88,6 +95,25 @@ module.exports = {
         var overflow = users.length % groupAmount
         const perGroup = Math.floor(users.length / groupAmount)
 
+        //Check ob Adminvorgaben erfüllt werden können
+        var errors = []
+        const room = await Room.findById(roomId)
+        for (let index = 0; index < room.roles.length; index++) {
+            const role = room.roles[index];
+            var sollMenge = role.minAmount * groupAmount
+            var istMenge = 0;
+            for (let index = 0; index < users.length; index++) {
+                const user = users[index];
+                if (user.role == role.name) {
+                    istMenge++
+                }
+            }
+            if (istMenge < sollMenge) {
+                var missing = sollMenge - istMenge
+                errors.push("Es sind " + missing + " " + role.name + " zu wenig, um in jeder Gruppe min. " + role.minAmount + " zu haben!")
+            }
+        }
+        
         //shuffle the users randomly
         var ctr = users.length, temp, index;
         while (ctr > 0) {
@@ -151,7 +177,6 @@ module.exports = {
             groups[index] = temp;
         }
         
-        console.log(groups)
-        return groups
+        return {groups, errors}
     }
 }
