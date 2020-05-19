@@ -70,11 +70,17 @@ export default {
         exchangeWasMade(data) {
             console.log(data);
             this.$store.commit("exchangeUsers", data);
+            this.$store.commit('removeExchangingUser', data.sender._id)
+            this.$store.commit('removeExchangingUser', data.receiver._id)
             // const groups = this.$store.getters.getGroups
             // for (let index = 0; index < groups.length; index++) {
             //     const participantIndex = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
             //     console.log(participantIndex);
             // }
+        },
+        exchangeWasNotMade(data) {
+            this.$store.commit('removeExchangingUser', data.sender._id)
+            this.$store.commit('removeExchangingUser', data.receiver._id)
         }
     },
     components: {

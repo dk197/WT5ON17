@@ -41,6 +41,8 @@ export default {
                 return false;
             }else if(groupMember.role !== user.role) {
                 return false
+            }else if(this.$store.getters.getExchangingUsers.includes(groupMember._id)) {
+                return false
             }
             return this.$store.getters.getExchangeButtonStatus(groupMember._id);
         },

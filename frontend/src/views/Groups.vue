@@ -32,6 +32,8 @@ export default {
     sockets: {
         exchangeRequestWasSent(data) {
             const user = this.$store.getters.getUser
+            this.$store.commit('addExchangingUser', data.sender._id)
+            this.$store.commit('addExchangingUser', data.receiver._id)
             if(user._id === data.receiver._id) {
                 console.log('data', data);
                 this.$confirm(
@@ -43,7 +45,14 @@ export default {
                         senderGroupIndex: data.groupIndex,
                         receiver: user
                     });
-                });
+                }).catch((e) => {
+                    console.log(e);
+                    this.$socket.emit("exchangeWasDeclined", {
+                        token: this.$store.getters.getRoomToken,
+                        sender: data.sender,
+                        receiver: user
+                    });
+                })
             }
         }
     }
