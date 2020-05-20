@@ -87,7 +87,10 @@ export default {
         },
         expand(e) {
             e.target.classList.toggle("active-acc");
-            var content = document.getElementById('acc');
+            var content = e.target.nextElementSibling;
+            if(content === null) {
+                content = e.target.parentNode.nextElementSibling
+            }
             if (content.style.display === "block") {
                 content.style.display = "none";
             } else {
@@ -146,7 +149,7 @@ export default {
     width: 200px;
 }
 .arrow, .accordion.active-acc > .arrow.active-acc {
-    transform: rotate(-90deg);
+    transform: none;
     transition: 0.5s;
     width: 18px;
 }
@@ -154,7 +157,7 @@ export default {
     background-color: transparent;
 }
 .accordion.active-acc > .arrow, .accordion > .arrow.active-acc {
-    transform: none;
+    transform: rotate(180deg);
     transition: 0.5s;
 }
 .accordion-content {
