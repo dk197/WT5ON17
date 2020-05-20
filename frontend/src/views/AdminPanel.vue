@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+        <input class="input input-s back-button" type="button" value="" @click="back()" />
         <h2 class="heading">Admin-Einstellungen:</h2>
         <div id="field">
             <p>Aktuelle Phase: {{ this.$store.getters.getCurrentPhase }}</p>
@@ -32,7 +33,7 @@
             value="Raum löschen"
             @click="deleteRoom()"
         />
-        <input class="button button-s" type="button" value="Zurück" @click="back()" />
+       
         <csvExport
             ref="csvExport"
             :data="exportData"
@@ -141,5 +142,13 @@ export default {
 }
 .input-checkbox:focus {
     box-shadow: 0 0 0 var(--focus);
+}
+.back-button {
+    background-image: url('../assets/icons/arrow-left.svg');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 30px;
+    position: absolute;
+    left: -50px
 }
 </style>

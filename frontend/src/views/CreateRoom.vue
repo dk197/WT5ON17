@@ -1,5 +1,6 @@
 <template>
     <div class="content">
+        <input class="input input-s back-button" type="button" value="" @click="back()" />
         <h2 style="line-height:1.2" class="heading">Gruppen-Einstellungen:</h2>
         <div id="field">
             <input
@@ -136,6 +137,9 @@ export default {
         },
         toggleParticipantForm() {
             this.showParticipantForm = !this.showParticipantForm;
+        },
+        back() {
+            this.$router.go(-1);
         }
     },
     components: {
@@ -185,7 +189,10 @@ export default {
     justify-content: flex-end;
 }
 .adminJoin > p{
-    margin: 0;
+    margin:0;
+    color:#094440;
+    font-size: 15px;
+    margin-top: 3px;
 }
 .input-checkbox {
     -webkit-appearance: none;
