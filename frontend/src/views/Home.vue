@@ -5,7 +5,7 @@
       <input class="button button-p" type="button" value="Beitreten" @click="joinRoom()" />
     </div>
     <h3 class="text-left">Gruppe bilden</h3>
-    <p class="text-left">Du bist Dozent oder Verantwortlich für die Gruppenbildung? Hier kannst du eine Gruppe erstellen. Keine Sorge, du kannst auch direkt selbst bei der Bildung der Gruppen teilnehmen!</p>
+    <p class="text-left">Du bist Dozent oder verantwortlich für die Gruppenbildung? Hier kannst du eine Gruppe erstellen. Keine Sorge, du kannst auch direkt selbst bei der Bildung der Gruppen teilnehmen!</p>
     <div class="alignright">
       <router-link class="button button-s link" to="/create">Erstellen</router-link>
     </div>

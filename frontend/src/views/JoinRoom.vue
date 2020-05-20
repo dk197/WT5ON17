@@ -35,29 +35,37 @@ export default {
     },
     mounted: async function(){
         try {   
-                const response = await axios.get(
-                     `https://wt5on17.herokuapp.com/rooms/${this.$route.fullPath.split('/').pop()}`
-                );
-                console.log(response);
-                this.$store.commit("setRoomToken", response.data.room.token);
-                this.$store.commit("setRoom", response.data.room);
-                this.$store.commit("setParticipant");
-                response.data.users.forEach(user => {
-                    this.$store.commit("addUser", {
-                        username: user.username,
-                        role: user.role
-                    });
-                });
-            } catch (e) {
-                console.log(e);
+            const response = await axios.get(
+                    `https://wt5on17.herokuapp.com/rooms/${this.$route.fullPath.split('/').pop()}`
+            );
+            if(response.data.error) {
+                this.$alert(response.data.error)
+                this.$router.push('/')
+                return
             }
+            console.log(response);
+            this.$store.commit("setRoomToken", response.data.room.token);
+            this.$store.commit("setRoom", response.data.room);
+            this.$store.commit("setParticipant");
+            response.data.users.forEach(user => {
+                this.$store.commit("addUser", {
+                    username: user.username,
+                    role: user.role
+                });
+            });
+        } catch (e) {
+            console.log(e);
+        }
     },
     methods: {
         async joinRoom() {
 
             if(this.name.length < 4) {
-                this.$store.commit('toggleErrorPopup')
-                this.$store.commit('setErrors', ['Der Nutzername muss mindestens 4 Zeichen lang sein'])
+                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein!');
+                return
+            }
+            if(!this.selectedRole.length) {
+                this.$alert('Bitte eine Rolle auswählen!');
                 return
             }
 
@@ -83,6 +91,7 @@ export default {
                         _id: user._id
                     }
                 });
+                this.$store.commit('setPhase', 'Beitrittsphase')
                 this.$router.push('/waitjoin')
             }catch(e) {
                 console.log(e);

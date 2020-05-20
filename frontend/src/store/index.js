@@ -16,8 +16,7 @@ export default new Vuex.Store({
         currentPhase: 'Beitrittsphase',
         groups: [],
         showExchangeButton: false,
-        showErrorPopup: false,
-        errors: []
+        exchangingUsers: []
     },
     getters: {
         getRoomToken(state) {
@@ -55,11 +54,22 @@ export default new Vuex.Store({
                 return state.showExchangeButton
             }
         },
-        getErrorPopupStatus(state) {
-            return state.showErrorPopup
+        getExchangingUsers(state) {
+            return state.exchangingUsers
         },
-        getErrors(state) {
-            return state.errors
+        getUsersGroupIndex(state) {
+            const userId = state.user._id
+            for (let index = 0; index < state.groups.length; index++) {
+                const userIndex = state.groups[index].participants.findIndex(participant => participant._id === userId)
+                if(userIndex !== -1) {
+                    return index
+                }
+            }
+        },
+        getGroupByIndex(state) {
+            return (groupIndex) => {
+                return state.groups[groupIndex]
+            }
         }
     },
     mutations: {
@@ -95,7 +105,8 @@ export default new Vuex.Store({
             state.showExchangeButton = false
             Vue.set(state, 'groups', [])
             state.showErrorPopup = false
-            state.errors = []
+            state.errors = [],
+            state.exchangingUsers = []
         },
         setGroups(state, groups) {
             Vue.set(state, 'groups', groups)
@@ -135,11 +146,12 @@ export default new Vuex.Store({
                 _id: data.receiver._id
             })
         },
-        toggleErrorPopup(state) {
-            state.showErrorPopup = !state.showErrorPopup
+        addExchangingUser(state, userId) {
+            state.exchangingUsers.push(userId)
         },
-        setErrors(state, message) {
-            state.errors = message
+        removeExchangingUser(state, userId) {
+            const index = state.exchangingUsers.indexOf(userId)
+            state.exchangingUsers.splice(index, 1)
         }
     },
     actions: {

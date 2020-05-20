@@ -26,12 +26,13 @@
                     class="button button-s"
                     type="button"
                     value="Rolle hinzufügen"
+                    :disabled="roomForm.groupAmount.length < 1"
                     @click="addRole()"
                 />
             </div>
         </div>
 
-        <div v-if="showParticipantForm">
+        <div v-if="participant">
             <div>
                 <input
                     class="input input-p"
@@ -46,13 +47,14 @@
             </div>
         </div>
 
-        <div class="alignright">
+        <div class="adminJoin">
             <input
-                class="button button-s"
-                type="button"
+                class="input-checkbox"
+                type="checkbox"
                 value="Selbst teilnehmen"
-                @click="toggleParticipantForm()"
-            />
+                v-model="participant"
+            /> 
+            <p>Selbst ebenfalls teilnehmen</p>
         </div>
 
         <div class="alignright">
@@ -61,14 +63,6 @@
                 type="button"
                 value="Raum erstellen"
                 @click="generateToken()"
-            />
-            <input
-                class="input input-s"
-                type="text"
-                name="generatedToken"
-                id="generatedToken"
-                :value="roomForm.generatedToken"
-                disabled
             />
         </div>
     </div>
@@ -91,14 +85,21 @@ export default {
                 role: "",
                 username: ""
             },
-            showParticipantForm: false
+            participant: false
         };
     },
     methods: {
         async generateToken() {
-            if(this.userForm.username.length < 4) {
-                this.$store.commit('toggleErrorPopup')
-                this.$store.commit('setErrors', ['Der Nutzername muss mindestens 4 Zeichen lang sein'])
+            if(this.roomForm.roles.length < 1) {
+                this.$alert('Sie müssen min. eine Rolle angeben!');
+                return
+            }
+            if(this.userForm.username.length < 4 && this.participant) {
+                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein!');
+                return
+            }
+            if(this.userForm.role.length < 1 && this.participant) {
+                this.$alert('Sie müssen eine Rolle auswählen, um selbst teilzunehmen!');
                 return
             }
             try {
@@ -120,8 +121,9 @@ export default {
                 );
                 this.$store.commit("addUser", response.data.createdRoomOwner);
                 this.$store.commit("setUser", response.data.createdRoomOwner);
+                this.$store.commit("setPhase", 'Beitrittsphase');
                 this.$socket.emit("createRoom", response.data.roomToken);
-                this.$router.push({ path: `/room` });
+                this.$router.push({ path: `/waitjoin` });
             } catch (e) {
                 console.log(e);
             }
@@ -175,6 +177,36 @@ export default {
     background-color: white;
 }
 .input-radio:focus {
+    box-shadow: 0 0 0 var(--focus);
+}
+.adminJoin {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: flex-end;
+}
+.adminJoin > p{
+    margin: 0;
+}
+.input-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 20px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 4px solid #094440;
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+.input-checkbox:checked {
+    background-color: white;
+}
+.input-checkbox:focus {
     box-shadow: 0 0 0 var(--focus);
 }
 </style>

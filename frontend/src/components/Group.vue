@@ -1,7 +1,7 @@
 <template>
     <div>
         <p class="Groupname accordion" @click="expand">
-            Gruppe {{ groupIndex }}
+            Gruppe {{ groupIndex + 1 }}
             <img class="arrow" src="../assets/icons/arrow.svg" />
         </p>
         <div class="accordion-content">
@@ -23,6 +23,28 @@
                 <p class="member-role">Rolle: {{ groupMember.role }}</p>
             </div>
         </div>
+        <div class="Progress">
+          <div class="Progress-content phase2" v-if="this.$store.getters.getCurrentPhase == 'Ansichtsphase'">
+              <div class="Bar">
+              </div>
+              <div class="step step1 done">1
+              </div>
+              <div class="step step2 active">2
+              </div>
+              <div class="step step3">3
+              </div>
+          </div>
+          <div class="Progress-content phase3" v-if="this.$store.getters.getCurrentPhase == 'Tauschphase'">
+              <div class="Bar">
+              </div>
+              <div class="step step1 done">1
+              </div>
+              <div class="step step2 done">2
+              </div>
+              <div class="step step3 active">3
+              </div>
+          </div>
+      </div>
     </div>
 </template>
 
@@ -34,29 +56,24 @@ export default {
             return this.$store.getters.getUser.username;
         }
     },
-    watch: {
-        group: function(newVal, oldVal) {
-            console.log('old', oldVal);
-            console.log('new', newVal);
-        }
-    },
     methods: {
         showExchangeButton(groupMember) {
             const user = this.$store.getters.getUser;
-            if (
-                this.group.participants.some(
-                    participant => participant._id == user._id
-                )
-            ) {
+            if (this.group.participants.some(participant => participant._id == user._id)) {
                 return false;
+            }else if(groupMember.role !== user.role) {
+                return false
+            }else if(this.$store.getters.getExchangingUsers.includes(groupMember._id)) {
+                return false
             }
             return this.$store.getters.getExchangeButtonStatus(groupMember._id);
         },
         sendExchangeRequest(groupMember) {
             const user = this.$store.getters.getUser;
+            var groupIndexx = this.$store.getters.getUsersGroupIndex
             this.$socket.emit("sendExchange", {
                 token: this.$store.getters.getRoomToken,
-                groupIndex: this.groupIndex,
+                groupIndex: groupIndexx,
                 sender: user,
                 receiver: groupMember
             });
@@ -137,4 +154,5 @@ export default {
     display: none;
     overflow: hidden;
 }
+
 </style>

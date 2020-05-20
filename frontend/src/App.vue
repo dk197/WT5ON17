@@ -2,7 +2,7 @@
     <div id="app">
         <div id="nav">
             <div class="first-row">
-                <h1 @click="home">groupify</h1>
+                <h1>groupify</h1>
                 <div class="userCount">{{ getUserCount }}</div>
             </div>
             <div class="second-row">
@@ -20,14 +20,16 @@
                 </div>
             </div>
         </div>
-        <ErrorPopup></ErrorPopup>
         <router-view />
     </div>
 </template>
 
 <script>
-import ErrorPopup from "./components/ErrorPopup";
 export default {
+    created() {
+        window.addEventListener('beforeunload', this.confirm_leaving)
+        window.addEventListener('unload', this.leaving)
+    },    
     computed: {
         getUserCount() {
             const allUsers = this.$store.getters.getAllUsers;
@@ -35,11 +37,25 @@ export default {
         }
     },
     methods: {
-        home() {
-            this.$router.push("/");
-        },
         admin() {
             this.$router.push("/admin");
+        },
+        async confirm_leaving (evt) {
+            if (this.$store.getters.getAdminStatus) {
+                evt.returnValue = ""
+                return ""
+            }
+            
+        },
+        leaving (evt) {
+            if (this.$store.getters.getAdminStatus) {
+                evt.returnValue = ""
+                this.$socket.emit("deleteRoom", {
+                    roomId: this.$store.getters.getRoom._id,
+                    token: this.$store.getters.getRoomToken
+                })
+                this.$router.push({ path: `/` });
+            }
         }
     },
     sockets: {
@@ -50,15 +66,20 @@ export default {
             });
         },
         phaseHasChanged(data) {
-            console.log(data);
-            if(data.errors.length > 0) {
-                this.$store.commit('toggleErrorPopup')
-                this.$store.commit('setErrors', data.errors)
+            if(data.errors.length > 0 && this.$store.getters.getAdminStatus) {
+                let errorString = ''
+                data.errors.forEach(error => {
+                    errorString += error + ' '
+                });
+                this.$alert(errorString);
             }
             if (data.phase === "Ansichtsphase") {
                 this.$router.push("/groups");
                 this.$store.commit("setGroups", data.groups);
             } else if (data.phase === "Tauschphase") {
+                this.$store.commit("toggleExchangeButtonStatus");
+            } else if (data.phase === "Exportphase") {
+                this.$router.push("/mygroup");
                 this.$store.commit("toggleExchangeButtonStatus");
             }
             this.$store.commit("setPhase", data.phase);
@@ -66,15 +87,22 @@ export default {
         exchangeWasMade(data) {
             console.log(data);
             this.$store.commit("exchangeUsers", data);
+            this.$store.commit('removeExchangingUser', data.sender._id)
+            this.$store.commit('removeExchangingUser', data.receiver._id)
             // const groups = this.$store.getters.getGroups
             // for (let index = 0; index < groups.length; index++) {
             //     const participantIndex = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
             //     console.log(participantIndex);
             // }
+        },
+        exchangeWasNotMade(data) {
+            this.$store.commit('removeExchangingUser', data.sender._id)
+            this.$store.commit('removeExchangingUser', data.receiver._id)
+        },
+        roomWasClosed() {
+            this.$alert('Der Raum wurde vom Admin geschlossen')
+            this.$router.push('/')
         }
-    },
-    components: {
-        ErrorPopup
     }
 };
 </script>

@@ -20,25 +20,26 @@ module.exports = {
     verifyToken: async function (req, res) {
         try {
             const room = await Room.findOne({ token: req.params.token })
+            if(room.phase !== 'Beitrittsphase') {
+                res.send({error: 'Raum befindet sich nicht in der Beitrittsphase!'})
+                return
+            }
             const users = await User.find({ roomId: room._id })
             // console.log(room);
             res.send({ room, users })
         } catch (e) {
-            console.log(e);
-            res.status(404).send()
+            res.send({error: 'Raum nicht gefunden'})
         }
     },
-    deleteRoom: async function (req, res) {
+    deleteRoom: async function (roomId) {
         try {
-            const room = await Room.deleteOne({ _id: req.params.id })
-
-            if (!room) {
-                return res.status(404).send()
+            const room = await Room.deleteOne({ _id: roomId })
+            if(!room) {
+                throw new Error('Room not found')
             }
-            await User.deleteMany({ roomId: req.params.id })
-            res.send()
+            await User.deleteMany({ roomId: roomId })
         } catch (e) {
-            res.status(500).send()
+            throw new Error(e)
         }
     },
     changePhase: async function (roomId) {
@@ -80,6 +81,12 @@ module.exports = {
                     await room.save()
                     return {room, groups, errors}
                     break
+                case 'Tauschphase':
+                    groups = []
+                    errors = []
+                    room.phase = 'Exportphase'
+                    await room.save()
+                    return {room, groups, errors}
                 default:
                     throw new Error('Error at switching phase')
                     break;

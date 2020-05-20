@@ -2,18 +2,6 @@
     <div class="content">
         <h2>Gruppen:</h2>
         <Group v-for="(group, index) in getAllGroups" :group="group" :groupIndex="index" :key="index"></Group>
-        <div class="Progress">
-          <div class="Progress-content">
-              <div class="Bar">
-              </div>
-              <div class="step step1 done">1
-              </div>
-              <div class="step step2 active">2
-              </div>
-              <div class="step step3">3
-              </div>
-          </div>
-      </div>
     </div>
     
 </template>
@@ -32,18 +20,27 @@ export default {
     sockets: {
         exchangeRequestWasSent(data) {
             const user = this.$store.getters.getUser
+            this.$store.commit('addExchangingUser', data.sender._id)
+            this.$store.commit('addExchangingUser', data.receiver._id)
             if(user._id === data.receiver._id) {
                 console.log('data', data);
-                // alert(`Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten!`)
-                const result = confirm(`Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex} eine Tauschanfrage erhalten! Annehmen?`)
-                if(result) {
+                this.$confirm(
+                    `Sie haben von ${data.sender.username} aus Gruppe ${data.groupIndex + 1} eine Tauschanfrage erhalten! Annehmen?`
+                ).then(() => {
                     this.$socket.emit("exchangeWasAccepted", {
                         token: this.$store.getters.getRoomToken,
                         sender: data.sender,
-                        senderGroupIndex: data.groupIndex,                
+                        senderGroupIndex: data.groupIndex,
                         receiver: user
-                    })
-                }
+                    });
+                }).catch((e) => {
+                    console.log(e);
+                    this.$socket.emit("exchangeWasDeclined", {
+                        token: this.$store.getters.getRoomToken,
+                        sender: data.sender,
+                        receiver: user
+                    });
+                })
             }
         }
     }
