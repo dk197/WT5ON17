@@ -6,10 +6,18 @@
                 <div class="userCount">{{ getUserCount }}</div>
             </div>
             <div class="second-row">
+                <input type="hidden" id="copyLink" :value="'https://wt5on17.web.app/join/'+ this.$store.getters.getRoomToken">
                 <p
                     class="room-link"
                     v-if="this.$store.getters.getRoomToken"
-                >https://wt5on17.web.app/join/{{this.$store.getters.getRoomToken}}</p>
+                >Token: {{this.$store.getters.getRoomToken}}</p>
+                <input
+                    class="input input-s check copy"
+                    type="button"
+                    value="Link"
+                    @click.stop.prevent="copyLink"
+                    v-if="this.$store.getters.getRoomToken"
+                />
 
                 <div class="adminPanel">
                     <button
@@ -37,6 +45,22 @@ export default {
         }
     },
     methods: {
+        copyLink() {
+            let copyLink = document.querySelector('#copyLink')
+            copyLink.setAttribute('type', 'text')
+            copyLink.select()
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'erfolgreich' : 'nicht erfolgreich';
+                alert('Der Link zum Teilen wurde ' + msg + 'in die Zwischenablage kopiert!');
+            } catch (err) {
+                alert('Oops, etwas lief schief!');
+            }
+
+            copyLink.setAttribute('type', 'hidden')
+            window.getSelection().removeAllRanges()
+        },
         admin() {
             this.$router.push("/admin");
         },
@@ -135,6 +159,7 @@ export default {
     color: #094440;
     font-weight: 600;
     font-size: 15px;
+    position: relative;
 }
 
 #nav a {
@@ -378,5 +403,21 @@ label {
     border: 2px solid #094440 !important;
     color: white !important;
     width: 150px !important;
+}
+
+/* Copy Link */
+
+.copy {
+    background-image: url('./assets/icons/copy.svg');
+    background-repeat: no-repeat;
+    background-size: 18px auto;
+    background-position: 0px 4px;
+    margin-top: 10px;
+    margin-left: 90%;
+    background-color: transparent;
+    padding-left: 23px;
+    position: absolute;
+    top: 0;
+    right: -15px;
 }
 </style>
