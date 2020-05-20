@@ -25,7 +25,6 @@ module.exports = {
                 return
             }
             const users = await User.find({ roomId: room._id })
-            // console.log(room);
             res.send({ room, users })
         } catch (e) {
             res.send({error: 'Raum nicht gefunden'})
