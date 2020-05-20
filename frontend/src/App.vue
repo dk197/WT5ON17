@@ -85,15 +85,9 @@ export default {
             this.$store.commit("setPhase", data.phase);
         },
         exchangeWasMade(data) {
-            console.log(data);
             this.$store.commit("exchangeUsers", data);
             this.$store.commit('removeExchangingUser', data.sender._id)
             this.$store.commit('removeExchangingUser', data.receiver._id)
-            // const groups = this.$store.getters.getGroups
-            // for (let index = 0; index < groups.length; index++) {
-            //     const participantIndex = groups[index].participants.findIndex(participant => participant._id === data.receiver._id)
-            //     console.log(participantIndex);
-            // }
         },
         exchangeWasNotMade(data) {
             this.$store.commit('removeExchangingUser', data.sender._id)
@@ -186,6 +180,7 @@ h2 {
     font-size: 25px;
     font-weight: 600px;
     margin: 0;
+    line-height: 1.1;
 }
 
 .heading {
@@ -362,5 +357,26 @@ label {
     font-size: 16px;
     font-weight: 600;
     margin-top: 20px;
+}
+
+/* Admin Popup */
+.swal2-popup {
+    border-radius: 2px !important;
+}
+.swal2-content {
+    font-family: 'Dubai';
+}
+.swal2-confirm {
+    font-family: "Dubai" !important;
+    border-radius: 2px !important;
+    padding: 2px 10px !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    margin-bottom: 10px !important;
+    display: block !important;
+    background-color: #094440 !important;
+    border: 2px solid #094440 !important;
+    color: white !important;
+    width: 150px !important;
 }
 </style>

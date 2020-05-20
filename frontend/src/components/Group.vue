@@ -1,10 +1,10 @@
 <template>
     <div>
-        <p class="Groupname accordion" @click="expand">
+        <p class="Groupname accordion" @click="expand" :style="checkIfUsersGroup() ? {fontWeight: 'bold'} : ''">
             Gruppe {{ groupIndex + 1 }}
-            <img class="arrow" src="../assets/icons/arrow.svg" />
+            <img class="arrow" src="../assets/icons/arrow.svg"/>
         </p>
-        <div class="accordion-content">
+        <div class="accordion-content" id="acc">
             <div
                 class="Groupmember"
                 v-for="(groupMember, index) in group.participants"
@@ -57,6 +57,13 @@ export default {
         }
     },
     methods: {
+        checkIfUsersGroup() {
+            const groupIndex = this.$store.getters.getUsersGroupIndex
+            if(groupIndex === this.groupIndex) {
+                return true
+            }
+            return false
+        },
         showExchangeButton(groupMember) {
             const user = this.$store.getters.getUser;
             if (this.group.participants.some(participant => participant._id == user._id)) {
@@ -79,8 +86,8 @@ export default {
             });
         },
         expand(e) {
-            e.target.classList.toggle("active");
-            var content = e.target.nextElementSibling;
+            e.target.classList.toggle("active-acc");
+            var content = document.getElementById('acc');
             if (content.style.display === "block") {
                 content.style.display = "none";
             } else {
@@ -138,12 +145,15 @@ export default {
     justify-content: space-between;
     width: 200px;
 }
-.arrow {
+.arrow, .accordion.active-acc > .arrow.active-acc {
     transform: rotate(-90deg);
     transition: 0.5s;
     width: 18px;
 }
-.accordion.active > img {
+.arrow:active {
+    background-color: transparent;
+}
+.accordion.active-acc > .arrow, .accordion > .arrow.active-acc {
     transform: none;
     transition: 0.5s;
 }

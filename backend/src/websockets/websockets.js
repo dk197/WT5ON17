@@ -3,7 +3,6 @@ const User = require('../models/userModel')
 
 module.exports = function(io) {
    io.on('connection', (socket) => {
-    console.log('a user connected');
     socket.on('createRoom', async (token) => {
         socket.join(token)
     })
@@ -23,7 +22,6 @@ module.exports = function(io) {
         })
     })
     socket.on('exchangeWasAccepted', (data) => {
-        console.log(data);
         io.to(data.token).emit('exchangeWasMade', {
             sender: data.sender,
             senderGroupIndex: data.senderGroupIndex,
