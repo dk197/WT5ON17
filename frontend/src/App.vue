@@ -6,10 +6,18 @@
                 <div class="userCount">{{ getUserCount }}</div>
             </div>
             <div class="second-row">
+                 <input type="hidden" id="copyLink" :value="'http://localhost:8080/join/'+ this.$store.getters.getRoomToken">
                 <p
                     class="room-link"
                     v-if="this.$store.getters.getRoomToken"
-                >http://localhost:8080/join/{{this.$store.getters.getRoomToken}}</p>
+                >Token: {{this.$store.getters.getRoomToken}}</p>
+                <input
+                    class="button button-p check"
+                    type="button"
+                    value="Copy Link"
+                    @click.stop.prevent="copyLink"
+                    v-if="this.$store.getters.getRoomToken"
+                />
 
                 <div class="adminPanel">
                     <button
@@ -37,6 +45,22 @@ export default {
         }
     },
     methods: {
+        copyLink() {
+            let copyLink = document.querySelector('#copyLink')
+            copyLink.setAttribute('type', 'text')
+            copyLink.select()
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'erfolgreich' : 'nicht erfolgreich';
+                alert('Der Link zum Teilen wurde ' + msg + 'in die Zwischenablage kopiert!');
+            } catch (err) {
+                alert('Oops, etwas lief schief!');
+            }
+
+            copyLink.setAttribute('type', 'hidden')
+            window.getSelection().removeAllRanges()
+        },
         admin() {
             this.$router.push("/admin");
         },
