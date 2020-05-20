@@ -41,7 +41,6 @@ export default new Vuex.Store({
             return state.currentPhase
         },
         getGroups(state) {
-            console.log(state.groups);
             return state.groups
         },
         getExchangeButtonStatus(state) {
@@ -132,8 +131,6 @@ export default new Vuex.Store({
                     senderGroupIndex = index
                 }
             }
-
-            console.log(receiverGroupIndex,senderGroupIndex,receiverIndex,senderIndex);
 
             Vue.set(state.groups[receiverGroupIndex].participants, receiverIndex, {
                 username: data.sender.username,

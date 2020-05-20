@@ -110,7 +110,6 @@ export default {
                         user: this.userForm
                     }
                 );
-                console.log(response);
                 this.roomForm.generatedToken = response.data.roomToken;
                 this.$store.commit("setRoomToken", response.data.roomToken);
                 this.$store.commit("setRoom", response.data.createdRoom);
@@ -125,7 +124,7 @@ export default {
                 this.$socket.emit("createRoom", response.data.roomToken);
                 this.$router.push({ path: `/waitjoin` });
             } catch (e) {
-                console.log(e);
+                this.$alert('Fehler bei der Raumerstellung')
             }
         },
         addRole() {
@@ -140,11 +139,6 @@ export default {
     },
     components: {
         Roles
-    },
-    sockets: {
-        connect() {
-            console.log("connected");
-        }
     }
 };
 </script>

@@ -99,9 +99,7 @@ export default {
         },
         nextPhase() {
             const room = this.$store.getters.getRoom;
-            console.log(room._id);
             this.$socket.emit("changePhase", room._id);
-            // this.$store.commit('nextPhase')
         },
         back() {
             this.$router.go(-1);

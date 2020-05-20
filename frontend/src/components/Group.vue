@@ -59,8 +59,6 @@ export default {
     methods: {
         checkIfUsersGroup() {
             const groupIndex = this.$store.getters.getUsersGroupIndex
-            console.log('store',groupIndex);
-            console.log('component', this.groupIndex);
             if(groupIndex === this.groupIndex) {
                 return true
             }

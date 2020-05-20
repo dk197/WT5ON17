@@ -94,7 +94,7 @@ export default {
                 this.$store.commit('setPhase', 'Beitrittsphase')
                 this.$router.push('/waitjoin')
             }catch(e) {
-                console.log(e);
+                this.$alert('Fehler beim Beitreten')
             }
             
         }
