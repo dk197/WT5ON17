@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="Groupname accordion" @click="expand">
+        <p class="Groupname accordion" @click="expand" :style="checkIfUsersGroup() ? {fontWeight: 'bold'} : ''">
             Gruppe {{ groupIndex + 1 }}
             <img class="arrow" src="../assets/icons/arrow.svg" />
         </p>
@@ -57,6 +57,15 @@ export default {
         }
     },
     methods: {
+        checkIfUsersGroup() {
+            const groupIndex = this.$store.getters.getUsersGroupIndex
+            console.log('store',groupIndex);
+            console.log('component', this.groupIndex);
+            if(groupIndex === this.groupIndex) {
+                return true
+            }
+            return false
+        },
         showExchangeButton(groupMember) {
             const user = this.$store.getters.getUser;
             if (this.group.participants.some(participant => participant._id == user._id)) {
