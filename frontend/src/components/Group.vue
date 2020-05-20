@@ -120,6 +120,7 @@ export default {
 .Groupmember > div {
     display: flex;
     justify-content: space-between;
+    width:  185px;
 }
 .member-name {
     margin-bottom: 0;
