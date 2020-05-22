@@ -60,7 +60,7 @@ export default {
     methods: {
         async joinRoom() {
 
-            if(this.name.length < 4) {
+            if(this.name.length < 3) {
                 this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein!');
                 return
             }

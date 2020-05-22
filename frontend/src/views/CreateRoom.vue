@@ -95,7 +95,7 @@ export default {
                 this.$alert('Sie müssen min. eine Rolle angeben!');
                 return
             }
-            if(this.userForm.username.length < 4 && this.participant) {
+            if(this.userForm.username.length < 3 && this.participant) {
                 this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein!');
                 return
             }
