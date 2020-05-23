@@ -47,6 +47,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     padding-top: 100px;
+    text-align: center;
   }
   .waitingScreen > img {
     margin: 10px 0;
@@ -65,7 +66,7 @@ export default {
     margin-left:37.5%;
   }
   .waitingScreen > ul {
-    padding-left: 20px;
+    padding-left: 0px;
   }
   .waitingScreen > ul > div > li {
     list-style: none;
