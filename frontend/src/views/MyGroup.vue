@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h4>{{ groupIndex+1 }}</h4>
+    <div class="content mygroup">
+        <h4>Gruppe {{ groupIndex+1 }}</h4>
         <p v-for="(member, index) in group.participants" :key="index">{{ member.username }} als {{ member.role }}</p>
     </div>
 </template>
@@ -24,3 +24,9 @@ export default {
     }
 }
 </script>
+
+<style>
+.mygroup {
+    text-align: center !important;
+}
+</style>

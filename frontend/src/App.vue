@@ -3,8 +3,17 @@
         <div id="nav">
             <div class="first-row">
                 <h1>groupify</h1>
+                <div style="width:20px"></div>
+                <div class="adminPanel">
+                <button
+                        class="adminPanel-Button"
+                        @click="admin"
+                        v-if="this.$store.getters.getAdminStatus"
+                    >Admin</button>
+                </div>
                 <div class="userCount">{{ getUserCount }}</div>
             </div>
+           
             <div class="second-row">
                 <input type="hidden" id="copyLink" :value="'http://localhost:8080/join/'+ this.$store.getters.getRoomToken">
                 <p
@@ -18,14 +27,6 @@
                     @click.stop.prevent="copyLink"
                     v-if="this.$store.getters.getRoomToken"
                 />
-
-                <div class="adminPanel">
-                    <button
-                        class="adminPanel-Button"
-                        @click="admin"
-                        v-if="this.$store.getters.getAdminStatus"
-                    >Admin</button>
-                </div>
             </div>
         </div>
         <router-view />
@@ -156,6 +157,7 @@ export default {
 .second-row {
     padding-left: 40px;
     padding-right: 10px;
+    padding-top: 12px;
     color: #094440;
     font-weight: 600;
     font-size: 15px;
@@ -315,13 +317,14 @@ label {
 .room-link {
     display: block;
     color: white;
+    width: 200px;
 }
 
 /* Progress Bar */
 
 .Progress {
     background-color: transparent;
-    height: 450px;
+    height: 400px;
     width: 25px;
     position: absolute;
     right: -45px;
@@ -411,13 +414,13 @@ label {
     background-image: url('./assets/icons/copy.svg');
     background-repeat: no-repeat;
     background-size: 18px auto;
-    background-position: 0px 4px;
+    background-position: 0px 2px;
     margin-top: 10px;
     margin-left: 90%;
     background-color: transparent;
     padding-left: 23px;
     position: absolute;
-    top: 0;
+    top: 12px;
     right: -15px;
 }
 </style>

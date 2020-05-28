@@ -210,4 +210,12 @@ export default {
 .input-checkbox:focus {
     box-shadow: 0 0 0 var(--focus);
 }
+.back-button {
+    background-image: url('../assets/icons/arrow-left.svg');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 30px;
+    position: absolute;
+    left: -50px
+}
 </style>
