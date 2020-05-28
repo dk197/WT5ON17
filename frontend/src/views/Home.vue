@@ -34,7 +34,7 @@ export default {
 
 <style>
   .home {
-    margin: 200px 40px 40px 40px;
+    margin: 100px 40px 40px 40px;
 }
 
 .home > div:nth-child(2) > div {
