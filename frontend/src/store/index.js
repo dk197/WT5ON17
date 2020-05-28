@@ -90,6 +90,9 @@ export default new Vuex.Store({
         addUser(state, user) {
             state.users.push(user)
         },
+        clearUsers(state) {
+            state.users = []
+        },
         setPhase(state, phase) {
             state.currentPhase = phase
         },

@@ -84,6 +84,7 @@ export default {
     },
     sockets: {
         userJoinedRoom(user) {
+            console.log(user);
             this.$store.commit("addUser", {
                 username: user.username,
                 role: user.role
