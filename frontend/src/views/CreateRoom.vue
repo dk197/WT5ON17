@@ -96,7 +96,7 @@ export default {
                 return
             }
             if(this.userForm.username.length < 3 && this.participant) {
-                this.$alert('Der Nutzername muss mindestens 4 Zeichen lang sein!');
+                this.$alert('Der Nutzername muss mindestens 3 Zeichen lang sein!');
                 return
             }
             if(this.userForm.role.length < 1 && this.participant) {

@@ -43,7 +43,8 @@ export default {
                 this.$router.push('/')
                 return
             }
-            console.log(response);
+            
+            this.$store.commit('clearUsers')
             this.$store.commit("setRoomToken", response.data.room.token);
             this.$store.commit("setRoom", response.data.room);
             this.$store.commit("setParticipant");
