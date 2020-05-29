@@ -127,6 +127,8 @@ export default {
 </script>
 
 <style>
+@import "./assets/fonts/fonts.css";
+
 #app {
     font-family: Dubai, sans-serif;
     -webkit-font-smoothing: antialiased;

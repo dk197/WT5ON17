@@ -3,26 +3,26 @@
     font-style: lighter;
     font-weight: 300;
     src: local('Dubai'), local('Dubai-Light'),
-    url(DubaiW23-Light.woff.woff.woff) format('woff');
+    url(./DubaiW23-Light.woff) format('woff');
 }
 @font-face {
     font-family:'Dubai';
     font-style: normal;
     font-weight: 400;
     src: local('Dubai'), local('Dubai-Regular'),
-    url(DubaiW23-Regular.woff.woff) format('woff');
+    url(./DubaiW23-Regular.woff) format('woff');
 }
 @font-face {
     font-family:'Dubai';
     font-style: medium;
     font-weight: 600;
     src: local('Dubai'), local('Dubai-Medium'),
-    url(DubaiW23-Medium.woff.woff.woff) format('woff');
+    url(./DubaiW23-Medium.woff) format('woff');
 }
 @font-face {
     font-family:'Dubai';
     font-style: bold;
     font-weight: 700;
     src: local('Dubai'), local('Dubai-Bold'),
-    url(DubaiW23-Bold.woff.woff.woff) format('woff');
+    url(./DubaiW23-Bold.woff) format('woff');
 }
